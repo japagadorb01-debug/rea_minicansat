@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-index">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>MiniCanSat: primeros pasos en la exploración espacial</title>
+<link rel="icon" type="image/x-icon" href="libs/favicon.ico">
+<meta name="description" content="Este Recurso Educativo Abierto (REA) ofrece una guía paso a paso para que docentes y estudiantes desarrollen un MiniCanSat, una primera aproximación al desafío CanSat. A través de este proyecto, los estudiantes diseñarán y construirán un MiniCanSat, incluyendo la carcasa, un sistema de caída controlado (paracaídas), la programación básica con Micro:bit y el uso de sensores para la recopilación y análisis de datos. Se proponen diferentes misiones científicas y tecnológicas, adaptadas a distintos niveles educativos, que permiten a los estudiantes experimentar con la exploración espacial a pequeña escala. Con este REA, cualquier docente podrá guiar a su alumnado en una experiencia práctica y motivadora que fomenta el pensamiento computacional, la creatividad y el interés por la ciencia y la tecnología, preparándolos para futuras competiciones CanSat.">
+<script>document.querySelector("html").classList.add("js");</script><script src="libs/jquery/jquery.min.js"> </script><script src="libs/common_i18n.js"> </script><script src="libs/common.js"> </script><script src="libs/exe_export.js"> </script><script src="search_index.js"> </script><script src="libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="libs/bootstrap/bootstrap.min.css">
+<script src="idevices/text/text.js"></script><link rel="stylesheet" href="idevices/text/text.css">
+<script src="libs/exe_lightbox/exe_lightbox.js"> </script>
+<link rel="stylesheet" href="libs/exe_lightbox/exe_lightbox.css">
+<link rel="stylesheet" href="content/css/base.css"><script src="theme/style.js"> </script><link rel="stylesheet" href="theme/style.css">
+<style>
+.tituloSeccion{
+    border-radius: 10px 0px 10px 0px;
+    font-size: 1.05em;
+    margin-left: 10px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.resaltarAlPasar {
+transition-duration: 0.2s;
+border-radius:10px;
+padding:5px;
+}
+.resaltarAlPasar:hover{background-color: #f5deb3}
+
+.listaResaltada
+{ border-left: 6px solid #CC1155A1; 
+margin-left: 30px; 
+background-color: #73d41312; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+
+.listaGuion li {
+list-style-type: none;
+position: relative;
+}
+.listaGuion li::before {
+content: "-"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaCheck li {
+list-style-type: none;
+position: relative;
+}
+.listaCheck li::before {
+color: #53b528;
+content: "✔"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaInfantil
+{ border-left: 6px solid #fd8b31; 
+margin-left: 30px; 
+background-color: #f5f5ff; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+    .tabla-ordenable th {
+   cursor: pointer;
+    }
+   .tabla-ordenable td.numero-fila {
+   text-align: center;
+   font-size: small;
+    }
+.lista-xl > li::marker {
+  font-size: 1.5em;
+ color: #db688e; /* Color para los números */
+ font-weight: bold; /* Negrita para los números */
+   }
+
+/* =========================================
+   A PARTIR DE AQUÍ, PARA MuestraOcultaSiguiente. 
+    ESTILOS BASE (MECÁNICA)
+   ========================================= */
+.muestraOcultaSiguiente {
+  cursor: pointer;
+  user-select: none; /* Evita que se seleccione el texto al hacer click rápido */
+}
+/* Ocultar/Mostrar el contenido adyacente */
+.muestraOcultaSiguiente + * { display: none; }
+.muestraOcultaSiguiente.visible + * { display: block; }
+/* Si es clicable, el contenido también muestra mano */
+.muestraOcultaSiguiente.clicable + * { cursor: pointer; }
+
+/* =========================================
+   ESTILOS DEL CHEVRON INICIAL (.conMarca)
+   ========================================= */
+.muestraOcultaSiguiente.conMarca {
+  position: relative;
+  padding-left: 40px;
+}
+.muestraOcultaSiguiente.conMarca + * {
+  position: relative;
+  padding-left: 40px;
+}
+/* El pseudo-elemento que dibuja el chevron ❯ */
+.muestraOcultaSiguiente.conMarca::before {
+  content: "❯";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  font-size: 0.9em;
+  color: #666; 
+  /* Transición suave para rotación, color y movimiento */
+  transition: transform 0.4s ease-in, color 0.3s ease;
+  
+  /* ESTADO CERRADO (Por defecto): Apunta hacia abajo (rotado 90deg) */
+  transform: rotate(90deg);
+}
+/* ESTADO ABIERTO: Apunta hacia arriba (rotado -90deg) */
+.muestraOcultaSiguiente.conMarca.visible::before {
+  transform: rotate(-90deg);
+}
+/* --- INTERACCIÓN HOVER EN CHEVRON INICIAL --- */
+/* Al pasar el ratón por el título, el chevron se oscurece y da un saltito */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  color: #000; /* Se oscurece */
+}
+/* Saltito cuando está cerrado (salta en la dirección de la flecha) */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  /* Mantenemos la rotación y movemos en el eje X local (hacia la punta) */
+  transform: rotate(90deg) translateX(4px);
+}
+/* Saltito cuando está abierto */
+.muestraOcultaSiguiente.conMarca.visible:hover::before {
+  transform: rotate(-90deg) translateX(4px);
+}
+
+/* =========================================
+   ESTILOS DEL CIERRE FINAL (.conCierre)
+   ========================================= */
+.zona-cierre {
+  display: flex;   /* Flexbox para alinear */
+  align-items: center;  /* Centrado verticalmente */
+  justify-content: flex-start; /* Alineado a la IZQUIERDA */
+    
+  cursor: pointer;
+  color: #ccc;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+/* Solo dibujamos la línea a la derecha (::after) */
+.zona-cierre::after {
+  content: "";
+  flex: 1;    /* Ocupa todo el espacio restante a la derecha */
+  border-bottom: 1px solid currentColor;
+  margin-left: 10px;    /* Separación entre el icono y la línea */
+}
+/* El icono de cierre */
+.icono-cierre {
+  font-size: 0.9em;
+  color: #888;
+  display: inline-block;
+  margin-left: 0.2em;
+  
+  /* ROTAMOS EL ❯ PARA QUE MIRE ARRIBA */
+  transform: rotate(-90deg);
+  
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Hover Cierre */
+.zona-cierre:hover { opacity: 1; color: #999; }
+.zona-cierre:hover .icono-cierre {
+  color: #333;
+  /* Animación ajustada a la rotación: empujamos en el eje X para que suba */
+  transform: rotate(-90deg) translateX(4px);
+}
+</style>
+
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mpdr044i-shpo59chq" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li class="active"> <a href="index.html" class="active main-node no-ch">MiniCanSat: primeros pasos en la exploración espacial</a>
+</li>
+<li> <a href="html/nos-organizamos.html" class="no-ch">Nos organizamos</a>
+</li>
+<li> <a href="html/programamos-nuestro-satelite-artificial.html" class="no-ch">Programamos nuestro satélite artificial</a>
+</li>
+<li> <a href="html/construimos-el-minicansat.html" class="no-ch">Construimos el MiniCanSat</a>
+</li>
+<li> <a href="html/preparamos-el-sistema-de-lanzamiento.html" class="no-ch">Preparamos el sistema de lanzamiento</a>
+</li>
+<li> <a href="html/operaciones-de-vuelo-del-lanzamiento-al-analisis-d.html" class="no-ch">Operaciones de vuelo: del lanzamiento al análisis de datos</a>
+</li>
+<li> <a href="html/mision-cumplida-nuestras-conclusiones-finales.html" class="no-ch">¡Misión cumplida! Nuestras conclusiones finales</a>
+</li>
+<li> <a href="html/guia-didactica-y-fichero-fuente.html" class="no-ch">Guía didáctica y fichero fuente</a>
+</li>
+</ul>
+</nav><main id="page-mpdr044i-shpo59chq" class="page"> <div id="exe-client-search" data-block-order-string="Caja %e" data-no-results-string="Sin resultados.">
+</div>
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">1</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">8</strong></span></p>
+
+<div class="package-header"><p class="package-title">MiniCanSat: primeros pasos en la exploración espacial</p></div>
+<div class="page-header"><h1 class="page-title">MiniCanSat: primeros pasos en la exploración espacial</h1></div>
+</header><div id="page-content-page-mpdr044i-shpo59chq" class="page-content">
+<article id="block-mpczpc0y-ukzmdyt4u" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Explorando el espacio con MiniCanSat</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc0y-76l4aeyao" class="idevice_node text" data-idevice-path="idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc0y-76l4aeyao&quot;}">
+<p>¿Quién no ha soñado alguna vez con lanzar su propio satélite al espacio?</p>
+<p>Con <strong>MiniCanSat</strong>, nos convertiremos en ingenieros espaciales y <strong>exploraremos el universo</strong> desde nuestra aula.</p>
+<figure class="exe-figure exe-image position-center license-CC-BY-SA" style="width: 560px;"><img src="content/resources/foto_protada_lanzamiento_minicansat.jpg" alt="Alumnado lanzando un MiniCanSat desde un globo cautivo" title="Lanzando un MiniCanSat" width="560" height="316" style="border-radius: 5px;" />
+<figcaption class="figcaption"><span class="author">Pablo Amaya</span>. <span class="title"><em>Lanzando un MiniCanSat</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Creative Commons BY-SA">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+<p>En este proyecto aprenderemos cómo funcionan los satélites, construiremos nuestro propio MiniCanSat y analizaremos los datos que recopilemos en su misión.</p>
+<p>¡Preparados para despegar y descubrir el mundo de la exploración espacial!</p><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="Saber más: MiniCanSat, origen y propósito" /></div><div class="feedback js-feedback js-hidden"><p>MiniCanSat es una iniciativa educativa pionera en España que nos permite participar en un proyecto inspirado en la competición CanSat de la Agencia Espacial Europea (ESA). Surgió en el curso 2022-2023 con el propósito de acercar la ciencia y la tecnología espacial a nuestras aulas de manera práctica y motivadora.</p>
+<p>En la <strong>I Competición Regional CanSat Extremadura 2023</strong>, celebrada el <strong>3 de mayo de 2023</strong>, se incluyó por primera vez esta modalidad no competitiva, en la que 200 estudiantes de primaria, organizados en 40 equipos, lanzaron sus propios MiniCanSat. Durante los meses previos, los equipos recibieron acompañamiento y formación para diseñar, construir y probar sus proyectos.</p>
+<figure class="exe-figure exe-image position-center license-CC0" style="width: 560px;"><a href="content/resources/alumnado_cansat_equipo.jpg" rel="lightbox" title="Ampliar imagen"><img src="content/resources/alumnado_cansat_equipo.jpg" alt="Estudiantes trabajando en equipo en su proyecto CanSat" title="Trabajo en equipo CanSat" width="560" height="313" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="author">Generado por IA Gemini</span>. <span class="title"><em>Trabajo en equipo CanSat</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/publicdomain/zero/1.0/deed.es" rel="license nofollow noopener" target="_blank" title="Creative Commons (CC0)">CC0</a><span class="sep">)</span></span></figcaption>
+</figure>
+<p>Desde su lanzamiento, la iniciativa ha sido adoptada por otras comunidades autónomas bajo distintas denominaciones, como CanSat Baby, expandiendo su impacto y permitiendo que cada vez más estudiantes descubran la emoción de la exploración espacial desde una edad temprana.</p>
+<p>Este proyecto ha sido diseñado para ofrecernos las herramientas necesarias para guiar nuestra misión espacial, fomentando el aprendizaje cooperativo y despertando nuestro interés por la ciencia y la tecnología.</p></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<span class="nav-button nav-button-left" aria-hidden="true"><span>Anterior</span></span>
+<a href="html/nos-organizamos.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+<div id="siteUserFooter"> <div><div style="display: flex; justify-content: center;" class="addthis_inline_share_toolbox"></div>
+<p style="text-align: center;"><span style="font-size: 0.8em;">Programa <a href="https://programacrea.educarex.es" target="_blank">CREA</a> Extremadura (Creación de Recursos Educativos Abiertos)</p>
+<script>
+$("#packageLicense a").click(function(){
+window.open(this.href);
+return false;
+});
+</script>
+<script>
+  $(function() {
+    /* ==========================================
+  CONFIGURACIÓN DE TEXTOS
+  ========================================== */
+    const textoDesplegar = "Desplegar";
+    const textoContraer = "Contraer";
+    /* ==========================================
+  1. INICIALIZACIÓN
+  ========================================== */
+// Recorremos todos los elementos para asignar el tooltip correcto al cargar
+    $('.muestraOcultaSiguiente').each(function() {
+   var $this = $(this);
+   if ($this.hasClass('visible')) {
+  $this.attr('title', textoContraer);
+   } else {
+  $this.attr('title', textoDesplegar);
+   }
+    });
+    /* ==========================================
+  2. LÓGICA PRINCIPAL (CLICK EN ENCABEZADO)
+  ========================================== */
+    $(document).on('click', '.muestraOcultaSiguiente', function(){
+ var $this = $(this);
+ 
+ // Alternamos la visibilidad
+ $this.toggleClass('visible');
+ 
+ // Actualizamos el texto del tooltip según el estado
+ if ($this.hasClass('visible')) {
+   $this.attr('title', textoContraer);
+ } else {
+   $this.attr('title', textoDesplegar);
+ }
+    });
+    /* ==========================================
+  3. LÓGICA "CLICABLE" (CERRAR AL TOCAR CONTENIDO)
+  ========================================== */
+    // Si el elemento es .clicable, al pulsar en su contenido se cierra,
+    // salvo que pulsemos explícitamente en el botón de cierre (para evitar doble evento).
+    $(document).on('click', '.clicable + *', function(e) {
+ if ($(e.target).closest('.zona-cierre').length) return;
+ var elementoAnterior = $(this).prev('.clicable');
+ if (elementoAnterior.hasClass('muestraOcultaSiguiente')) {
+   // Disparamos click en el encabezado para reutilizar la lógica principal
+   elementoAnterior.click(); 
+ }
+    });
+    /* ==========================================
+  4. GENERADOR DE CIERRE (.conCierre)
+  ========================================== */
+    // Busca elementos con la clase .conCierre e inyecta el botón al final de su contenido
+    $('.muestraOcultaSiguiente.conCierre').each(function(){
+ var contenido = $(this).next();
+ // Evitamos duplicados si el script corre varias veces
+ if (contenido.find('.zona-cierre').length === 0) {
+   contenido.append('<div class="zona-cierre" title="Contraer esta parte"><span class="icono-cierre">❯</span></div>');
+ }
+    });
+    /* ==========================================
+  5. ACCIÓN DEL BOTÓN DE CIERRE (INCLUYE SCROLL)
+  ========================================== */
+    $(document).on('click', '.zona-cierre', function() {
+ // Identificamos el encabezado correspondiente
+ var encabezado = $(this).parent().prev('.muestraOcultaSiguiente');
+ 
+ // Simulamos click para cerrar
+ encabezado.click();
+ 
+ // SCROLL AUTOMÁTICO SUAVE
+ // Llevamos la pantalla de vuelta al título para no perder el contexto
+ $('html, body').animate({
+scrollTop: encabezado.offset().top - 20 // Dejamos 20px de margen superior
+ }, 500); // 500ms de duración de la animación
+    });
+  });
+</script>
+</div>
+</div></div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(nueva ventana)</span></span></a></p>
+</body>
+</html>

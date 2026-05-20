@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mpdr045h-hpoqrrtfh">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>¡Misión cumplida! Nuestras conclusiones finales | MiniCanSat: primeros pasos en la exploración espacial</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Este Recurso Educativo Abierto (REA) ofrece una guía paso a paso para que docentes y estudiantes desarrollen un MiniCanSat, una primera aproximación al desafío CanSat. A través de este proyecto, los estudiantes diseñarán y construirán un MiniCanSat, incluyendo la carcasa, un sistema de caída controlado (paracaídas), la programación básica con Micro:bit y el uso de sensores para la recopilación y análisis de datos. Se proponen diferentes misiones científicas y tecnológicas, adaptadas a distintos niveles educativos, que permiten a los estudiantes experimentar con la exploración espacial a pequeña escala. Con este REA, cualquier docente podrá guiar a su alumnado en una experiencia práctica y motivadora que fomenta el pensamiento computacional, la creatividad y el interés por la ciencia y la tecnología, preparándolos para futuras competiciones CanSat.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../search_index.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/rubric/rubric.js"></script><link rel="stylesheet" href="../idevices/rubric/rubric.css">
+<script src="../libs/exe_effects/exe_effects.js"> </script>
+<link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
+<style>
+.tituloSeccion{
+    border-radius: 10px 0px 10px 0px;
+    font-size: 1.05em;
+    margin-left: 10px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.resaltarAlPasar {
+transition-duration: 0.2s;
+border-radius:10px;
+padding:5px;
+}
+.resaltarAlPasar:hover{background-color: #f5deb3}
+
+.listaResaltada
+{ border-left: 6px solid #CC1155A1; 
+margin-left: 30px; 
+background-color: #73d41312; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+
+.listaGuion li {
+list-style-type: none;
+position: relative;
+}
+.listaGuion li::before {
+content: "-"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaCheck li {
+list-style-type: none;
+position: relative;
+}
+.listaCheck li::before {
+color: #53b528;
+content: "✔"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaInfantil
+{ border-left: 6px solid #fd8b31; 
+margin-left: 30px; 
+background-color: #f5f5ff; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+    .tabla-ordenable th {
+   cursor: pointer;
+    }
+   .tabla-ordenable td.numero-fila {
+   text-align: center;
+   font-size: small;
+    }
+.lista-xl > li::marker {
+  font-size: 1.5em;
+ color: #db688e; /* Color para los números */
+ font-weight: bold; /* Negrita para los números */
+   }
+
+/* =========================================
+   A PARTIR DE AQUÍ, PARA MuestraOcultaSiguiente. 
+    ESTILOS BASE (MECÁNICA)
+   ========================================= */
+.muestraOcultaSiguiente {
+  cursor: pointer;
+  user-select: none; /* Evita que se seleccione el texto al hacer click rápido */
+}
+/* Ocultar/Mostrar el contenido adyacente */
+.muestraOcultaSiguiente + * { display: none; }
+.muestraOcultaSiguiente.visible + * { display: block; }
+/* Si es clicable, el contenido también muestra mano */
+.muestraOcultaSiguiente.clicable + * { cursor: pointer; }
+
+/* =========================================
+   ESTILOS DEL CHEVRON INICIAL (.conMarca)
+   ========================================= */
+.muestraOcultaSiguiente.conMarca {
+  position: relative;
+  padding-left: 40px;
+}
+.muestraOcultaSiguiente.conMarca + * {
+  position: relative;
+  padding-left: 40px;
+}
+/* El pseudo-elemento que dibuja el chevron ❯ */
+.muestraOcultaSiguiente.conMarca::before {
+  content: "❯";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  font-size: 0.9em;
+  color: #666; 
+  /* Transición suave para rotación, color y movimiento */
+  transition: transform 0.4s ease-in, color 0.3s ease;
+  
+  /* ESTADO CERRADO (Por defecto): Apunta hacia abajo (rotado 90deg) */
+  transform: rotate(90deg);
+}
+/* ESTADO ABIERTO: Apunta hacia arriba (rotado -90deg) */
+.muestraOcultaSiguiente.conMarca.visible::before {
+  transform: rotate(-90deg);
+}
+/* --- INTERACCIÓN HOVER EN CHEVRON INICIAL --- */
+/* Al pasar el ratón por el título, el chevron se oscurece y da un saltito */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  color: #000; /* Se oscurece */
+}
+/* Saltito cuando está cerrado (salta en la dirección de la flecha) */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  /* Mantenemos la rotación y movemos en el eje X local (hacia la punta) */
+  transform: rotate(90deg) translateX(4px);
+}
+/* Saltito cuando está abierto */
+.muestraOcultaSiguiente.conMarca.visible:hover::before {
+  transform: rotate(-90deg) translateX(4px);
+}
+
+/* =========================================
+   ESTILOS DEL CIERRE FINAL (.conCierre)
+   ========================================= */
+.zona-cierre {
+  display: flex;   /* Flexbox para alinear */
+  align-items: center;  /* Centrado verticalmente */
+  justify-content: flex-start; /* Alineado a la IZQUIERDA */
+    
+  cursor: pointer;
+  color: #ccc;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+/* Solo dibujamos la línea a la derecha (::after) */
+.zona-cierre::after {
+  content: "";
+  flex: 1;    /* Ocupa todo el espacio restante a la derecha */
+  border-bottom: 1px solid currentColor;
+  margin-left: 10px;    /* Separación entre el icono y la línea */
+}
+/* El icono de cierre */
+.icono-cierre {
+  font-size: 0.9em;
+  color: #888;
+  display: inline-block;
+  margin-left: 0.2em;
+  
+  /* ROTAMOS EL ❯ PARA QUE MIRE ARRIBA */
+  transform: rotate(-90deg);
+  
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Hover Cierre */
+.zona-cierre:hover { opacity: 1; color: #999; }
+.zona-cierre:hover .icono-cierre {
+  color: #333;
+  /* Animación ajustada a la rotación: empujamos en el eje X para que suba */
+  transform: rotate(-90deg) translateX(4px);
+}
+</style>
+
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mpdr045h-hpoqrrtfh" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">MiniCanSat: primeros pasos en la exploración espacial</a>
+</li>
+<li> <a href="../html/nos-organizamos.html" class="no-ch">Nos organizamos</a>
+</li>
+<li> <a href="../html/programamos-nuestro-satelite-artificial.html" class="no-ch">Programamos nuestro satélite artificial</a>
+</li>
+<li> <a href="../html/construimos-el-minicansat.html" class="no-ch">Construimos el MiniCanSat</a>
+</li>
+<li> <a href="../html/preparamos-el-sistema-de-lanzamiento.html" class="no-ch">Preparamos el sistema de lanzamiento</a>
+</li>
+<li> <a href="../html/operaciones-de-vuelo-del-lanzamiento-al-analisis-d.html" class="no-ch">Operaciones de vuelo: del lanzamiento al análisis de datos</a>
+</li>
+<li class="active"> <a href="../html/mision-cumplida-nuestras-conclusiones-finales.html" class="active no-ch">¡Misión cumplida! Nuestras conclusiones finales</a>
+</li>
+<li> <a href="../html/guia-didactica-y-fichero-fuente.html" class="no-ch">Guía didáctica y fichero fuente</a>
+</li>
+</ul>
+</nav><main id="page-mpdr045h-hpoqrrtfh" class="page"> <div id="exe-client-search" data-block-order-string="Caja %e" data-no-results-string="Sin resultados.">
+</div>
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">7</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">8</strong></span></p>
+
+<div class="package-header"><p class="package-title">MiniCanSat: primeros pasos en la exploración espacial</p></div>
+<div class="page-header"><h1 class="page-title">¡Misión cumplida! Nuestras conclusiones finales</h1></div>
+</header><div id="page-content-page-mpdr045h-hpoqrrtfh" class="page-content">
+<article id="block-mpczpc16-6d8dx9d8r" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Comunicar: El último paso de la ciencia</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-zl032rqbt" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc16-zl032rqbt&quot;}">
+<p>En el mundo de la exploración espacial, nuestra misión no termina cuando el satélite toca el suelo. ¡Ese es solo el principio de la gran noticia! Los científicos e ingenieros de la ESA o la NASA dedican mucho tiempo a explicar al resto del mundo qué han descubierto.</p>
+<p>Comunicar nuestros resultados es fundamental porque:</p>
+<ul class="listaResaltada">
+<li>Permite que otros aprendan de nuestros aciertos y de nuestros errores.</li>
+<li>Ayuda a mejorar los diseños para futuras misiones.</li>
+<li>Convierte los números y gráficas en historias reales sobre nuestro planeta.</li>
+</ul><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="¿Cómo vamos a contar nuestra aventura?" /></div><div class="feedback js-feedback js-hidden"><p>Comunicar nuestros resultados es fundamental para que otros aprendan de nuestra experiencia. Por eso, nuestro equipo debe presentar sus conclusiones de una forma creativa. Podemos elegir el formato que más nos guste:</p>
+<ul class="listaResaltada">
+<li><span aria-hidden="true">🎤</span> Una <strong>exposición oral</strong> apoyada en una presentación de diapositivas.</li>
+<li><span aria-hidden="true">🎬</span> Un <strong>vídeo-informe</strong> con imágenes grabadas de todo el proceso y los resultados.</li>
+<li><span aria-hidden="true">🎙️</span> Un <strong>podcast</strong> de radio contando la aventura en formato de entrevista.</li>
+<li><span aria-hidden="true">🖼️</span> Una <strong>infografía</strong> o póster científico.</li>
+</ul>
+<h2>¿Por dónde comenzamos?</h2>
+<p>¿No sabemos por dónde empezar? ¡Aquí tenemos un guion!</p>
+<p>Para que nuestra exposición, podcast o vídeo quede perfecto, nos aseguraremos de responder a estas preguntas en nuestro guion:</p>
+<ul class="lista-xl">
+<li><span aria-hidden="true">🧠</span> <strong>Sobre la Micro:bit:</strong> ¿Funcionó la programación y la estación de tierra? ¿Perdimos la comunicación? ¿El sistema de alimentación y sujeción fue correcto?</li>
+<li><span aria-hidden="true">🛡️</span> <strong>Sobre la Carcasa:</strong> ¿Resistió el vuelo? ¿El diseño y el color fueron adecuados o debemos modificar el material?</li>
+<li><span aria-hidden="true">🔬</span> <strong>Sobre la Misión Secundaria:</strong> ¿Fuimos creativos? ¿Registramos los datos o surgieron imprevistos? ¿Qué descubrimos?</li>
+<li><span aria-hidden="true">🤝</span> <strong>Sobre el Trabajo en Equipo:</strong> ¿Identificamos bien las tareas? ¿Nos las repartimos equitativamente? ¿Gestionamos bien el tiempo?</li>
+</ul>
+<p>Recordar: <em>La ciencia no consiste solo en acertar a la primera, sino en probar, comparar y mejorar cada vez un poco más.</em></p></div>
+</div>
+</div>
+</article><article id="block-mpczpc16-neigxys2o" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">¿Qué hemos descubierto?</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-8mm04zspb" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc16-8mm04zspb&quot;}">
+<p>Para redactar nuestro informe final (sea cual sea el formato que hayamos elegido), debemos analizar en equipo estos cuatro pilares de nuestra misión:</p>
+<div class="exe-fx exe-accordion">
+<h2><span aria-hidden="true">🪂</span> El sistema de descenso (Paracaídas)</h2>
+<ul class="listaResaltada">
+<li><strong>Eficacia:</strong> ¿Funcionó correctamente? Valoraremos si el tamaño fue ideal, si el viento lo alejó demasiado o si el satélite cayó muy rápido.</li>
+<li><strong>Visibilidad:</strong> ¿El color que elegimos ayudó a seguirlo en el aire y encontrarlo fácilmente en el suelo?</li>
+<li><strong>Resistencia:</strong> ¿Aguantaron las cuerdas y los nudos el tirón del lanzamiento sin romperse?</li>
+</ul>
+<h2><span aria-hidden="true">🧠</span> El cerebro del satélite (Micro:bit)</h2>
+<ul class="listaResaltada">
+<li><strong>Telemetría:</strong> ¿Funcionó nuestro programa? ¿Recibió la Estación de Tierra todos los datos o perdimos la señal en algún momento?</li>
+<li><strong>Energía y sujeción:</strong> ¿El portapilas se mantuvo en su sitio? ¿Estaba la placa bien sujeta a la estructura o se movió durante el vuelo?</li>
+</ul>
+<h2><span aria-hidden="true">🛡️</span> La estructura (Carcasa)</h2>
+<ul class="listaResaltada">
+<li><strong>Protección:</strong> ¿Ha resistido nuestra carcasa el impacto del aterrizaje o necesita reparaciones urgentes?</li>
+<li><strong>Identidad:</strong> ¿Es nuestro diseño diferente y original? ¿Qué cambiaríamos del material usado (churro, cartón, plástico, 3D...)?</li>
+</ul>
+<h2><span aria-hidden="true">🔬</span> Misión secundaria</h2>
+<ul class="listaResaltada">
+<li><strong>Resultados:</strong> ¿Fuimos creativos con nuestro reto extra? ¿Qué descubrimos al investigar este fenómeno añadido?</li>
+</ul>
+</div>
+<div style="background-color: #e8f4f8; border-left: 5px solid #2980b9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+<p><span aria-hidden="true">💡</span> <strong>Recordar:</strong> A veces, un imprevisto nos enseña más que un éxito total. La ciencia no consiste solo en acertar a la primera, sino en probar, fallar y mejorar.</p>
+</div>
+</div>
+</div>
+</article><article id="block-mpczpc16-y4xpzzqcm" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">**Insignias ODS Desbloqueadas🎖️</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-1mvj53186" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc16-1mvj53186&quot;}">
+<p>¡Enhorabuena, equipo! Al completar el desafío MiniCanSat, no solo hemos aprendido sobre ciencia y tecnología, sino que hemos aportado nuestro trabajo a los grandes retos globales. A lo largo del proyecto, y casi sin darnos cuenta, hemos desbloqueado estas insignias de los <strong>Objetivos de Desarrollo Sostenible (ODS)</strong>. ¡Podemos estar orgullosos e incluirlas en nuestro informe final!</p>
+<table border="0" style="width: 100%; text-align: left;" class="exe-table">
+<tbody>
+<tr>
+<td style="width: 15%; text-align: center; vertical-align: middle;"><span style="font-size: 3em;" aria-hidden="true">🎓</span></td>
+<td><span style="color: #c5192d; font-size: 1.2em;"><strong>ODS 4: Educación de calidad</strong></span><br />Hemos superado el papel de simples estudiantes para convertirnos en creadores de tecnología, aprendiendo competencias técnicas y de trabajo en equipo.</td>
+</tr>
+<tr>
+<td style="width: 15%; text-align: center; vertical-align: middle;"><span style="font-size: 3em;" aria-hidden="true">🛠️</span></td>
+<td><span style="color: #fd6925; font-size: 1.2em;"><strong>ODS 9: Industria, innovación e infraestructura</strong></span><br />Hemos diseñado, construido y programado un satélite funcional, innovando en materiales y resolviendo problemas de ingeniería en tiempo real.</td>
+</tr>
+<tr>
+<td style="width: 15%; text-align: center; vertical-align: middle;"><span style="font-size: 3em;" aria-hidden="true">🌍</span></td>
+<td><span style="color: #3f7e44; font-size: 1.2em;"><strong>ODS 13: Acción por el clima</strong></span><br />Al monitorizar y analizar datos de temperatura y luz de nuestro entorno, hemos utilizado las mismas técnicas que usan los científicos para proteger la salud de nuestro planeta.</td>
+</tr>
+<tr>
+<td style="width: 15%; text-align: center; vertical-align: middle;"><span style="font-size: 3em;" aria-hidden="true">🦺</span></td>
+<td><span style="color: #4c9f38; font-size: 1.2em;"><strong>ODS 3: Salud y bienestar</strong></span><br />Hemos cuidado de nuestro equipo respetando los protocolos de seguridad en el taller y estableciendo perímetros de seguridad durante el lanzamiento del cohete presurizado.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</article><article id="block-mpczpc16-0rgyzmp6b" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">**Mensaje desde el Centro de Mando 🚀</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-v380fbd4s" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc16-v380fbd4s&quot;}">
+<div style="background-color: #1a2530; color: white; padding: 30px; border-radius: 10px; text-align: center; border-bottom: 5px solid #4a90e2;">
+<h2 style="color: #4a90e2;"><span aria-hidden="true">🌌</span> ¡Misión completada con éxito!</h2>
+<p>Al terminar nuestra misión, hemos aprendido que los satélites son herramientas increíbles para cuidar nuestro planeta y comprender el universo.</p>
+<p>Ahora sabemos cómo usar la tecnología para medir la realidad, cómo resolver problemas, compartir ideas y tomar decisiones juntos. Y, sobre todo, hemos descubierto que la ciencia y la tecnología pueden ser muy divertidas si las vivimos en primera persona y trabajamos unidos.</p>
+<p style="font-size: 1.3em; margin-top: 20px;"><strong>¡Enhorabuena, ingenieros e ingenieras!</strong></p>
+<p>Hemos dado nuestro primer gran paso en la exploración espacial. La pregunta ahora es... ¿Cuál será nuestro próximo destino?</p>
+</div>
+</div>
+</div>
+</article><article id="block-mpczpc16-m6kr94oss" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Rubric</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-i71vyjccc" class="idevice_node rubric rubric" data-idevice-path="../idevices/rubric/" data-idevice-type="rubric">
+<div class="rubric"><div class="exe-rubrics-DataGame js-hidden">%7B%22title%22%3A%22R%FAbrica%20de%20evaluaci%F3n%20de%20conclusiones%20finales%22%2C%22categories%22%3A%5B%22An%E1lisis%20t%E9cnico%22%2C%22Misi%F3n%20secundaria%22%2C%22Comunicaci%F3n%22%2C%22Trabajo%20en%20equipo%22%5D%2C%22scores%22%3A%5B%224%20EXCELENTE%22%2C%223%20SATISFACTORIO%22%2C%222%20MEJORABLE%22%2C%221%20INSUFICIENTE%22%5D%2C%22descriptions%22%3A%5B%5B%7B%22text%22%3A%22Explicamos%20con%20evidencias%20qu%E9%20funcion%F3%20y%20qu%E9%20fall%F3%20estructuralmente%20en%20el%20paraca%EDdas%2C%20la%20carcasa%20y%20las%20conexiones.%22%2C%22weight%22%3A%222.5%22%7D%2C%7B%22text%22%3A%22Describimos%20el%20estado%20final%20del%20sat%E9lite%2C%20pero%20omitimos%20analizar%20en%20profundidad%20las%20causas%20t%E9cnicas%20de%20los%20fallos%20o%20aciertos.%22%2C%22weight%22%3A%221.75%22%7D%2C%7B%22text%22%3A%22Mencionamos%20el%20resultado%20general%20del%20vuelo%20%28%5C%22fue%20bien%5C%22%20/%20%5C%22se%20rompi%F3%5C%22%29%20sin%20entrar%20en%20los%20detalles%20de%20las%20piezas.%22%2C%22weight%22%3A%221.50%22%7D%2C%7B%22text%22%3A%22No%20incluimos%20un%20an%E1lisis%20t%E9cnico%20de%20la%20estructura%20ni%20del%20comportamiento%20del%20sat%E9lite%20en%20la%20presentaci%F3n.%22%2C%22weight%22%3A%221.25%22%7D%5D%2C%5B%7B%22text%22%3A%22Exponemos%20con%20soltura%20nuestras%20gr%E1ficas%20y%20los%20hallazgos%20de%20la%20misi%F3n%20secundaria%2C%20relacion%E1ndolos%20con%20la%20f%EDsica%20real.%22%2C%22weight%22%3A%222.5%22%7D%2C%7B%22text%22%3A%22Mostramos%20las%20gr%E1ficas%2C%20pero%20la%20explicaci%F3n%20sobre%20nuestro%20reto%20secundario%20queda%20incompleta%20o%20nos%20cuesta%20interpretarla.%22%2C%22weight%22%3A%221.75%22%7D%2C%7B%22text%22%3A%22Mostramos%20las%20gr%E1ficas%20en%20la%20presentaci%F3n%2C%20pero%20nos%20limitamos%20a%20leer%20los%20n%FAmeros%20sin%20sacar%20conclusiones%20l%F3gicas.%22%2C%22weight%22%3A%221.50%22%7D%2C%7B%22text%22%3A%22No%20exponemos%20gr%E1ficas%20ni%20logramos%20extraer%20ninguna%20conclusi%F3n%20cient%EDfica%20de%20nuestra%20misi%F3n.%22%2C%22weight%22%3A%221.25%22%7D%5D%2C%5B%7B%22text%22%3A%22Elaboramos%20un%20producto%20final%20%28v%EDdeo%2C%20podcast%2C%20presentaci%F3n%29%20creativo%2C%20bien%20organizado%20e%20incluimos%20las%20Insignias%20ODS.%22%2C%22weight%22%3A%222.5%22%7D%2C%7B%22text%22%3A%22Entregamos%20la%20informaci%F3n%20de%20forma%20comprensible%2C%20aunque%20falta%20alguna%20insignia%20ODS%20o%20la%20organizaci%F3n%20visual%20es%20b%E1sica.%22%2C%22weight%22%3A%221.75%22%7D%2C%7B%22text%22%3A%22Entregamos%20la%20informaci%F3n%20de%20forma%20comprensible%2C%20aunque%20falta%20alguna%20insignia%20ODS%20o%20la%20organizaci%F3n%20visual%20es%20b%E1sica.%22%2C%22weight%22%3A%221.50%22%7D%2C%7B%22text%22%3A%22Entregamos%20un%20producto%20incompleto%2C%20desordenado%20o%20no%20preparado%20para%20exponerse%20ante%20la%20clase.%22%2C%22weight%22%3A%221.25%22%7D%5D%2C%5B%7B%22text%22%3A%22Eval%FAo%20con%20honestidad%20mi%20trabajo%20personal%2C%20reconozco%20mis%20errores%20y%20valoro%20constructivamente%20la%20din%E1mica%20del%20equipo.%22%2C%22weight%22%3A%222.5%22%7D%2C%7B%22text%22%3A%22Describo%20qu%E9%20hice%20yo%20en%20el%20proyecto%2C%20pero%20sin%20profundizar%20en%20mis%20dificultades%20o%20en%20c%F3mo%20super%E9%20los%20retos.%22%2C%22weight%22%3A%221.75%22%7D%2C%7B%22text%22%3A%22Menciono%20mi%20participaci%F3n%20superficialmente%2C%20limit%E1ndome%20a%20decir%20que%20trabaj%E9%20mucho%20o%20poco.%22%2C%22weight%22%3A%221.50%22%7D%2C%7B%22text%22%3A%22No%20aporto%20ninguna%20reflexi%F3n%20personal%20sobre%20mi%20aprendizaje%2C%20mi%20actitud%20o%20mi%20relaci%F3n%20con%20el%20equipo.%22%2C%22weight%22%3A%221.25%22%7D%5D%5D%2C%22i18n%22%3A%7B%22activity%22%3A%22Actividad%22%2C%22name%22%3A%22Nombre%22%2C%22date%22%3A%22Fecha%22%2C%22score%22%3A%22Puntuaci%F3n%22%2C%22notes%22%3A%22Notas%22%2C%22reset%22%3A%22Reiniciar%22%2C%22print%22%3A%22Imprimir%22%2C%22apply%22%3A%22Aplicar%22%2C%22newWindow%22%3A%22Ventana%20nueva%22%7D%7D</div><ul class="exe-rubrics-strings"><li class="activity">Actividad</li><li class="name">Nombre</li><li class="date">Fecha</li><li class="score">Puntuación</li><li class="notes">Notas</li><li class="reset">Reiniciar</li><li class="print">Imprimir</li><li class="apply">Aplicar</li><li class="newWindow">Ventana nueva</li></ul><div class="exe-rubrics-wrapper"><div class="exe-rubrics-content"><div id="exe-rubrics-header"><div><label for="activity">Actividad:</label><input type="text" id="activity" data-rubric-field="activity" class="form-control form-control-sm"></div><div><label for="name">Nombre:</label><input type="text" id="name" data-rubric-field="name" class="form-control form-control-sm"></div><div><label for="score">Puntuación:</label><input type="text" id="score" data-rubric-field="score" class="form-control form-control-sm"></div><div><label for="date">Fecha:</label><input type="text" id="date" data-rubric-field="date" class="form-control form-control-sm" value="19/5/2026"></div></div><div class="exe-rubrics-table-slot"><table class="exe-table exe-rubrics-export-table" data-rubric-table-type="export"><caption>Rúbrica de evaluación de conclusiones finales</caption><thead><tr><th>&nbsp;</th><th>4 EXCELENTE</th><th>3 SATISFACTORIO</th><th>2 MEJORABLE</th><th>1 INSUFICIENTE</th></tr></thead><tbody><tr><th>Análisis técnico</th><td>Explicamos con evidencias qué funcionó y qué falló estructuralmente en el paracaídas, la carcasa y las conexiones. <span>(2.5)</span></td><td>Describimos el estado final del satélite, pero omitimos analizar en profundidad las causas técnicas de los fallos o aciertos. <span>(1.75)</span></td><td>Mencionamos el resultado general del vuelo ("fue bien" / "se rompió") sin entrar en los detalles de las piezas. <span>(1.50)</span></td><td>No incluimos un análisis técnico de la estructura ni del comportamiento del satélite en la presentación. <span>(1.25)</span></td></tr><tr><th>Misión secundaria</th><td>Exponemos con soltura nuestras gráficas y los hallazgos de la misión secundaria, relacionándolos con la física real. <span>(2.5)</span></td><td>Mostramos las gráficas, pero la explicación sobre nuestro reto secundario queda incompleta o nos cuesta interpretarla. <span>(1.75)</span></td><td>Mostramos las gráficas en la presentación, pero nos limitamos a leer los números sin sacar conclusiones lógicas. <span>(1.50)</span></td><td>No exponemos gráficas ni logramos extraer ninguna conclusión científica de nuestra misión. <span>(1.25)</span></td></tr><tr><th>Comunicación</th><td>Elaboramos un producto final (vídeo, podcast, presentación) creativo, bien organizado e incluimos las Insignias ODS. <span>(2.5)</span></td><td>Entregamos la información de forma comprensible, aunque falta alguna insignia ODS o la organización visual es básica. <span>(1.75)</span></td><td>Entregamos la información de forma comprensible, aunque falta alguna insignia ODS o la organización visual es básica. <span>(1.50)</span></td><td>Entregamos un producto incompleto, desordenado o no preparado para exponerse ante la clase. <span>(1.25)</span></td></tr><tr><th>Trabajo en equipo</th><td>Evalúo con honestidad mi trabajo personal, reconozco mis errores y valoro constructivamente la dinámica del equipo. <span>(2.5)</span></td><td>Describo qué hice yo en el proyecto, pero sin profundizar en mis dificultades o en cómo superé los retos. <span>(1.75)</span></td><td>Menciono mi participación superficialmente, limitándome a decir que trabajé mucho o poco. <span>(1.50)</span></td><td>No aporto ninguna reflexión personal sobre mi aprendizaje, mi actitud o mi relación con el equipo. <span>(1.25)</span></td></tr></tbody></table></div><div id="exe-rubrics-footer"><p><label for="notes">Notas:</label><textarea id="notes" data-rubric-field="notes" class="form-control form-control-sm" cols="32" rows="1"></textarea></p></div><p class="exe-rubrics-actions"><button type="button" class="exe-rubrics-download btn btn-primary btn-sm">Download</button><button type="button" class="exe-rubrics-reset btn btn-primary btn-sm">Reiniciar</button></p></div></div></div><div class="exe-rubrics-richtext-data sr-av"><span class="exe-rubrics-instructions-data"></span><span class="exe-rubrics-text-after-data"></span></div>
+</div>
+</div>
+</article><article id="block-mpczpc16-265s7qxne" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Diario de misión MiniCanSat</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-sai9pkbc2" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc16-sai9pkbc2&quot;}">
+<p>Antes de terminar esta fase del proyecto, dedicaremos entre 10 y 15 minutos a reflexionar, en grupo y de manera individual, sobre lo aprendido durante esta fase de nuestro proyecto.</p>
+<ul>
+<li>Dejaremos constancia de nuestro aprendizaje. Rellenaremos nuestro propio documento <strong>Diario individual de misión MiniCanSat</strong> y lo guardaremos en nuestra carpeta personal.</li>
+<li>Además, cada equipo actualizará el <strong>Diario de misión MiniCanSat de equipo</strong>, incluyendo los avances en la programación, pruebas realizadas y ajustes necesarios.</li>
+</ul>
+<!-- Contenidos del diario con estilo de tarjeta/diario -->
+<p>Completar este diario nos ayudará a ser conscientes de nuestro progreso, superar obstáculos y compartir información clave con el equipo. Nos tomaremos unos minutos al final de cada sesión para reflexionar sobre estos puntos.</p>
+<!-- Contenedor principal para control de ancho (DUA) -->
+<div style="max-width: 875px; margin: 0 auto;">
+<div>
+<p class="muestraOcultaSiguiente" style="background-color: #4a90e2; color: white; border-radius: 10px; font-weight: bold; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; padding-left: 0.5em;">📖 Contenidos del Diario de Aprendizaje <span style="font-size: 0.8em; font-weight: normal;">(clic para mostrar)</span></p>
+<div style="background-color: #fdfdfd; border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.05); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><!-- Introducción DUA: Fomento de la metacognición y autorregulación -->
+<ul style="list-style: none; padding-left: 0;"><!-- Sección 1 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #d35400; display: block; background: #fff5eb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🧠 Reflexión personal </span>
+<ul style="list-style-type: '✎ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Qué tareas he realizado hoy?</li>
+<li style="margin-left: 1em;">¿Qué dificultades he encontrado y cómo las he resuelto?</li>
+</ul>
+</li>
+<!-- Sección 2 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #27ae60; display: block; background: #ebf9f1; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🌟 Aprendizaje diario </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '✔ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Qué conceptos nuevos he aprendido?</li>
+<li style="margin-left: 1em;">¿Qué ideas o habilidades he mejorado?</li>
+</ul>
+</li>
+<!-- Sección 3 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #2980b9; display: block; background: #ebf5fb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🤝 Colaboración en el equipo </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '👥 ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Cómo ha sido mi comunicación y trabajo con el equipo?</li>
+<li style="margin-left: 1em;">¿Qué aspectos podría mejorar en la colaboración?</li>
+</ul>
+</li>
+<!-- Sección 4 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #8e44ad; display: block; background: #f5eef8; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 📝 Otra información </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '📌 ';">
+<li style="margin-top: 5px; margin-left: 1em;">Anotaciones adicionales sobre el proceso, ideas o problemas.</li>
+<li style="margin-left: 1em;"><strong>Diario de equipo:</strong> ¿Qué información de mi diario individual es útil para el grupo?</li>
+</ul>
+</li>
+</ul>
+<!-- Botones de descarga -->
+<div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
+<p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Descarga del diario:</p>
+<a href="https://drive.google.com/file/d/1S4ESi1AfEeOB_TRMwk9QaUX1DsiHnPLR/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #5cb85c; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener">💾 Formato Editable</a> <a href="https://drive.google.com/file/d/1EiXe__9apTJkXo2A0z9yQO-yGox4lRnr/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #d9534f; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener">📄 Formato PDF</a></div>
+</div>
+</div>
+</div>
+<!-- Aquí acaban los contenidos del diario--><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="Cuestiones para la reflexión" /></div><div class="feedback js-feedback js-hidden"><ul class="listaResaltada">
+<li><span aria-hidden="true">⚙️</span> <strong>El análisis técnico:</strong> ¿Qué parte de nuestro diseño (paracaídas, código o carcasa) creemos que ha sido la más exitosa? ¿Qué mejoraríamos para un próximo lanzamiento?</li>
+<li><span aria-hidden="true">📊</span> <strong>Resultados científicos:</strong> ¿Qué es lo más sorprendente que hemos aprendido al analizar los datos de la misión principal y secundaria?</li>
+<li><span aria-hidden="true">🤝</span> <strong>El factor humano:</strong> ¿Cómo nos hemos sentido trabajando en nuestro rol? ¿Qué habilidad de un compañero o compañera nos ha ayudado más a terminar la misión con éxito?</li>
+<li><span aria-hidden="true">📰</span> <strong>El titular de nuestra misión:</strong> Redactemos un párrafo corto (como si fuera la portada de un periódico o una revista científica) destacando nuestro mayor descubrimiento o la mejor anécdota de este proyecto.</li>
+</ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/operaciones-de-vuelo-del-lanzamiento-al-analisis-d.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/guia-didactica-y-fichero-fuente.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+<div id="siteUserFooter"> <div><div style="display: flex; justify-content: center;" class="addthis_inline_share_toolbox"></div>
+<p style="text-align: center;"><span style="font-size: 0.8em;">Programa <a href="https://programacrea.educarex.es" target="_blank">CREA</a> Extremadura (Creación de Recursos Educativos Abiertos)</p>
+<script>
+$("#packageLicense a").click(function(){
+window.open(this.href);
+return false;
+});
+</script>
+<script>
+  $(function() {
+    /* ==========================================
+  CONFIGURACIÓN DE TEXTOS
+  ========================================== */
+    const textoDesplegar = "Desplegar";
+    const textoContraer = "Contraer";
+    /* ==========================================
+  1. INICIALIZACIÓN
+  ========================================== */
+// Recorremos todos los elementos para asignar el tooltip correcto al cargar
+    $('.muestraOcultaSiguiente').each(function() {
+   var $this = $(this);
+   if ($this.hasClass('visible')) {
+  $this.attr('title', textoContraer);
+   } else {
+  $this.attr('title', textoDesplegar);
+   }
+    });
+    /* ==========================================
+  2. LÓGICA PRINCIPAL (CLICK EN ENCABEZADO)
+  ========================================== */
+    $(document).on('click', '.muestraOcultaSiguiente', function(){
+ var $this = $(this);
+ 
+ // Alternamos la visibilidad
+ $this.toggleClass('visible');
+ 
+ // Actualizamos el texto del tooltip según el estado
+ if ($this.hasClass('visible')) {
+   $this.attr('title', textoContraer);
+ } else {
+   $this.attr('title', textoDesplegar);
+ }
+    });
+    /* ==========================================
+  3. LÓGICA "CLICABLE" (CERRAR AL TOCAR CONTENIDO)
+  ========================================== */
+    // Si el elemento es .clicable, al pulsar en su contenido se cierra,
+    // salvo que pulsemos explícitamente en el botón de cierre (para evitar doble evento).
+    $(document).on('click', '.clicable + *', function(e) {
+ if ($(e.target).closest('.zona-cierre').length) return;
+ var elementoAnterior = $(this).prev('.clicable');
+ if (elementoAnterior.hasClass('muestraOcultaSiguiente')) {
+   // Disparamos click en el encabezado para reutilizar la lógica principal
+   elementoAnterior.click(); 
+ }
+    });
+    /* ==========================================
+  4. GENERADOR DE CIERRE (.conCierre)
+  ========================================== */
+    // Busca elementos con la clase .conCierre e inyecta el botón al final de su contenido
+    $('.muestraOcultaSiguiente.conCierre').each(function(){
+ var contenido = $(this).next();
+ // Evitamos duplicados si el script corre varias veces
+ if (contenido.find('.zona-cierre').length === 0) {
+   contenido.append('<div class="zona-cierre" title="Contraer esta parte"><span class="icono-cierre">❯</span></div>');
+ }
+    });
+    /* ==========================================
+  5. ACCIÓN DEL BOTÓN DE CIERRE (INCLUYE SCROLL)
+  ========================================== */
+    $(document).on('click', '.zona-cierre', function() {
+ // Identificamos el encabezado correspondiente
+ var encabezado = $(this).parent().prev('.muestraOcultaSiguiente');
+ 
+ // Simulamos click para cerrar
+ encabezado.click();
+ 
+ // SCROLL AUTOMÁTICO SUAVE
+ // Llevamos la pantalla de vuelta al título para no perder el contexto
+ $('html, body').animate({
+scrollTop: encabezado.offset().top - 20 // Dejamos 20px de margen superior
+ }, 500); // 500ms de duración de la animación
+    });
+  });
+</script>
+</div>
+</div></div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(nueva ventana)</span></span></a></p>
+</body>
+</html>

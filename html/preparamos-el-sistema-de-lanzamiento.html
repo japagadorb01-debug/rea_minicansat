@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mpdr0458-4mjaxmkwy">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>Preparamos el sistema de lanzamiento | MiniCanSat: primeros pasos en la exploración espacial</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Este Recurso Educativo Abierto (REA) ofrece una guía paso a paso para que docentes y estudiantes desarrollen un MiniCanSat, una primera aproximación al desafío CanSat. A través de este proyecto, los estudiantes diseñarán y construirán un MiniCanSat, incluyendo la carcasa, un sistema de caída controlado (paracaídas), la programación básica con Micro:bit y el uso de sensores para la recopilación y análisis de datos. Se proponen diferentes misiones científicas y tecnológicas, adaptadas a distintos niveles educativos, que permiten a los estudiantes experimentar con la exploración espacial a pequeña escala. Con este REA, cualquier docente podrá guiar a su alumnado en una experiencia práctica y motivadora que fomenta el pensamiento computacional, la creatividad y el interés por la ciencia y la tecnología, preparándolos para futuras competiciones CanSat.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../search_index.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/quick-questions/quick-questions.js"></script><link rel="stylesheet" href="../idevices/quick-questions/quick-questions.css">
+<script src="../idevices/rubric/rubric.js"></script><link rel="stylesheet" href="../idevices/rubric/rubric.css">
+<script src="../libs/exe_effects/exe_effects.js"> </script>
+<link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
+<script src="../libs/exe_lightbox/exe_lightbox.js"> </script>
+<link rel="stylesheet" href="../libs/exe_lightbox/exe_lightbox.css">
+<script src="../libs/exe_tooltips/exe_tooltips.js"> </script>
+<script src="../libs/exe_tooltips/jquery.qtip.min.js"> </script>
+<script src="../libs/exe_tooltips/imagesloaded.pkg.min.js"> </script>
+<link rel="stylesheet" href="../libs/exe_tooltips/jquery.qtip.min.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
+<style>
+.tituloSeccion{
+    border-radius: 10px 0px 10px 0px;
+    font-size: 1.05em;
+    margin-left: 10px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.resaltarAlPasar {
+transition-duration: 0.2s;
+border-radius:10px;
+padding:5px;
+}
+.resaltarAlPasar:hover{background-color: #f5deb3}
+
+.listaResaltada
+{ border-left: 6px solid #CC1155A1; 
+margin-left: 30px; 
+background-color: #73d41312; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+
+.listaGuion li {
+list-style-type: none;
+position: relative;
+}
+.listaGuion li::before {
+content: "-"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaCheck li {
+list-style-type: none;
+position: relative;
+}
+.listaCheck li::before {
+color: #53b528;
+content: "✔"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaInfantil
+{ border-left: 6px solid #fd8b31; 
+margin-left: 30px; 
+background-color: #f5f5ff; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+    .tabla-ordenable th {
+   cursor: pointer;
+    }
+   .tabla-ordenable td.numero-fila {
+   text-align: center;
+   font-size: small;
+    }
+.lista-xl > li::marker {
+  font-size: 1.5em;
+ color: #db688e; /* Color para los números */
+ font-weight: bold; /* Negrita para los números */
+   }
+
+/* =========================================
+   A PARTIR DE AQUÍ, PARA MuestraOcultaSiguiente. 
+    ESTILOS BASE (MECÁNICA)
+   ========================================= */
+.muestraOcultaSiguiente {
+  cursor: pointer;
+  user-select: none; /* Evita que se seleccione el texto al hacer click rápido */
+}
+/* Ocultar/Mostrar el contenido adyacente */
+.muestraOcultaSiguiente + * { display: none; }
+.muestraOcultaSiguiente.visible + * { display: block; }
+/* Si es clicable, el contenido también muestra mano */
+.muestraOcultaSiguiente.clicable + * { cursor: pointer; }
+
+/* =========================================
+   ESTILOS DEL CHEVRON INICIAL (.conMarca)
+   ========================================= */
+.muestraOcultaSiguiente.conMarca {
+  position: relative;
+  padding-left: 40px;
+}
+.muestraOcultaSiguiente.conMarca + * {
+  position: relative;
+  padding-left: 40px;
+}
+/* El pseudo-elemento que dibuja el chevron ❯ */
+.muestraOcultaSiguiente.conMarca::before {
+  content: "❯";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  font-size: 0.9em;
+  color: #666; 
+  /* Transición suave para rotación, color y movimiento */
+  transition: transform 0.4s ease-in, color 0.3s ease;
+  
+  /* ESTADO CERRADO (Por defecto): Apunta hacia abajo (rotado 90deg) */
+  transform: rotate(90deg);
+}
+/* ESTADO ABIERTO: Apunta hacia arriba (rotado -90deg) */
+.muestraOcultaSiguiente.conMarca.visible::before {
+  transform: rotate(-90deg);
+}
+/* --- INTERACCIÓN HOVER EN CHEVRON INICIAL --- */
+/* Al pasar el ratón por el título, el chevron se oscurece y da un saltito */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  color: #000; /* Se oscurece */
+}
+/* Saltito cuando está cerrado (salta en la dirección de la flecha) */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  /* Mantenemos la rotación y movemos en el eje X local (hacia la punta) */
+  transform: rotate(90deg) translateX(4px);
+}
+/* Saltito cuando está abierto */
+.muestraOcultaSiguiente.conMarca.visible:hover::before {
+  transform: rotate(-90deg) translateX(4px);
+}
+
+/* =========================================
+   ESTILOS DEL CIERRE FINAL (.conCierre)
+   ========================================= */
+.zona-cierre {
+  display: flex;   /* Flexbox para alinear */
+  align-items: center;  /* Centrado verticalmente */
+  justify-content: flex-start; /* Alineado a la IZQUIERDA */
+    
+  cursor: pointer;
+  color: #ccc;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+/* Solo dibujamos la línea a la derecha (::after) */
+.zona-cierre::after {
+  content: "";
+  flex: 1;    /* Ocupa todo el espacio restante a la derecha */
+  border-bottom: 1px solid currentColor;
+  margin-left: 10px;    /* Separación entre el icono y la línea */
+}
+/* El icono de cierre */
+.icono-cierre {
+  font-size: 0.9em;
+  color: #888;
+  display: inline-block;
+  margin-left: 0.2em;
+  
+  /* ROTAMOS EL ❯ PARA QUE MIRE ARRIBA */
+  transform: rotate(-90deg);
+  
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Hover Cierre */
+.zona-cierre:hover { opacity: 1; color: #999; }
+.zona-cierre:hover .icono-cierre {
+  color: #333;
+  /* Animación ajustada a la rotación: empujamos en el eje X para que suba */
+  transform: rotate(-90deg) translateX(4px);
+}
+</style>
+
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mpdr0458-4mjaxmkwy" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">MiniCanSat: primeros pasos en la exploración espacial</a>
+</li>
+<li> <a href="../html/nos-organizamos.html" class="no-ch">Nos organizamos</a>
+</li>
+<li> <a href="../html/programamos-nuestro-satelite-artificial.html" class="no-ch">Programamos nuestro satélite artificial</a>
+</li>
+<li> <a href="../html/construimos-el-minicansat.html" class="no-ch">Construimos el MiniCanSat</a>
+</li>
+<li class="active"> <a href="../html/preparamos-el-sistema-de-lanzamiento.html" class="active no-ch">Preparamos el sistema de lanzamiento</a>
+</li>
+<li> <a href="../html/operaciones-de-vuelo-del-lanzamiento-al-analisis-d.html" class="no-ch">Operaciones de vuelo: del lanzamiento al análisis de datos</a>
+</li>
+<li> <a href="../html/mision-cumplida-nuestras-conclusiones-finales.html" class="no-ch">¡Misión cumplida! Nuestras conclusiones finales</a>
+</li>
+<li> <a href="../html/guia-didactica-y-fichero-fuente.html" class="no-ch">Guía didáctica y fichero fuente</a>
+</li>
+</ul>
+</nav><main id="page-mpdr0458-4mjaxmkwy" class="page"> <div id="exe-client-search" data-block-order-string="Caja %e" data-no-results-string="Sin resultados.">
+</div>
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">5</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">8</strong></span></p>
+
+<div class="package-header"><p class="package-title">MiniCanSat: primeros pasos en la exploración espacial</p></div>
+<div class="page-header"><h1 class="page-title">Preparamos el sistema de lanzamiento</h1></div>
+</header><div id="page-content-page-mpdr0458-4mjaxmkwy" class="page-content">
+<article id="block-mpczpc15-q497mpdxq" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">¿Cómo lanzamos nuestro MiniCanSat?</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc15-8s2u6zlw5" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc15-8s2u6zlw5&quot;}">
+<p>Una vez que nuestro MiniCanSat está completamente montado y listo para la misión, necesitamos lanzarlo desde cierta altura para que pueda recoger datos significativos y poner a prueba su sistema de descenso, es decir, el paracaídas. Podemos hacer lanzamientos desde lugares elevados como un edificio alto o una estructura segura en nuestra localidad. Pero también podemos ir más allá... ¡y construir nuestro propio sistema de lanzamiento!</p>
+<p>Nos convertiremos en diseñadores de un cohete de agua, una estructura que simula la propulsión real de los cohetes mediante la presión del aire y el impulso del agua.</p><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="Material necesario" /></div><div class="feedback js-feedback js-hidden"><p>Para construir nuestro cohete de agua vamos a necesitar los siguientes materiales:</p>
+<ul class="listaResaltada">
+<li><span aria-hidden="true">🍾</span> 1 <strong>botella de plástico</strong> de 1,5 o 2 litros (vacía, resistente y de bebida con gas).</li>
+<li><span aria-hidden="true">💧</span> <strong>Agua</strong>.</li>
+<li><span aria-hidden="true">🛑</span> <strong>Tapón de corcho</strong> o <strong>tapón lanzadera 3D</strong>.</li>
+<li><span aria-hidden="true">📍</span> Una <strong>aguja de inflado</strong> (si optamos por el tapón de corcho).</li>
+<li><span aria-hidden="true">🚲</span> <strong>Bomba de inflar</strong> bicicletas o balones.</li>
+<li><span aria-hidden="true">🚀</span> <strong>Soporte o base</strong> para el lanzamiento.</li>
+<li><span aria-hidden="true">📏</span> <strong>Cinta adhesiva</strong>.</li>
+</ul>
+<div style="background-color: #f8d7da; border-left: 5px solid #dc3545; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+<p><span aria-hidden="true">⚠️</span> <strong>¡Aviso importante de seguridad!</strong> La botella de plástico <strong>DEBE ser de una bebida con gas</strong> (como un refresco). Las botellas de agua normal no están diseñadas para soportar presión y podrían reventar de forma peligrosa al inflarlas.</p>
+</div></div>
+</div>
+</div>
+</article><article id="block-mpczpc15-hyowhr2pw" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Laboratorio de Vuelo: Fase de Predicción 🔬</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc15-mu089twsd" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc15-mu089twsd&quot;}">
+<div>
+<p>Antes de ir al patio, debemos configurar el cohete. Para aprender a hacerlo, nuestros amigos nos echarán una mano con este simulador de cohete de agua que nos han preparado.</p>
+<div style="background: #ebf5fb; padding: 15px; border-left: 5px solid #2980b9; margin: 15px 0;">
+<p style="margin-top: 0;"><strong><span aria-hidden="true">📊</span> Telemetría Real: ¿Por qué hay que proteger el satélite?</strong></p>
+<p style="margin-bottom: 0;">En un lanzamiento real a 60 <a href="#tb664349f-9c7a-516c-7a95-ec2d3920a1eb" id="linkb664349f-9c7a-516c-7a95-ec2d3920a1eb" class="exe-tooltip definition-tt titled-tt" title="Presión | PSI">PSI</a>, un cohete de agua alcanza los <strong>150 km/h en fracciones de segundo</strong>. Esto genera unas <em>Fuerzas G</em> brutales en el despegue. Puede volar a más de <strong>50 metros de altura</strong>, por eso la carcasa de nuestro MiniCanSat es vital para que la placa electrónica no se destruya.</p>
+</div>
+<p><em>Instrucciones: Configuramos el panel y pulsamos el botón </em>🚀<em> (también se puede pulsar en el personaje o el cohete) para lanzar. El botón </em><span aria-hidden="true">🖼️</span><em> ocultará el fondo cuando necesitemos concentraros. ¡Activad el sonido </em>🔊<em> para una experiencia más divertida! Recomendamos visualizar a pantalla completa ⛶.</em></p>
+</div>
+<p><cansat-flight-lab id-config="lab-config" id-fondos="lab-fondos" id-personajes="lab-personajes" id-mensajes="lab-mensajes" id-mapeo-poses="lab-mapeo-poses"><br /><span style="margin: 20px; border: 3px dashed #3498db; background: #fdfefe; color: #2980b9; padding: 30px; text-align: center; border-radius: 10px; font-weight: bold; font-size: 1.1em;">🚀 PREPARANDO LABORATORIO DE VUELO...<span style="font-size: 0.8em; font-weight: normal; color: #555;">(El simulador interactivo se activará al visualizar el recurso)</span></span></cansat-flight-lab></p>
+<p></p>
+<div id="tb664349f-9c7a-516c-7a95-ec2d3920a1eb" class="exe-tooltip-text">
+<p><strong>La Presión</strong> es la fuerza que el aire ejerce contra las paredes de la botella al estar comprimido. Se mide en <strong>PSI</strong> (Pound-force per Square Inch-Libras por pulgada cuadrada).</p>
+<ul>
+<li><strong>Ejemplo:</strong> Las ruedas de un coche suelen tener unos 32 PSI.</li>
+<li><strong>En nuestro cohete:</strong> 60 PSI es una presión ideal y segura. Superar los 90 PSI es peligroso, ¡la botella podría reventar!</li>
+</ul>
+</div>
+<div style="background: #f4f6f7; border-left: 5px solid #e67e22; padding: 20px; margin-top: 20px; border-radius: 0 8px 8px 0;">
+<p><strong>🤔 Diario de Misión (Reflexión):</strong></p>
+<ul>
+<li>Anotaremos qué porcentaje exacto de agua y qué presión nos ha dado la mayor altitud en el simulador.</li>
+<li>¿Qué paracaídas elegiríamos si quisiéramos medir un parámetro de calidad del aire durante mucho tiempo y no importase el viento?</li>
+</ul>
+</div>
+<hr />
+<div id="lab-config">
+<table border="1" class="exe-table">
+<thead>
+<tr>
+<th>Título Lab</th>
+<th>Botón Lanzar</th>
+<th>Botón Reintentar</th>
+<th>Mensaje Inicial (Bocadillo)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flight Lab MiniCanSat</td>
+<td>DESPEGAR</td>
+<td>REINTENTAR PRUEBA</td>
+<td>Llena la botella de agua, ajusta la presión y elige el paracaídas. ¡No olvides las gafas de seguridad!</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="lab-fondos">
+<table border="1" class="exe-table">
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Imagen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lanzamiento</td>
+<td><img src="../content/resources/fondo_lanzamiento.jpg" width="80" alt="Fondo Lanzamiento" /></td>
+</tr>
+<tr>
+<td>cohete</td>
+<td><img src="../content/resources/cohete_sticker.png" width="50" alt="Cohete" height="104" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="lab-mapeo-poses">
+<table border="1" class="exe-table">
+<thead>
+<tr>
+<th>Momento</th>
+<th>ID Interno</th>
+<th>Pose a mostrar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Esperando</td>
+<td>espera</td>
+<td>explicando</td>
+</tr>
+<tr>
+<td>Listo</td>
+<td>listo</td>
+<td>feliz</td>
+</tr>
+<tr>
+<td>Subiendo</td>
+<td>subida</td>
+<td>decidida</td>
+</tr>
+<tr>
+<td>Bajada OK</td>
+<td>bajada-ok</td>
+<td>gafas-feliz</td>
+</tr>
+<tr>
+<td>Bajada Error</td>
+<td>bajada-error</td>
+<td>preocupado</td>
+</tr>
+<tr>
+<td>Fin OK</td>
+<td>fin-ok</td>
+<td>feliz</td>
+</tr>
+<tr>
+<td>Fin Error</td>
+<td>fin-error</td>
+<td>triste</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="lab-personajes">
+<table border="1" class="exe-table">
+<thead>
+<tr>
+<th>Personaje</th>
+<th>Pose</th>
+<th>Imagen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alex</td>
+<td>feliz</td>
+<td><img src="../content/resources/pers_alex_feliz.png" width="80" alt="Alex" /></td>
+</tr>
+<tr>
+<td>alex</td>
+<td>explicando</td>
+<td><img src="../content/resources/pers_alex_explica.png" width="80" alt="Alex" /></td>
+</tr>
+<tr>
+<td>alex</td>
+<td>decidida</td>
+<td><img src="../content/resources/pers_alex_orgulloso.png" width="50" alt="Alex" height="118" /></td>
+</tr>
+<tr>
+<td>alex</td>
+<td>preocupado</td>
+<td><img src="../content/resources/pers_alex_preocupado.png" width="80" alt="Alex" /></td>
+</tr>
+<tr>
+<td>alex</td>
+<td>triste</td>
+<td><img src="../content/resources/pers_alex_serio.png" width="80" alt="Alex" /></td>
+</tr>
+<tr>
+<td>alex</td>
+<td>gafas-feliz</td>
+<td><img src="../content/resources/pers_alex_feliz_gafas.png" width="50" alt="Alex Gafas" height="94" /></td>
+</tr>
+<tr>
+<td>sara</td>
+<td>feliz</td>
+<td><img src="../content/resources/pers_sara_feliz.png" width="80" alt="Sara" /></td>
+</tr>
+<tr>
+<td>sara</td>
+<td>explicando</td>
+<td><img src="../content/resources/pers_sara_explica.png" width="80" alt="Sara" /></td>
+</tr>
+<tr>
+<td>sara</td>
+<td>decidida</td>
+<td><img src="../content/resources/pers_sara_decidida.png" width="80" alt="Sara" /></td>
+</tr>
+<tr>
+<td>sara</td>
+<td>preocupado</td>
+<td><img src="../content/resources/pers_sara_preocupada.png" width="50" alt="Sara" height="120" /></td>
+</tr>
+<tr>
+<td>sara</td>
+<td>triste</td>
+<td><img src="../content/resources/pers_sara_serio.png" width="50" alt="Sara triste" height="124" /></td>
+</tr>
+<tr>
+<td>sara</td>
+<td>gafas-feliz</td>
+<td><img src="../content/resources/pers_sara_feliz_gafas.png" width="50" alt="Sara Gafas" height="95" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="lab-mensajes">
+<table border="1" class="exe-table">
+<thead>
+<tr>
+<th>ID Caso</th>
+<th>Título Ventana</th>
+<th>Mensaje Explicativo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>poca-agua</td>
+<td>⚠️ Misión Fallida</td>
+<td>¡Faltó empuje! El cohete no tenía suficiente masa de agua para elevarse. Prueba con 1/3 de agua.</td>
+</tr>
+<tr>
+<td>mucha-agua</td>
+<td>⚠️ Misión Fallida</td>
+<td>¡Demasiado peso! El cohete es tan pesado que el aire a presión no tiene fuerza para levantarlo.</td>
+</tr>
+<tr>
+<td>poca-presion</td>
+<td>⚠️ Misión Fallida</td>
+<td>¡Falta de energía! La presión era insuficiente para vencer la gravedad del cohete.</td>
+</tr>
+<tr>
+<td>exito-S</td>
+<td>✅ ¡Vuelo Conseguido!</td>
+<td>¡Altura máxima! Pero el paracaídas es muy pequeño y el aterrizaje ha sido brusco. ¡Peligro para los sensores!</td>
+</tr>
+<tr>
+<td>exito-M</td>
+<td>🏆 ¡Misión Perfecta!</td>
+<td>¡Increíble! Has encontrado el equilibrio perfecto entre agua, presión y frenado. ¡Aterrizaje suave!</td>
+</tr>
+<tr>
+<td>exito-L</td>
+<td>✅ ¡Vuelo Conseguido!</td>
+<td>¡Buen vuelo! Pero el paracaídas es tan grande que el viento se está llevando el satélite muy lejos del patio.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--El script -->
+<p>
+<script>
+/**
+ * Componente: cansat-flight-lab (V13 - Escalado Fullscreen Total y Sonido Presión)
+ */
+class CansatFlightLab extends HTMLElement {
+    constructor() {
+   super();
+   this.attachShadow({ mode: 'open' });
+   this.state = { 
+  flying: false, sound: false, bgVisible: true, 
+  ready: false, pilot: Math.random() > 0.5 ? 'alex' : 'sara',
+  water: 0, para: 0, pressure: 0
+   };
+   this.data = { ui: {}, backgrounds: {}, characters: {}, messages: {}, poseMapping: {} };
+    }
+
+    connectedCallback() { setTimeout(() => this.init(), 100); }
+
+    init() {
+   this.loadExternalData();
+   this.render();
+   this.setupEvents();
+    }
+
+    loadExternalData() {
+   const getTable = (id) => document.getElementById(this.getAttribute(id));
+   
+   const tUi = getTable('id-config');
+   if (tUi) {
+  const tbody = tUi.querySelector('tbody');
+  if (tbody) {
+ const c = tbody.querySelectorAll('td');
+ if (c.length >= 3) {
+this.data.ui = { 
+    title: c[0].textContent, launch: c[1].textContent, retry: c[2].textContent,
+    initialMsg: c[3] ? c[3].textContent.trim() : "¡Configura el cohete y despega!"
+};
+ }
+  }
+  tUi.remove();
+   }
+
+   const tBg = getTable('id-fondos');
+   if (tBg) {
+  tBg.querySelectorAll('tbody tr').forEach(r => {
+ const c = r.querySelectorAll('td');
+ if (c.length >= 2) this.data.backgrounds[c[0].textContent.trim()] = c[1].querySelector('img')?.src || c[1].textContent.trim();
+  });
+  tBg.remove();
+   }
+
+   const tCh = getTable('id-personajes');
+   if (tCh) {
+  tCh.querySelectorAll('tbody tr').forEach(r => {
+ const c = r.querySelectorAll('td');
+ if (c.length >= 3) {
+const name = c[0].textContent.trim().toLowerCase();
+const pose = c[1].textContent.trim().toLowerCase();
+if (!this.data.characters[name]) this.data.characters[name] = {};
+this.data.characters[name][pose] = c[2].querySelector('img')?.src || c[2].textContent.trim();
+ }
+  });
+  tCh.remove();
+   }
+
+   const tMsg = getTable('id-mensajes');
+   if (tMsg) {
+  tMsg.querySelectorAll('tbody tr').forEach(r => {
+ const c = r.querySelectorAll('td');
+ if (c.length >= 3) {
+this.data.messages[c[0].textContent.trim()] = { title: c[1].textContent, text: c[2].textContent };
+ }
+  });
+  tMsg.remove();
+   }
+
+   const tMap = getTable('id-mapeo-poses');
+   if (tMap) {
+  tMap.querySelectorAll('tbody tr').forEach(r => {
+ const c = r.querySelectorAll('td');
+ if (c.length >= 3) {
+this.data.poseMapping[c[1].textContent.trim()] = c[2].textContent.trim().toLowerCase();
+ }
+  });
+  tMap.remove();
+   }
+    }
+
+    render() {
+   this.shadowRoot.innerHTML = `
+   <style>
+  :host { display: block; width: 752px; height: 423px; max-width: 100%; margin: 20px auto; position: relative; overflow: hidden; border: 0.25em solid #2c3e50; border-radius: 0.8em; background: #000; font-family: sans-serif; --base-size: 16px; }
+  :host(:fullscreen) { width: 100vw; height: 100vh; max-width: none; border: none; border-radius: 0; --base-size: 26px; }
+  
+  #app { width: 100%; height: 100%; display: flex; flex-direction: column; font-size: var(--base-size); background: #87ceeb; }
+  #world { flex: 1; position: relative; overflow: hidden; }
+  #bg-img { position: absolute; inset: 0; background-size: cover; background-position: center bottom; background-image: url('${this.data.backgrounds.lanzamiento}'); transition: opacity 0.4s; }
+  #bg-img.hidden { opacity: 0; }
+  
+  .tools { position: absolute; top: 0.8em; right: 0.8em; display: flex; gap: 0.6em; z-index: 100; }
+  .btn-t { background: white; border: 0.15em solid #2c3e50; border-radius: 50%; width: 2.2em; height: 2.2em; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1em; box-shadow: 0 0.2em 0.5em rgba(0,0,0,0.3); }
+  #telemetry { position: absolute; top: 0.8em; left: 0.8em; background: rgba(0,0,0,0.8); color: #0f0; padding: 0.5em 0.8em; border-radius: 0.5em; font-family: monospace; font-size: 0.85em; border: 0.1em solid #0f0; z-index: 50; }
+  
+  #rocket { position: absolute; bottom: 0; left: 25%; width: 18%; height: 60%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; z-index: 60; transform-origin: bottom center; }
+  #parachute { width: 100%; height: 35%; font-size: 3.5em; opacity: 0; transition: 0.4s; transform: translateY(1em); display: flex; align-items: flex-end; justify-content: center; z-index: 59;}
+  :host(:fullscreen) #parachute { font-size: 5em; } /* Escalado extra para fullscreen */
+  
+  #rocket-body { width: 100%; height: 65%; background: url('${this.data.backgrounds.cohete}') no-repeat center bottom; background-size: contain; filter: drop-shadow(0 0.2em 0.5em rgba(0,0,0,0.4)); cursor: pointer; z-index: 61; }
+  
+  #pilot-layer { position: absolute; bottom: 0; right: 2%; width: 40%; height: 85%; z-index: 70; pointer-events: none; }
+  #pilot { position: absolute; bottom: 0; right: 0; width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; background-position: bottom right; transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s; transform: translateX(120%); pointer-events: auto; cursor: pointer; }
+  #pilot.active { transform: translateX(0); }
+  
+  #bubble { position: absolute; top: 10%; right: 75%; background: white; color: #2c3e50; padding: 0.8em; border-radius: 0.8em; font-size: 0.85em; font-weight: bold; border: 0.2em solid #2980b9; width: 12em; opacity: 0; transition: 0.4s ease; text-align: center; }
+  #bubble.show { opacity: 1; }
+  :host(:fullscreen) #bubble { font-size: 1.1em; width: 14em; } /* Escalado extra para fullscreen */
+  
+  #ui-panel { height: 5.5em; background: #ecf0f1; border-top: 0.2em solid #2c3e50; display: flex; align-items: center; justify-content: space-around; padding: 0 1em; }
+  .ctrl-group { display: flex; align-items: center; gap: 0.5em; border: 0.15em solid transparent; border-radius: 0.5em; transition: 0.3s; }
+  .ctrl-stack { display: flex; flex-direction: column; align-items: center; font-size: 0.8em; font-weight: bold; color: #34495e; gap: 2px; }
+  
+  input[type=range] { width: 7em; cursor: pointer; accent-color: #2980b9; }
+  input[type=range]:disabled { opacity: 0.5; cursor: not-allowed; }
+  :host(:fullscreen) input[type=range] { transform: scale(1.3); margin: 0.5em 0; } /* Escalado deslizadores */
+  
+  .bottle-wrapper { position: relative; width: 1.8em; height: 3.2em; margin-right: 0.2em; }
+  .b-lip { position: absolute; top: 0; left: 20%; width: 60%; height: 0.3em; background: #2c3e50; border-radius: 0.1em; z-index: 2; }
+  .b-neck { position: absolute; top: 0.2em; left: 35%; width: 30%; height: 0.8em; background: white; border: 0.15em solid #2c3e50; border-bottom: none; z-index: 1; }
+  .b-body { position: absolute; top: 0.9em; left: 0; width: 100%; height: 2.3em; border: 0.15em solid #2c3e50; border-radius: 0.5em 0.5em 0.2em 0.2em; overflow: hidden; background: #fff; box-sizing: border-box; }
+  .b-fill { position: absolute; bottom: 0; left: 0; width: 100%; background: #3498db; transition: height 0.3s; }
+
+  input[type=range].danger { accent-color: red !important; }
+  input[type=range].warn { accent-color: orange !important; }
+  .press-val.warn { color: orange; }
+  .press-val.danger { color: red; font-weight: bold; }
+  
+  .p-btn { padding: 0.3em 0.8em; border: 1px solid #bdc3c7; background: white; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 0.9em; }
+  .p-btn.active { background: #2980b9; color: white; border-color: #1a5276; }
+  .p-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  
+  #launch-btn { background: #bdc3c7; color: white; border: none; padding: 0.6em 1.5em; border-radius: 2em; font-weight: bold; cursor: not-allowed; font-size: 1em; transition: 0.3s; box-shadow: 0 0.2em 0 #95a5a6; }
+  #launch-btn.ready { background: #e67e22; cursor: pointer; box-shadow: 0 0.3em 0 #d35400; }
+  
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+  .shake { animation: shake 0.4s ease-in-out; border-color: #e74c3c !important; }
+
+  @keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5em); } }
+  .anim-jump { animation: jump 0.5s infinite; }
+
+  #modal { position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: none; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 2em; text-align: center; z-index: 200; backdrop-filter: blur(4px); }
+  
+  /* Botón reintentar SIN píxeles fijos para que escale con EM */
+  #retry-btn { margin-top: 1.5em; font-size: 1.2em; padding: 0.6em 1.5em; background: #2ecc71; color: white; border: none; border-radius: 2em; cursor: pointer; font-weight: bold; box-shadow: 0 0.2em 0 #27ae60; transition: 0.2s; }
+  #retry-btn:active { transform: translateY(0.2em); box-shadow: none; }
+  :host(:fullscreen) #retry-btn { font-size: 1.5em; }
+   </style>
+
+   <div id="app">
+  <div id="world">
+ <div id="bg-img"></div>
+ <div class="tools">
+<button class="btn-t" id="bg-t" title="Ocultar Fondo">🖼️</button>
+<button class="btn-t" id="snd-t" title="Sonido">🔇</button>
+<button class="btn-t" id="fs-t" title="Pantalla Completa">⛶</button>
+ </div>
+ <div id="telemetry">STAT: <span id="stat">READY</span><br>ALT : <span id="alt">0</span> m | VEL : <span id="vel">0</span> km/h</div>
+ <div id="rocket"><div id="parachute">🪂</div><div id="rocket-body"></div></div>
+ <div id="pilot-layer"><div id="bubble">${this.data.ui.initialMsg}</div><div id="pilot"></div></div>
+ <div id="modal">
+<h2 id="m-title"></h2><p id="m-desc"></p>
+<button id="retry-btn">${this.data.ui.retry}</button>
+ </div>
+  </div>
+
+  <div id="ui-panel">
+ <div class="ctrl-group" id="ctrl-water">
+<div class="bottle-wrapper">
+    <div class="b-lip"></div><div class="b-neck"></div>
+    <div class="b-body"><div class="b-fill" id="b-fill" style="height: 0%"></div></div>
+</div>
+<div class="ctrl-stack">
+    <span>AGUA: <span id="w-txt">0</span>%</span>
+    <input type="range" id="w-in" min="0" max="100" value="0">
+    <span style="font-size: 0.8em; opacity: 0; pointer-events: none;">(Máx. rec: 70)</span>
+</div>
+ </div>
+
+ <div class="ctrl-group" id="ctrl-pressure">
+<div class="ctrl-stack">
+    <span>PRESIÓN: <span id="p-txt" class="press-val">0</span> PSI</span>
+    <input type="range" id="p-in" min="0" max="110" value="0">
+    <span style="font-size: 0.8em; font-weight: normal;">(Máx. rec: 70)</span>
+</div>
+ </div>
+
+ <div class="ctrl-group" id="ctrl-para" style="flex-direction:column; gap:4px;">
+<span style="font-size:0.8em; font-weight:bold; color:#34495e;">PARACAÍDAS</span>
+<div style="display:flex; gap:4px;">
+    <button class="p-btn" data-p="1">S</button><button class="p-btn" data-p="2">M</button><button class="p-btn" data-p="3">L</button>
+</div>
+ </div>
+
+ <button id="launch-btn" disabled>${this.data.ui.launch} 🚀</button>
+  </div>
+   </div>
+   `;
+    }
+
+    setupEvents() {
+   const sr = this.shadowRoot;
+   setTimeout(() => { this.setPose('espera'); sr.getElementById('pilot').classList.add('active'); sr.getElementById('bubble').classList.add('show'); }, 500);
+
+   sr.getElementById('bg-t').onclick = (e) => { this.state.bgVisible = !this.state.bgVisible; sr.getElementById('bg-img').classList.toggle('hidden', !this.state.bgVisible); e.target.classList.toggle('off', !this.state.bgVisible);};
+   sr.getElementById('snd-t').onclick = (e) => { this.state.sound = !this.state.sound; e.target.textContent = this.state.sound ? '🔊' : '🔇'; e.target.classList.toggle('off', !this.state.sound); if(this.state.sound) this.initAudio(); };
+   sr.getElementById('fs-t').onclick = () => { if (!document.fullscreenElement) this.requestFullscreen(); else document.exitFullscreen(); };
+
+   const wIn = sr.getElementById('w-in');
+   let lastSoundTime = 0;
+   wIn.oninput = (e) => {
+  const val = parseInt(e.target.value);
+  this.state.water = val;
+  sr.getElementById('w-txt').textContent = val;
+  sr.getElementById('b-fill').style.height = val + "%";
+  this.updateReady();
+  const now = performance.now();
+  if (now - lastSoundTime > 60) { this.playTone(200 + (val * 4), 'sine', 0.05); lastSoundTime = now; }
+   };
+
+   const pIn = sr.getElementById('p-in');
+   const pTxt = sr.getElementById('p-txt');
+   const bubble = sr.getElementById('bubble');
+   let lastPressSoundTime = 0;
+
+   pIn.oninput = (e) => {
+  const val = parseInt(e.target.value);
+  this.state.pressure = val;
+  pTxt.textContent = val;
+  
+  pIn.className = "";
+  pTxt.className = "press-val";
+  bubble.textContent = this.data.ui.initialMsg;
+  this.updateReady(); 
+
+  // Sonido mecánico/compresor para la presión
+  const now = performance.now();
+  if (now - lastPressSoundTime > 60) { this.playTone(150 + (val * 3), 'square', 0.05); lastPressSoundTime = now; }
+
+  if (val > 90) {
+ pIn.classList.add('danger');
+ pTxt.classList.add('danger');
+ bubble.textContent = "⚠️ ¡PELIGRO! Presión crítica. La botella podría explotar. Baja la presión.";
+ bubble.classList.add('show');
+ this.setPoseByMood('danger');
+  } else if (val > 70) {
+ pIn.classList.add('warn');
+ pTxt.classList.add('warn');
+ bubble.textContent = "⚠️ Cuidado, estás cerca del límite de seguridad.";
+ bubble.classList.add('show');
+  }
+   };
+
+   sr.querySelectorAll('.p-btn').forEach(btn => {
+  btn.onclick = () => { 
+ if (this.state.flying) return;
+ sr.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active')); 
+ btn.classList.add('active'); 
+ this.state.para = parseInt(btn.dataset.p); 
+ this.updateReady(); 
+ this.playTone(600, 'triangle', 0.1);
+  };
+   });
+
+   const tryGo = () => {
+  if (this.state.flying) return;
+  if (this.state.ready) this.launch();
+  else { this.playTone(150, 'square', 0.2); sr.getElementById('launch-btn').classList.add('shake'); setTimeout(() => sr.getElementById('launch-btn').classList.remove('shake'), 400); }
+   };
+   sr.getElementById('launch-btn').onclick = tryGo;
+   sr.getElementById('rocket-body').onclick = tryGo;
+   sr.getElementById('pilot').onclick = tryGo;
+   sr.getElementById('retry-btn').onclick = () => this.reset();
+    }
+
+    updateReady() {
+   const btn = this.shadowRoot.getElementById('launch-btn');
+   this.state.ready = this.state.water > 0 && this.state.para > 0 && this.state.pressure > 0 && this.state.pressure <= 90;
+   
+   btn.classList.toggle('ready', this.state.ready);
+   btn.disabled = !this.state.ready; 
+   
+   if(this.state.flying) return; 
+
+   if(this.state.ready) { 
+  this.setPose('listo'); 
+  this.shadowRoot.getElementById('bubble').classList.remove('show'); 
+   } else if (this.state.pressure <= 90) {
+  this.setPose('espera');
+   }
+    }
+
+    setPose(moment) {
+   const pose = this.data.poseMapping[moment];
+   const url = this.data.characters[this.state.pilot][pose];
+   if (url) this.shadowRoot.getElementById('pilot').style.backgroundImage = `url('${url}')`;
+    }
+
+    setPoseByMood(mood) {
+   const pilot = this.shadowRoot.getElementById('pilot');
+   let pose = 'explicando';
+   if (mood === 'danger') pose = 'preocupado';
+   if (mood === 'gafas') pose = 'gafas-feliz';
+
+   const url = this.data.characters[this.state.pilot][pose];
+   if (url) pilot.style.backgroundImage = `url('${url}')`;
+    }
+
+    launch() {
+   this.state.flying = true;
+   const sr = this.shadowRoot;
+   
+   sr.getElementById('launch-btn').disabled = true;
+   sr.getElementById('w-in').disabled = true;
+   sr.getElementById('p-in').disabled = true;
+   sr.querySelectorAll('.p-btn').forEach(btn => btn.disabled = true);
+   
+   sr.getElementById('bubble').classList.remove('show');
+
+   this.setPoseByMood('gafas');
+   this.playTone(300, 'sine', 0.5); 
+
+   setTimeout(() => {
+  const p = this.state.pressure;
+  const w = this.state.water / 100;
+  
+  const efficiency = (-13.5 * w * w) + (9 * w);
+  const aeroLoss = 1 - (p * 0.002); 
+
+  let maxAlt = (p * 0.9) * efficiency * aeroLoss;
+  let success = maxAlt > 25; 
+
+  if (maxAlt < 5) maxAlt = 5; 
+  
+  if (success) {
+ sr.getElementById('pilot').classList.add('anim-jump');
+  }
+
+  this.playRocketSound(success ? 2.2 : 1);
+
+  const rocket = sr.getElementById('rocket');
+  const altT = sr.getElementById('alt');
+  const velT = sr.getElementById('vel');
+  
+  let curAlt = 0;
+  const start = performance.now();
+  const duration = success ? 2200 : 1000;
+
+  const up = (now) => {
+ const elapsed = now - start;
+ const progress = Math.min(elapsed / duration, 1);
+ curAlt = (1 - Math.pow(1 - progress, 2)) * maxAlt;
+ 
+ rocket.style.bottom = curAlt + "%";
+ altT.textContent = Math.floor(curAlt);
+ velT.textContent = Math.floor((1 - progress) * Math.sqrt(p) * 15 * efficiency);
+ sr.getElementById('stat').textContent = "ASCENT";
+
+ if (progress < 1) requestAnimationFrame(up);
+ else this.descend(success, maxAlt);
+  };
+  requestAnimationFrame(up);
+   }, 800); 
+    }
+
+    descend(isSuccess, maxAlt) {
+   const sr = this.shadowRoot;
+   sr.getElementById('stat').textContent = "DESCENT";
+   
+   sr.getElementById('pilot').classList.remove('anim-jump');
+   
+   if (isSuccess) {
+  sr.getElementById('parachute').style.opacity = "1";
+  this.setPose('bajada-ok');
+   } else {
+  this.setPose('bajada-error');
+   }
+
+   let fallTime = 800;
+   if (isSuccess) {
+  if (this.state.para === 1) fallTime = 1800;
+  else if (this.state.para === 2) fallTime = 4000;
+  else fallTime = 7000;
+   }
+
+   sr.getElementById('rocket').style.transition = `bottom ${fallTime}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
+   setTimeout(() => {
+  sr.getElementById('rocket').style.bottom = "0%";
+  setTimeout(() => this.finish(isSuccess, maxAlt), fallTime + 2500);
+   }, 50);
+    }
+
+    finish(ok, alt) {
+   const sr = this.shadowRoot;
+   const modal = sr.getElementById('modal');
+   const p = this.state.para;
+   const press = this.state.pressure;
+   
+   let key = "exito";
+   if (!ok) {
+  if (this.state.water < 20) key = "poca-agua";
+  else if (this.state.water > 70) key = "mucha-agua";
+  else if (press < 30) key = "poca-presion"; 
+   } else {
+  if (p === 1) key = "exito-S";
+  if (p === 2) key = "exito-M";
+  if (p === 3) key = "exito-L";
+   }
+
+   const msg = this.data.messages[key] || { title: "Misión finalizada", text: "Vuelo completado." };
+   
+   sr.getElementById('stat').textContent = ok ? "LANDED" : "CRASHED";
+   sr.getElementById('m-title').textContent = msg.title;
+   sr.getElementById('m-title').style.color = ok ? "#2ecc71" : "#e74c3c";
+   sr.getElementById('m-desc').textContent = `Altura alcanzada: ${Math.floor(alt)} metros. ` + msg.text;
+   
+   this.setPose(ok ? 'fin-ok' : 'fin-error');
+   modal.style.display = "flex";
+   if (ok) { [440, 554, 659, 880].forEach((f, i) => setTimeout(() => this.playTone(f, 'sine', 0.5), i * 150)); }
+   else { this.playCrashSound(); }
+    }
+
+    reset() {
+   this.state.flying = false; 
+   this.state.ready = false; 
+   this.state.water = 0; 
+   this.state.para = 0; 
+   this.state.pressure = 0; 
+   this.state.pilot = Math.random() > 0.5 ? 'alex' : 'sara';
+   
+   const sr = this.shadowRoot;
+   sr.getElementById('modal').style.display = "none";
+   sr.getElementById('parachute').style.opacity = "0";
+   sr.getElementById('rocket').style.transition = "none";
+   sr.getElementById('rocket').style.bottom = "0%";
+   
+   sr.getElementById('w-in').value = 0; 
+   sr.getElementById('w-in').disabled = false;
+   sr.getElementById('w-txt').textContent = "0"; 
+   sr.getElementById('b-fill').style.height = "0%";
+   
+   sr.getElementById('p-in').value = 0; 
+   sr.getElementById('p-in').disabled = false;
+   sr.getElementById('p-txt').textContent = "0"; 
+   sr.getElementById('p-in').className = ""; 
+   sr.getElementById('p-txt').className = "press-val";
+   
+   sr.querySelectorAll('.p-btn').forEach(b => {
+  b.classList.remove('active');
+  b.disabled = false;
+   });
+   
+   sr.getElementById('stat').textContent = "READY"; 
+   sr.getElementById('alt').textContent = "0"; 
+   sr.getElementById('vel').textContent = "0";
+   sr.getElementById('bubble').textContent = this.data.ui.initialMsg;
+   
+   this.updateReady(); 
+   this.setPose('espera');
+   
+   setTimeout(() => { if(!this.state.ready) sr.getElementById('bubble').classList.add('show'); }, 500);
+    }
+
+    initAudio() { if (!this.audioCtx) this.audioCtx = new AudioContext(); }
+    playTone(f, t, d) { if (!this.state.sound || !this.audioCtx) return; const o = this.audioCtx.createOscillator(); const g = this.audioCtx.createGain(); o.type = t; o.frequency.setValueAtTime(f, this.audioCtx.currentTime); g.gain.setValueAtTime(0.1, this.audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + d); o.connect(g); g.connect(this.audioCtx.destination); o.start(); o.stop(this.audioCtx.currentTime + d); }
+    playRocketSound(dur) { if (!this.state.sound || !this.audioCtx) return; const b = this.audioCtx.createBuffer(1, this.audioCtx.sampleRate * dur, this.audioCtx.sampleRate); const d = b.getChannelData(0); for (let i = 0; i < b.length; i++) d[i] = Math.random() * 2 - 1; const s = this.audioCtx.createBufferSource(); s.buffer = b; const f = this.audioCtx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.setValueAtTime(800, this.audioCtx.currentTime); f.frequency.exponentialRampToValueAtTime(100, this.audioCtx.currentTime + dur); const g = this.audioCtx.createGain(); g.gain.setValueAtTime(0.3, this.audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + dur); s.connect(f); f.connect(g); g.connect(this.audioCtx.destination); s.start(); }
+    playCrashSound() { if (!this.state.sound || !this.audioCtx) return; const o = this.audioCtx.createOscillator(); const g = this.audioCtx.createGain(); o.type = 'square'; o.frequency.setValueAtTime(150, this.audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(30, this.audioCtx.currentTime + 0.5); g.gain.setValueAtTime(0.3, this.audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.5); o.connect(g); g.connect(this.audioCtx.destination); o.start(); o.stop(this.audioCtx.currentTime + 0.5); }
+}
+customElements.define('cansat-flight-lab', CansatFlightLab);
+</script>
+</p>
+</div>
+</div>
+</article><article id="block-mpczpc15-0ty7r0l55" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Nuestro cohete de agua ¡real!</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc15-wbda13qv8" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc15-wbda13qv8&quot;}">
+<p>¡Es hora de diseñar nuestro propio sistema de lanzamiento espacial! Trabajaremos como un equipo de ingenieros que prepara una misión de despegue. Este cohete de agua nos permitirá lanzar nuestro MiniCanSat a una buena altura, con seguridad y emoción. Siguiendo con atención los pasos descritos en las siguientes pestañas, lograremos construir un cohete de agua con su lanzadera.</p>
+<div class="exe-fx exe-tabs">
+<h2>PASO 1: Cohete</h2>
+<p>Vamos a construir nuestro cohete de agua. Para ello, seguiremos estos pasos:</p>
+<ul class="listaResaltada">
+<li>Tomamos una <strong>botella de plástico resistente (de bebida con gas)</strong> y la llenamos aproximadamente 1/3 de su capacidad con agua.</li>
+<li>Insertamos un <strong>tapón de corcho</strong> o un <a href="https://www.thingiverse.com/thing:4951002" target="_blank" rel="noopener" title="Abre en nueva ventana">tapón especial impreso en 3D</a> que encaje firmemente en la boca de la botella.</li>
+</ul>
+<figure class="exe-figure exe-image position-center license-CC-BY-SA" style="width: 560px;"><a href="../content/resources/PASO-1-Cohete.jpg" target="_blank" rel="lightbox noopener" title="Ampliar imagen"><img src="../content/resources/PASO-1-Cohete.jpg" alt="Ilustración de botella de plástico llena de agua con un tapón de corcho" title="Paso 1: Botella, agua y tapón" width="560" height="420" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="author">Joaquín Pagador</span>. <span class="title"><em>Paso 1: Botella, agua y tapón</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+<p>Además, necesitamos idear un <strong>sistema para alojar el MiniCanSat</strong>. Una opción es crear un compartimento usando una tira ancha (de unos 20 cm), que puede recortarse del cuerpo de otra botella de plástico o de un trozo de cartón. Esta tira se fija con cinta en la parte superior del cohete para que el MiniCanSat quede bien sujeto durante el lanzamiento (<a href="../content/resources/PASO-1-Cohete-COMPARTIMENTO.jpg" target="_blank" rel="lightbox noopener" title="Ampliar imagen">Ver ilustración</a>).</p>
+<h2>PASO 2: Presurización</h2>
+<p>Antes de que un cohete pueda despegar, necesita acumular energía. En nuestro caso, eso lo lograremos generando <strong>presión</strong> dentro de la botella. Esa presión será la que empuje el agua hacia abajo y haga que el cohete salga disparado hacia arriba.</p>
+<ul class="listaResaltada">
+<li>Conectamos la bomba al tapón. Podemos usar una <strong>aguja de inflado</strong> como la de los balones y pincharla directamente en el corcho. Si usamos el <a href="https://www.thingiverse.com/thing:4951002" target="_blank" rel="noopener" title="Abre en nueva ventana">tapón-lanzadera impreso en 3D</a>, no necesitamos la aguja, ya que está preparada para conectar la bomba directamente con su válvula.</li>
+<li>Inflamos la botella con la bomba para aumentar la presión. Podemos inflar hasta alcanzar una presión de <strong>entre 2 y 3 bares</strong> (unos 30 a 45 psi). Esta presión es suficiente para que el cohete despegue bien y de forma segura, siempre que la botella esté en buen estado.</li>
+</ul>
+<figure class="exe-figure exe-image position-center license-CC-BY-SA" style="width: 560px;"><a href="../content/resources/PASO-1-Presurizacion.jpg" target="_blank" rel="lightbox noopener" title="Ampliar imagen"><img src="../content/resources/PASO-1-Presurizacion.jpg" alt="Ilustración de una bomba inflando una botella de plástico medio llena de agua" title="Paso 2: Presurización" width="560" height="420" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="author">Joaquín Pagador</span>. <span class="title"><em>Paso 2: Presurización</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+<p>Para mantener el cohete en posición antes del lanzamiento, podemos idear un <strong>sistema de apoyo o sujeción</strong>, como una estructura inclinada hecha con cartón, tubos de PVC o una canaleta. También se puede sujetar con la mano, teniendo mucho cuidado de no colocarnos nunca en la trayectoria del cohete. Si hemos impreso la lanzadera en 3D, esta ya incluye un sistema de sujeción integrado, lo que la convierte en una opción muy segura.</p>
+<div style="background-color: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+<p><span aria-hidden="true">🛡️</span> <strong>¡Protocolo de Seguridad! (<span style="color: #4c9f38;">ODS 3: Salud y bienestar</span>):</strong> Alcanzar presiones de 2 a 3 bares acumula mucha energía. Es obligatorio que <strong>la persona que bombea lleve gafas de protección</strong> y que el resto del equipo se mantenga a un <strong>perímetro de seguridad de al menos 5 metros</strong>.</p>
+</div>
+<h2>PASO 3: Lanzamiento</h2>
+<p>¡Vamos a realizar nuestras primeras pruebas de lanzamientos!</p>
+<ul class="listaResaltada">
+<li>Colocamos y fijamos el cohete con la boca hacia abajo utilizando el <strong>sistema de sujeción</strong> que hayamos elegido.</li>
+<li>Al liberar el tapón, el agua saldrá con fuerza, generando una reacción que impulsará la botella hacia arriba.</li>
+<li><strong>¡Nuestro MiniCanSat despegará!</strong></li>
+</ul>
+<figure class="exe-figure exe-image position-center license-CC-BY-SA" style="width: 560px;"><a href="../content/resources/PASO-3-Lanzamiento.jpg" target="_blank" rel="lightbox noopener" title="Ampliar imagen"><img src="../content/resources/PASO-3-Lanzamiento.jpg" alt="Ilustración de un cohete de agua despegando" title="Paso 3: Lanzamiento" width="560" height="420" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="author">Joaquín Pagador</span>. <span class="title"><em>Paso 3: Lanzamiento</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+<p><strong>Importante</strong>: Siempre debemos lanzar el cohete bajo la supervisión de nuestro profesor o profesora y en un lugar abierto y seguro, como el patio o el campo. Antes de hacer el lanzamiento con el MiniCanSat, es buena idea hacer una <strong>prueba sin carga</strong> para asegurarnos de que todo funciona bien. Es fundamental mantener las normas de seguridad en todo momento.</p>
+</div>
+</div>
+</div>
+</article><article id="block-mpczpc15-lzsm5cyw9" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">**Juego de repaso: ingenieros en acción</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc15-95vzwuz1t" class="idevice_node quick-questions" data-idevice-path="../idevices/quick-questions/" data-idevice-type="quick-questions">
+<div class="quext-IDevice"><div class="quext-instructions gameQP-instructions"><p>Vamos a demostrar lo que hemos aprendido sobre la construcción y el ensamblaje de nuestro satélite. Leeremos atentamente cada pregunta para elegir la respuesta correcta. ¡Mucha suerte a todo el equipo!</p></div><div class="quext-version js-hidden">2</div><div class="quext-feedback-game"></div><div class="quext-DataGame js-hidden" >%E9%B0%F3%E1%FB%F5%FC%F3%E6%E7%E0%F3%B0%A8%B0%B0%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%E7%E6%FA%FD%E0%C4%FB%F6%F7%FD%B0%A8%B0%B0%BE%B0%E6%EB%E2%F7%D5%F3%FF%F7%B0%A8%B0%C3%E7%D7%EA%E6%B0%BE%B0%F7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%FB%F6%C4%FB%F6%F7%FD%B0%A8%B0%B0%BE%B0%E1%E6%F3%E0%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%FB%FC%E1%E6%E0%E7%F1%E6%FB%FD%FC%E1%D7%EA%F7%B0%A8%B0%B7%A1%D1%E2%B7%A1%D7%C4%F3%FF%FD%E1%B7%A0%A2%F3%B7%A0%A2%F6%F7%FF%FD%E1%E6%E0%F3%E0%B7%A0%A2%FE%FD%B7%A0%A2%E3%E7%F7%B7%A0%A2%FA%F7%FF%FD%E1%B7%A0%A2%F3%E2%E0%F7%FC%F6%FB%F6%FD%B7%A0%A2%E1%FD%F0%E0%F7%B7%A0%A2%FE%F3%B7%A0%A2%F1%FD%FC%E1%E6%E0%E7%F1%F1%FB%B7%D4%A1%FC%B7%A0%A2%EB%B7%A0%A2%F7%FE%B7%A0%A2%F7%FC%E1%F3%FF%F0%FE%F3%F8%F7%B7%A0%A2%F6%F7%B7%A0%A2%FC%E7%F7%E1%E6%E0%FD%B7%A0%A2%E1%F3%E6%B7%D7%AB%FE%FB%E6%F7%BC%B7%A0%A2%DE%F7%F7%E0%F7%FF%FD%E1%B7%A0%A2%F3%E6%F7%FC%E6%F3%FF%F7%FC%E6%F7%B7%A0%A2%F1%F3%F6%F3%B7%A0%A2%E2%E0%F7%F5%E7%FC%E6%F3%B7%A0%A2%E2%F3%E0%F3%B7%A0%A2%F7%FE%F7%F5%FB%E0%B7%A0%A2%FE%F3%B7%A0%A2%E0%F7%E1%E2%E7%F7%E1%E6%F3%B7%A0%A2%F1%FD%E0%E0%F7%F1%E6%F3%BC%B7%A0%A2%B7%D3%A3%DF%E7%F1%FA%F3%B7%A0%A2%E1%E7%F7%E0%E6%F7%B7%A0%A2%F3%B7%A0%A2%E6%FD%F6%FD%B7%A0%A2%F7%FE%B7%A0%A2%F7%E3%E7%FB%E2%FD%B7%A0%A3%B7%A1%D1%BD%E2%B7%A1%D7%B0%BE%B0%FB%FC%E1%E6%E0%E7%F1%E6%FB%FD%FC%E1%B0%A8%B0%D7%FE%FB%F8%F3%B2%FE%F3%B2%E0%F7%E1%E2%E7%F7%E1%E6%F3%B2%F1%FD%E0%E0%F7%F1%E6%F3%B2%B0%BE%B0%E1%FA%FD%E5%DF%FB%FC%FB%FF%FB%E8%F7%B0%A8%F4%F3%FE%E1%F7%BE%B0%FD%E2%E6%FB%FD%FC%E1%C0%F3%FF%F6%FD%FC%B0%A8%E6%E0%E7%F7%BE%B0%F3%FC%E1%E5%F7%E0%E1%C0%F3%FF%F6%FD%FC%B0%A8%E6%E0%E7%F7%BE%B0%E1%FA%FD%E5%C1%FD%FE%E7%E6%FB%FD%FC%B0%A8%E6%E0%E7%F7%BE%B0%E6%FB%FF%F7%C1%FA%FD%E5%C1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A1%BE%B0%E7%E1%F7%DE%FB%E4%F7%E1%B0%A8%E6%E0%E7%F7%BE%B0%FC%E7%FF%F0%F7%E0%DE%FB%E4%F7%E1%B0%A8%A1%BE%B0%FB%E6%FB%FC%F7%E0%F3%E0%EB%B0%A8%E9%B0%E1%FA%FD%E5%D1%FE%E7%F7%B0%A8%F4%F3%FE%E1%F7%BE%B0%F1%FE%E7%F7%D5%F3%FF%F7%B0%A8%B0%B0%BE%B0%E2%F7%E0%F1%F7%FC%E6%F3%F5%F7%D1%FE%E7%F7%B0%A8%A6%A2%BE%B0%E1%FA%FD%E5%D1%FD%F6%F7%D3%F1%F1%F7%E1%E1%B0%A8%F4%F3%FE%E1%F7%BE%B0%F1%FD%F6%F7%D3%F1%F1%F7%E1%E1%B0%A8%B0%B0%BE%B0%FF%F7%E1%E1%F3%F5%F7%D1%FD%F6%F7%D3%F1%F1%F7%E1%E1%B0%A8%B0%B0%EF%BE%B0%E3%E7%F7%E1%E6%FB%FD%FC%E1%D5%F3%FF%F7%B0%A8%C9%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0-%D1%E7s%FE%B2%F7%E1%B2%FE%F3%B2%FC%FD%E0%FF%F3%B2%F6%F7%B2%E1%F7%F5%E7%E0%FB%F6%F3%F6%B2%FFs%E1%B2%FB%FF%E2%FD%E0%E6%F3%FC%E6%F7%B2%F3%B2%FE%F3%B2%FA%FD%E0%F3%B2%F6%F7%B2%E2%E0%F7%E2%F3%E0%F3%E0%B2%FE%F3%B2%F1%F3%E0%F1%F3%E1%F3%B2%F1%FD%FC%B2%F7%FE%B2%F1h%E6%F7%E0%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%D7%FE%B2%F1%FD%E0%E6%F7%B2%F6%F7%F0%F7%B2%E0%F7%F3%FE%FB%E8%F3%E0%E1%F7%B2%F0%F3%F8%FD%B2%FE%F3%B2%E1%E7%E2%F7%E0%E4%FB%E1%FBa%FC%B2%F6%FB%E0%F7%F1%E6%F3%B2%F6%F7%FE%B2%E2%E0%FD%F4%F7%E1%FD%E0%F3%F6%FD%BE%B2%FD%B2%F6%F7%FE%F7%F5%F3%E0%FE%FD%B2%F7%FC%B2%F7%FE%FE%FD%E1%BE%B2%E2%F3%E0%F3%B2%F7%E4%FB%E6%F3%E0%B2%F3%F1%F1%FB%F6%F7%FC%E6%F7%E1%BC%B0%BE%B0%D6%F7%F0%F7%FF%FD%E1%B2%F1%FD%E0%E6%F3%E0%B2%FE%FD%B2%FFs%E1%B2%E0s%E2%FB%F6%FD%B2%E2%FD%E1%FB%F0%FE%F7%B2%E2%F3%E0%F3%B2%F5%F3%FC%F3%E0%B2%E6%FB%F7%FF%E2%FD%BC%B0%BE%B0%DA%F3%EB%B2%E3%E7%F7%B2%E7%E1%F3%E0%B2%F7%FE%B2%F1h%E6%F7%E0%B2%F7%FC%E6%E0%F7%B2%F6%FD%E1%B2%F1%FD%FF%E2%F3c%F7%E0%FD%E1%B2%F3%B2%FE%F3%B2%E4%F7%E8%B2%E2%F3%E0%F3%B2%E6%F7%FC%F7%E0%B2%FFs%E1%B2%F4%E7%F7%E0%E8%F3%BC%B0%BE%B0%D6%F7%F0%F7%FF%FD%E1%B2%FA%F3%F1%F7%E0%B2%F7%FE%B2%F1%FD%E0%E6%F7%B2%F1%FD%FC%B2%FE%FD%E1%B2%FD%F8%FD%E1%B2%F1%F7%E0%E0%F3%F6%FD%E1%B2%E2%F3%E0%F3%B2%F1%FD%FC%F1%F7%FC%E6%E0%F3%E0%FC%FD%E1%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%D7%EA%F3%F1%E6%FD%B3%B2%DE%F3%B2%E1%F7%F5%E7%E0%FB%F6%F3%F6%B2%F7%FC%B2%F7%FE%B2%E6%F3%FE%FE%F7%E0%B2%F7%E1%B2%FE%FD%B2%E2%E0%FB%FF%F7%E0%FD%BC%B2%DE%F3%E1%B2%FA%F7%E0%E0%F3%FF%FB%F7%FC%E6%F3%E1%B2%F1%FD%E0%E6%F3%FC%E6%F7%E1%B2%E0%F7%E3%E7%FB%F7%E0%F7%FC%B2%E1%E7%E2%F7%E0%E4%FB%E1%FBa%FC%B2%F3%F6%E7%FE%E6%F3%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%C0%F7%F1%E7%F7%E0%F6%F3%B2%F7%FE%B2%F3%E4%FB%E1%FD%B2%F6%F7%B2%E1%F7%F5%E7%E0%FB%F6%F3%F6%B2%F7%FC%B2%E0%FD%F8%FD%A8%B2%F7%FE%B2%E7%E1%FD%B2%F6%F7%FE%B2%F1h%E6%F7%E0%B2%F7%E1%B2%E2%F7%FE%FB%F5%E0%FD%E1%FD%B2%EB%B2%E1%FB%F7%FF%E2%E0%F7%B2%E0%F7%E3%E7%FB%F7%E0%F7%B2%F6%F7%B2%FE%F3%B2%E1%E7%E2%F7%E0%E4%FB%E1%FBa%FC%B2%FD%B2%F7%F8%F7%F1%E7%F1%FBa%FC%B2%F6%F7%B2%FC%E7%F7%E1%E6%E0%FD%B2%F6%FD%F1%F7%FC%E6%F7%BC%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0%D7%FC%B2%F7%E1%E6%F3%B2%F4%F3%E1%F7%B2%F6%F7%B2%F1%FD%FC%E1%E6%E0%E7%F1%F1%FBa%FC%BE%B2-%E3%E7%7B%B2%FF%FB%F7%FF%F0%E0%FD%B2%F6%F7%B2%FC%E7%F7%E1%E6%E0%FD%B2%F7%E3%E7%FB%E2%FD%B2%F7%E1%B2%F7%FE%B2%F7%FC%F1%F3%E0%F5%F3%F6%FD%B2%F6%F7%B2%FE%FB%F6%F7%E0%F3%E0%B2%F7%FE%B2%F6%FB%E1%F7c%FD%B2%EB%B2%F7%FE%B2%F7%FC%E1%F3%FF%F0%FE%F3%F8%F7%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%D7%FE%BD%FE%F3%B2%DB%FC%F5%F7%FC%FB%F7%E0%FD%BD%F3%B2%F6%F7%B2%E1%FB%E1%E6%F7%FF%F3%E1%BC%B0%BE%B0%D7%FE%BD%FE%F3%B2%D1%FD%FD%E0%F6%FB%FC%F3%F6%FD%E0%BD%F3%B2%F6%F7%B2%FF%FB%E1%FBa%FC%BC%B0%BE%B0%D7%FE%BD%FE%F3%B2%D1%FB%F7%FC%E6%7F%F4%FB%F1%FD%BD%F3%B2%F6%F7%B2%F6%F3%E6%FD%E1%BC%B0%BE%B0%D7%FE%BD%FE%F3%B2%D7%E1%E2%F7%F1%FB%F3%FE%FB%E1%E6%F3%B2%F7%FC%B2%E6%F7%FE%F7%F1%FD%FF%E7%FC%FB%F1%F3%F1%FB%FD%FC%F7%E1%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%DF%E7%EB%B2%F0%FB%F7%FC%B3%B2%D7%FE%B2%DB%FC%F5%F7%FC%FB%F7%E0%FD%B2%FD%B2%DB%FC%F5%F7%FC%FB%F7%E0%F3%B2%F6%F7%B2%E1%FB%E1%E6%F7%FF%F3%E1%B2%FE%FB%F6%F7%E0%F3%B2%FE%F3%B2%E2%F3%E0%E6%F7%B2%F6%F7%B2%F1%FD%FC%E1%E6%E0%E7%F1%F1%FBa%FC%B2%F4%7F%E1%FB%F1%F3%B2%EB%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%C0%F7%E4%FB%E1%F3%B2%FE%F3%B2%FE%FB%E1%E6%F3%B2%F6%F7%B2%E0%FD%FE%F7%E1%BC%B2%C3%E7%FB%F7%FC%B2%E1%F7%B2%F7%FC%F1%F3%E0%F5%F3%B2%F6%F7%B2%E3%E7%F7%B2%FE%F3%E1%B2%E2%FB%F7%E8%F3%E1%B2%F7%FC%F1%F3%F8%F7%FC%B2%EB%B2%F6%F7%B2%F1%FD%FC%E1%E6%E0%E7%FB%E0%B2%FE%F3%B2%F1%F3%E0%F1%F3%E1%F3%B2%EB%B2%F7%FE%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%B2%E6%FB%F7%FC%F7%B2%E7%FC%B2%E0%FD%FE%B2%E6%7B%F1%FC%FB%F1%FD%B2%EB%B2%FF%F3%FC%E7%F3%FE%BC%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0-%C2%F3%E0%F3%B2%E3%E7%7B%B2%E0%F7%F3%FE%FB%E8%F3%FF%FD%E1%B2%F6%FD%E1%B2%F1%FD%E0%E6%F7%E1%B2%FE%FD%FC%F5%FB%E6%E7%F6%FB%FC%F3%FE%F7%E1%B2%F7%FC%B2%F7%FE%B2%F1%F7%FC%E6%E0%FD%B2%F6%F7%B2%FC%E7%F7%E1%E6%E0%FD%B2%F1%FA%E7%E0%E0%FD%B2%F6%F7%B2%E2%FB%E1%F1%FB%FC%F3%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%C2%F3%E0%F3%B2%FB%FC%E1%F7%E0%E6%F3%E0%B2%F6%F7%B2%F4%FD%E0%FF%F3%B2%E1%F7%F5%E7%E0%F3%B2%FE%F3%B2%E2%FE%F3%F1%F3%B2%DF%FB%F1%E0%FD%A8%F0%FB%E6%B2%EB%B2%F7%FE%B2%E2%FD%E0%E6%F3%E2%FB%FE%F3%E1%BC%B0%BE%B0%C2%F3%E0%F3%B2%E3%E7%F7%B2%F7%FE%B2%F3%FB%E0%F7%B2%F3%E6%E0%F3%E4%FB%F7%E1%F7%B2%F7%FE%B2%E1%F3%E6%7B%FE%FB%E6%F7%B2%EB%B2%F1%F3%FB%F5%F3%B2%FFs%E1%B2%F6%F7%E2%E0%FB%E1%F3%BC%B0%BE%B0%C2%F3%E0%F3%B2%FF%F7%E6%F7%E0%B2%F7%FE%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%B2%F6%F7%FC%E6%E0%FD%B2%F1%E7%F3%FC%F6%FD%B2%F7%FE%B2%E1%F3%E6%7B%FE%FB%E6%F7%B2%F7%E1%E6s%B2%F7%FC%B2%E6%FB%F7%E0%E0%F3%BC%B0%BE%B0%C2%F3%E0%F3%B2%E0%F7%F6%E7%F1%FB%E0%B2%F7%FE%B2%E2%F7%E1%FD%B2%E6%FD%E6%F3%FE%B2%F6%F7%B2%FC%E7%F7%E1%E6%E0%FD%B2%F6%FB%E1%F7c%FD%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%D1%FD%E0%E0%F7%F1%E6%FD%B3%B2%D7%E1%F3%E1%B2%E0%F3%FC%E7%E0%F3%E1%B2%E1%FB%E0%E4%F7%FC%B2%F1%FD%FF%FD%B2%E7%FC%B2%F1%FD%FF%E2%F3%E0%E6%FB%FF%F7%FC%E6%FD%B2%E1%F7%F5%E7%E0%FD%B2%E2%F3%E0%F3%B2%FC%E7%F7%E1%E6%E0%F3%B2%F7%FE%F7%F1%E6%E0a%FC%FB%F1%F3%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%C2%FB%F7%FC%E1%F3%B2%F7%FC%B2%F6a%FC%F6%F7%B2%E4%F3%FF%FD%E1%B2%F3%B2%F1%FD%FE%FD%F1%F3%E0%B2%F7%FE%B2%B5%F1%F7%E0%F7%F0%E0%FD%B5%B2%EB%B2%FE%F3%B2%F7%FC%F7%E0%F5%7F%F3%B2%F6%F7%B2%FC%E7%F7%E1%E6%E0%FD%B2%DF%FB%FC%FB%D1%F3%FC%C1%F3%E6%BC%B2%C6%FB%F7%FC%F7%FC%B2%E3%E7%F7%B2%FB%E0%B2%F0%FB%F7%FC%B2%E1%E7%F8%F7%E6%FD%E1%BC%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0%C2%F3%E0%F3%B2%F3%E1%F7%F5%E7%E0%F3%E0%B2%E7%FC%B2%F6%F7%E1%F1%F7%FC%E1%FD%B2%F7%E1%E6%F3%F0%FE%F7%BE%B2%E2%F3%E1%F3%FF%FD%E1%B2%F6%FD%E1%B2%F1%E7%F7%E0%F6%F3%E1%B2%F1%E0%E7%E8%F3%F6%F3%E1%B2%E2%FD%E0%B2%FE%F3%B2%F1%F3%E0%F1%F3%E1%F3%BC%B2-%D1%E7s%FC%E6%FD%E1%B2%E2%E7%FC%E6%FD%E1%B2%F6%F7%B2%F3%FC%F1%FE%F3%F8%F7%B2%FA%F3%F1%F7%FF%FD%E1%B2%F7%FC%B2%F7%FE%B2%F1%FA%E7%E0%E0%FD%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%D1%E7%F3%E6%E0%FD%B2%E2%E7%FC%E6%FD%E1%B2%F6%F7%B2%F3%FC%F1%FE%F3%F8%F7%B2%BA%F7%FC%B2%F4%FD%E0%FF%F3%B2%F6%F7%B2%F1%E0%E7%E8%BB%BC%B0%BE%B0%D6%FD%E1%B2%E2%E7%FC%E6%FD%E1%B2%F6%F7%B2%F3%FC%F1%FE%F3%F8%F7%B2%E2%F3%E0%F3%FE%F7%FE%FD%E1%BC%B0%BE%B0%C1%F7%FB%E1%B2%E2%E7%FC%E6%FD%E1%B2%F6%F7%B2%F3%FC%F1%FE%F3%F8%F7%B2%F3%FE%F7%F3%E6%FD%E0%FB%FD%E1%BC%B0%BE%B0%C7%FC%B2%E1%FD%FE%FD%B2%E2%E7%FC%E6%FD%B2%F1%F7%FC%E6%E0%F3%FE%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%D5%F7%FC%FB%F3%FE%B3%B2%D3%FE%B2%F1%E0%E7%E8%F3%E0%B2%F6%FD%E1%B2%F1%E7%F7%E0%F6%F3%E1%B2%F7%FC%B2%F1%E7%F3%E6%E0%FD%B2%FD%E0%FB%F4%FB%F1%FB%FD%E1%B2%FE%FD%F5%E0%F3%FF%FD%E1%B2%E7%FC%B2%F7%E3%E7%FB%FE%FB%F0%E0%FB%FD%B2%E2%F7%E0%F4%F7%F1%E6%FD%B2%E2%F3%E0%F3%B2%FE%F3%E1%B2%F7%E1%E3%E7%FB%FC%F3%E1%B2%F6%F7%FE%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%C0%F7%F1%E7%F7%E0%F6%F3%B2%FE%F3%E1%B2%FB%FC%E1%E6%E0%E7%F1%F1%FB%FD%FC%F7%E1%B2%F6%F7%FE%B2%C2%F3%E1%FD%B2%A0%A8%B2%FC%F7%F1%F7%E1%FB%E6%F3%FF%FD%E1%B2%E3%E7%F7%B2%FE%F3%B2%F0%FD%FE%E1%F3%B2%F6%F7%B2%F0%F3%E1%E7%E0%F3%B2%E1%F7%B2%E1%E7%F8%F7%E6%F7%B2%E2%FD%E0%B2%E1%E7%E1%B2%F1%E7%F3%E6%E0%FD%B2%F7%E1%E3%E7%FB%FC%F3%E1%BC%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B03%D3%E6%F7%FC%F1%FBa%FC%B2%F3%FE%B2%E6%FB%F7%FF%E2%FD%B3%B2%D6%E7%E0%F3%FC%E6%F7%B2%F7%FE%B2%F6%FB%E1%F7c%FD%B2%F6%F7%B2%FE%F3%B2%FF%FB%E1%FBa%FC%B2%E1%F7%F1%E7%FC%F6%F3%E0%FB%F3%BE%B2-%F1%E7s%FC%E6%FD%E1%B2%E0%F7%E6%FD%E1%B2%F7%EA%E6%E0%F3%B2%F6%F7%F0%F7%B2%F7%FE%F7%F5%FB%E0%B2%FC%E7%F7%E1%E6%E0%FD%B2%F7%E3%E7%FB%E2%FD%B2%E2%F3%E0%F3%B2%E0%F7%F3%FE%FB%E8%F3%E0%B2%F7%FC%B2%F7%E1%E6%F3%B2%E1%F7%E1%FBa%FC%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%C1%FD%FE%F3%FF%F7%FC%E6%F7%B2%E7%FC%FD%BE%B2%E2%F3%E0%F3%B2%E2%FD%F6%F7%E0%B2%FA%F3%F1%F7%E0%FE%FD%B2%F0%FB%F7%FC%BC%B0%BE%B0%D3%FE%B2%FF%F7%FC%FD%E1%B2%E6%E0%F7%E1%BE%B2%E2%F3%E0%F3%B2%E6%F7%FC%F7%E0%B2%FFs%E1%B2%F6%F3%E6%FD%E1%BC%B0%BE%B0%C6%FD%F6%FD%E1%B2%FE%FD%E1%B2%E3%E7%F7%B2%E1%F7%B2%FC%FD%E1%B2%FD%F1%E7%E0%E0%F3%FC%BC%B0%BE%B0%DC%FB%FC%F5%E7%FC%FD%BE%B2%FE%F3%B2%FF%FB%E1%FBa%FC%B2%E1%F7%F1%E7%FC%F6%F3%E0%FB%F3%B2%FC%FD%B2%F7%E1%B2%FB%FF%E2%FD%E0%E6%F3%FC%E6%F7%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%D7%EA%F3%F1%E6%FD%B3%B2%D7%FE%F7%F5%FB%E0%B2%E1%FD%FE%FD%B2%E7%FC%FD%B2%FC%FD%E1%B2%E2%F7%E0%FF%FB%E6%F7%B2%F1%F7%FC%E6%E0%F3%E0%FC%FD%E1%BE%B2%F6%FB%E1%F7c%F3%E0%FE%FD%B2%F0%FB%F7%FC%B2%EB%B2%F5%F7%E1%E6%FB%FD%FC%F3%E0%FE%FD%B2%F6%F7%FC%E6%E0%FD%B2%F6%F7%B2%FC%E7%F7%E1%E6%E0%FD%B2%FE%7F%FF%FB%E6%F7%B2%F6%F7%B2%E6%FB%F7%FF%E2%FD%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%C0%F7%E4%FB%E1%F3%B2%F7%FE%B2%F3%E4%FB%E1%FD%B2%E1%FD%F0%E0%F7%B2%FE%F3%B2%F5%F7%E1%E6%FBa%FC%B2%F6%F7%FE%B2%E6%FB%F7%FF%E2%FD%BC%B2%D7%FE%B2%E3%E7%F7%B2%FF%E7%F1%FA%FD%B2%F3%F0%F3%E0%F1%F3%BE%B2%E2%FD%F1%FD%B2%F3%E2%E0%FB%F7%E6%F3%BC%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0%C1%FB%B2%FC%E7%F7%E1%E6%E0%FD%B2%F7%E3%E7%FB%E2%FD%B2%F7%FE%FB%F5%F7%B2%F1%FD%FF%FD%B2%DF%FB%E1%FBa%FC%B2%C1%F7%F1%E7%FC%F6%F3%E0%FB%F3%B2%F1%FD%FE%FD%F1%F3%E0%B2%E6%FB%E0%F3%E1%B2%E0%F7%F3%F1%E6%FB%E4%F3%E1%B2%E2%F3%E0%F3%B2%FF%F7%F6%FB%E0%B2%F5%F3%E1%F7%E1%B2%F1%FD%FC%E6%F3%FF%FB%FC%F3%FC%E6%F7%E1%B2%F7%FC%B2%F7%FE%B2%F3%FB%E0%F7%BE%B2-%E3%E7%7B%B2%DD%F0%F8%F7%E6%FB%E4%FD%B2%F6%F7%B2%D6%F7%E1%F3%E0%E0%FD%FE%FE%FD%B2%C1%FD%E1%E6%F7%FC%FB%F0%FE%F7%B2%BA%DD%D6%C1%BB%B2%F7%E1%E6%F3%FF%FD%E1%B2%F3%E2%FD%EB%F3%FC%F6%FD%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%DD%D6%C1%B2%A3%A3%A8%B2%D1%FB%E7%F6%F3%F6%F7%E1%B2%E1%FD%E1%E6%F7%FC%FB%F0%FE%F7%E1%BC%B0%BE%B0%DD%D6%C1%B2%A6%A8%B2%D7%F6%E7%F1%F3%F1%FBa%FC%B2%F6%F7%B2%F1%F3%FE%FB%F6%F3%F6%BC%B0%BE%B0%DD%D6%C1%B2%A3%A6%A8%B2%C4%FB%F6%F3%B2%E1%E7%F0%FF%F3%E0%FB%FC%F3%BC%B0%BE%B0%DD%D6%C1%B2%A0%A8%B2%DA%F3%FF%F0%E0%F7%B2%F1%F7%E0%FD%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%D0%E0%F3%E4%FD%B3%B2%DF%F7%F6%FB%E0%B2%FE%F3%B2%F1%F3%FE%FB%F6%F3%F6%B2%F6%F7%FE%B2%F3%FB%E0%F7%B2%FC%FD%E1%B2%F3%EB%E7%F6%F3%B2%F3%B2%E2%E0%FD%E2%FD%FC%F7%E0%B2%FF%F7%F8%FD%E0%F3%E1%B2%E2%F3%E0%F3%B2%E3%E7%F7%B2%FC%E7%F7%E1%E6%E0%F3%E1%B2%F1%FB%E7%F6%F3%F6%F7%E1%B2%E1%F7%F3%FC%B2%FFs%E1%B2%E1%F3%FE%E7%F6%F3%F0%FE%F7%E1%B2%EB%B2%E1%FD%E1%E6%F7%FC%FB%F0%FE%F7%E1%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%C2%FB%F7%FC%E1%F3%B2%F7%FC%B2%F7%FE%B2%FB%FF%E2%F3%F1%E6%FD%B2%F6%F7%FE%B2%FA%E7%FF%FD%B2%EB%B2%FE%FD%E1%B2%F5%F3%E1%F7%E1%BC%B2-%D3%B2%E3%E7%7B%B2%F7%FC%E6%FD%E0%FC%FD%B2%F3%F4%F7%F1%E6%F3%FC%B2%E2%E0%FB%FC%F1%FB%E2%F3%FE%FF%F7%FC%E6%F7%B2%F6%F7%B2%F4%FD%E0%FF%F3%B2%F6%FB%F3%E0%FB%F3%AD%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0-%D1%E7s%FE%B2%F7%E1%B2%FE%F3%B2%F4%E7%FC%F1%FBa%FC%B2%E2%E0%FB%FC%F1%FB%E2%F3%FE%B2%F6%F7%FE%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%B2%F7%FC%B2%FC%E7%F7%E1%E6%E0%FD%B2%DF%FB%FC%FB%D1%F3%FC%C1%F3%E6%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%D4%E0%F7%FC%F3%E0%B2%FE%F3%B2%F1%F3%7F%F6%F3%B2%F3%E2%E0%FD%E4%F7%F1%FA%F3%FC%F6%FD%B2%FE%F3%B2%E0%F7%E1%FB%E1%E6%F7%FC%F1%FB%F3%B2%F6%F7%FE%B2%F3%FB%E0%F7%BC%B0%BE%B0%D7%E4%FB%E6%F3%E0%B2%E3%E7%F7%B2%FE%FD%E1%B2%F1%FD%FF%E2%FD%FC%F7%FC%E6%F7%E1%B2%F7%FE%F7%F1%E6%E0a%FC%FB%F1%FD%E1%B2%E1%F7%B2%FF%FD%F8%F7%FC%B2%E1%FB%B2%FE%FE%E7%F7%E4%F7%BC%B0%BE%B0%DA%F3%F1%F7%E0%B2%E3%E7%F7%B2%F7%FE%B2%E1%F3%E6%7B%FE%FB%E6%F7%B2%F5%F3%FC%F7%B2%F3%FE%E6%FB%E6%E7%F6%B2%F1%FD%FC%B2%F7%FE%B2%E4%FB%F7%FC%E6%FD%BC%B0%BE%B0%C2%E0%FD%E6%F7%F5%F7%E0%B2%F3%FE%B2%F7%E3%E7%FB%E2%FD%B2%F6%F7%B2%FE%F3%B2%FE%E7%E8%B2%E7%FE%E6%E0%F3%E4%FB%FD%FE%F7%E6%F3%B2%F6%F7%FE%B2%C1%FD%FE%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%DF%E7%EB%B2%F0%FB%F7%FC%B3%B2%D7%FE%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%B2%F1%F3%E2%E6%E7%E0%F3%B2%F7%FE%B2%F3%FB%E0%F7%B2%EB%B2%F5%F7%FC%F7%E0%F3%B2%F4%E0%FB%F1%F1%FBa%FC%B2%E2%F3%E0%F3%B2%E3%E7%F7%B2%F7%FE%B2%F3%E6%F7%E0%E0%FB%E8%F3%F8%F7%B2%E1%F7%F3%B2%E1%E7%F3%E4%F7%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%D3%E7%FC%E3%E7%F7%B2%F7%FE%B2%E2%FEs%E1%E6%FB%F1%FD%B2%E1%F7%F3%B2%FB%FF%E2%F7%E0%FF%F7%F3%F0%FE%F7%BE%B2%FE%F3%B2%F4%FD%E0%FF%F3%B2%F6%F7%B2%B5%F0%FD%FE%E1%F3%B5%B2%F3%F0%FB%F7%E0%E6%F3%B2%E1%FB%E0%E4%F7%B2%E2%F3%E0%F3%B2%F1%F3%E2%E6%E7%E0%F3%E0%B2%F3%FB%E0%F7%B2%F6%E7%E0%F3%FC%E6%F7%B2%F7%FE%B2%F6%F7%E1%F1%F7%FC%E1%FD%BC%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0%C1%FB%B2%FC%E7%F7%E1%E6%E0%FD%B2%F1%F7%FC%E6%E0%FD%B2%F6%FB%E1%E2%FD%FC%F7%B2%F6%F7%B2%FE%F3%B2%E6%F7%F1%FC%FD%FE%FD%F5%7F%F3%B2%F3%F6%F7%F1%E7%F3%F6%F3%B2%EB%B2%E3%E7%F7%E0%F7%FF%FD%E1%B2%FF%F7%F8%FD%E0%F3%E0%B2%FC%E7%F7%E1%E6%E0%FD%B2%F6%FB%E1%F7c%FD%B2%FB%FC%FB%F1%FB%F3%FE%BE%B2-%E3%E7%7B%B2%F3%FE%E6%F7%E0%FC%F3%E6%FB%E4%F3%B2%FC%FD%E1%B2%F6%F3%B2%F7%FE%B2%E2%E0%FD%EB%F7%F1%E6%FD%B2%F3%F6%F7%FFs%E1%B2%F6%F7%FE%B2%F1%FA%E7%E0%E0%FD%B2%F4%FE%FD%E6%F3%F6%FD%E0%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%D6%FB%E1%F7c%F3%E0%B2%F7%B2%FB%FF%E2%E0%FB%FF%FB%E0%B2%E7%FC%F3%B2%F1%F3%E0%F1%F3%E1%F3%B2%F7%FC%B2%A1%D6%B2%BA%E7%E1%F3%FC%F6%FD%B2%C6%FB%FC%F9%F7%E0%F1%F3%F6%B2%FD%B2%C6%FA%FB%FC%F5%FB%E4%F7%E0%E1%F7%BB%BC%B0%BE%B0%C6%F3%FE%FE%F3%E0%B2%E7%FC%F3%B2%F1%F3%E0%F1%F3%E1%F3%B2%E0%F7%E1%FB%E1%E6%F7%FC%E6%F7%B2%E7%E1%F3%FC%F6%FD%B2%FF%F3%F6%F7%E0%F3%BC%B0%BE%B0%C7%E1%F3%E0%B2%F7%FC%E4%F3%E1%F7%E1%B2%F6%F7%B2%E4%FB%F6%E0%FB%FD%B2%F6%F7%B2%FE%F3%B2%F1%F3%F4%F7%E6%F7%E0%7F%F3%BC%B0%BE%B0%DE%F3%FC%E8%F3%E0%B2%FE%F3%B2%E2%FE%F3%F1%F3%B2%E1%E7%F7%FE%E6%F3%B2%E1%FB%FC%B2%E2%E0%FD%E6%F7%F1%F1%FBa%FC%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%D7%EA%F3%F1%E6%FD%B3%B2%D7%FE%B2%F6%FB%E1%F7c%FD%B2%A1%D6%B2%FC%FD%E1%B2%E2%F7%E0%FF%FB%E6%F7%B2%F1%E0%F7%F3%E0%B2%F1%F3%E0%F1%F3%E1%F3%E1%B2%FF%FD%F6%E7%FE%F3%E0%F7%E1%B2%FFs%E1%B2%E2%E0%F7%F1%FB%E1%F3%E1%B2%EB%B2%F3%F6%F3%E2%E6%F3%F6%F3%E1%B2%F3%B2%FE%F3%B2%E2%FE%F3%F1%F3%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%C0%F7%E4%FB%E1%F3%B2%F7%FE%B2%F3%E2%F3%E0%E6%F3%F6%FD%B2%F6%F7%B2%B5%FD%E6%E0%F3%E1%B2%E1%FD%FE%E7%F1%FB%FD%FC%F7%E1%B5%BC%B2%DA%F3%F0%FE%F3%FF%FD%E1%B2%F6%F7%B2%FE%F3%B2%E2%FD%E1%FB%F0%FB%FE%FB%F6%F3%F6%B2%F6%F7%B2%E7%E1%F3%E0%B2%E6%F7%F1%FC%FD%FE%FD%F5%7F%F3%B2%F6%F7%B2%F4%F3%F0%E0%FB%F1%F3%F1%FBa%FC%B2%F6%FB%F5%FB%E6%F3%FE%BC%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0%C1%F7%F5h%FC%B2%FC%E7%F7%E1%E6%E0%F3%B2%C0h%F0%E0%FB%F1%F3%B2%F6%F7%B2%D1%FD%FC%E1%E6%E0%E7%F1%F1%FBa%FC%BE%B2-%E3%E7%7B%B2%F1%FD%FC%E1%FB%F6%F7%E0%F3%FF%FD%E1%B2%E7%FC%B2%F0%E7%F7%FC%B2%B5%C6%E0%F3%F0%F3%F8%FD%B2%F7%FC%B2%F7%E3%E7%FB%E2%FD%B2%EB%B2%D3%E7%E6%FD%FC%FD%FF%7F%F3%B5%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%C3%E7%F7%B2%F7%FE%B2%F7%E3%E7%FB%E2%FD%B2%E1%F7%B2%FD%E0%F5%F3%FC%FB%F1%F7%B2%EB%B2%E1%F7%B2%F3%EB%E7%F6%F7%B2%FF%E7%E6%E7%F3%FF%F7%FC%E6%F7%B2%E2%F3%E0%F3%B2%E0%F7%E1%FD%FE%E4%F7%E0%B2%E2%E0%FD%F0%FE%F7%FF%F3%E1%B2%E1%FB%FC%B2%F6%F7%E2%F7%FC%F6%F7%E0%B2%E1%FB%F7%FF%E2%E0%F7%B2%F6%F7%FE%B2%E2%E0%FD%F4%F7%E1%FD%E0%BC%B0%BE%B0%C3%E7%F7%B2%FE%F3%B2%E2%F7%E0%E1%FD%FC%F3%B2%FFs%E1%B2%E0s%E2%FB%F6%F3%B2%F6%F7%FE%B2%F5%E0%E7%E2%FD%B2%FE%FD%B2%F1%FD%FC%E1%E6%E0%E7%EB%F3%B2%E6%FD%F6%FD%B2%F7%FE%FE%F3%B2%E1%FD%FE%F3%BC%B0%BE%B0%C3%E7%F7%B2%E2%FB%F6%F3%FF%FD%E1%B2%F3%EB%E7%F6%F3%B2%F3%FE%B2%E2%E0%FD%F4%F7%E1%FD%E0%B2%E2%F3%E0%F3%B2%F1%F3%F6%F3%B2%F1%FD%E0%E6%F7%B2%FD%B2%E2%FB%F7%E8%F3%B2%E3%E7%F7%B2%E2%FD%FC%F5%F3%FF%FD%E1%BC%B0%BE%B0%C3%E7%F7%B2%F6%FB%E4%FB%F6%F3%FF%FD%E1%B2%F7%FE%B2%E6%E0%F3%F0%F3%F8%FD%B2%EB%B2%FE%E7%F7%F5%FD%B2%FC%FD%B2%FA%F3%F0%FE%F7%FF%FD%E1%B2%F7%FC%E6%E0%F7%B2%FC%FD%E1%FD%E6%E0%FD%E1%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%D5%F7%FC%FB%F3%FE%B3%B2%C6%E0%F3%F0%F3%F8%F3%E0%B2%F1%FD%FF%FD%B2%E7%FC%B2%E4%F7%E0%F6%F3%F6%F7%E0%FD%B2%F7%E3%E7%FB%E2%FD%B2%F7%E1%E2%F3%F1%FB%F3%FE%B2%E1%FB%F5%FC%FB%F4%FB%F1%F3%B2%F3%E2%FD%EB%F3%E0%FC%FD%E1%B2%EB%B2%E6%F7%FC%F7%E0%B2%FB%FC%FB%F1%FB%F3%E6%FB%E4%F3%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%C0%F7%E4%FB%E1%F3%B2%FE%F3%B2%E2%F7%E1%E6%F3c%F3%B2%F6%F7%B2%D7%E4%F3%FE%E7%F3%F1%FBa%FC%BC%B2%D0%E7%E1%F1%F3%FF%FD%E1%B2%E1%F7%E0%B2%FB%FC%F6%F7%E2%F7%FC%F6%FB%F7%FC%E6%F7%E1%B2%EB%B2%E1%F3%F0%F7%E0%B2%F1%FD%FE%F3%F0%FD%E0%F3%E0%B2%F1%FD%FF%FD%B2%E4%F7%E0%F6%F3%F6%F7%E0%FD%E1%B2%E2%E0%FD%F4%F7%E1%FB%FD%FC%F3%FE%F7%E1%BC%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0%D3%FE%B2%E0%F7%F3%FE%FB%E8%F3%E0%B2%F7%FE%B2%FF%FD%FC%E6%F3%F8%F7%B2%F4%FB%FC%F3%FE%B2%F6%F7%B2%FE%F3%B2%F7%FE%F7%F1%E6%E0a%FC%FB%F1%F3%BE%B2-%F6a%FC%F6%F7%B2%F6%F7%F0%F7%B2%F1%FD%FE%FD%F1%F3%E0%E1%F7%B2%F7%FE%B2%E2%FD%E0%E6%F3%E2%FB%FE%F3%E1%B2%F6%F7%B2%FC%E7%F7%E1%E6%E0%FD%B2%F6%FB%E1%E2%FD%E1%FB%E6%FB%E4%FD%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%D3%E1%F7%F5%E7%E0%F3%F6%FD%B2%F4%FB%E0%FF%F7%FF%F7%FC%E6%F7%B2%F7%FC%B2%F7%FE%B2%FB%FC%E6%F7%E0%FB%FD%E0%B2%F6%F7%FE%B2%F1%FA%E7%E0%E0%FD%B2%E2%F3%E0%F3%B2%E3%E7%F7%B2%FC%FD%B2%E1%F7%B2%FF%E7%F7%E4%F3%B2%F6%E7%E0%F3%FC%E6%F7%B2%F7%FE%B2%E4%E7%F7%FE%FD%BC%B0%BE%B0%C2%F7%F5%F3%F6%FD%B2%F4%E7%F7%E0%F3%B2%F6%F7%FE%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%B2%E2%F3%E0%F3%B2%E3%E7%F7%B2%E2%F7%E1%F7%B2%FFs%E1%BC%B0%BE%B0%C1%E7%F8%F7%E6%FD%B2%F1%FD%FC%B2%FE%F3%B2%FF%F3%FC%FD%B2%F6%F7%B2%E7%FC%B2%F1%FD%FF%E2%F3c%F7%E0%FD%B2%FA%F3%E1%E6%F3%B2%E3%E7%F7%B2%F7%FE%B2%E1%F3%E6%7B%FE%FB%E6%F7%B2%F1%F3%FB%F5%F3%BC%B0%BE%B0%D4%E7%F7%E0%F3%B2%F6%F7%B2%FE%F3%B2%F1%F3%E0%F1%F3%E1%F3%B2%E2%F3%E0%F3%B2%E2%FD%F6%F7%E0%B2%F1%F3%FF%F0%FB%F3%E0%B2%FE%F3%E1%B2%E2%FB%FE%F3%E1%B2%F4s%F1%FB%FE%FF%F7%FC%E6%F7%B2%F7%FC%B2%E2%FE%F7%FC%FD%B2%E4%E7%F7%FE%FD%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%C2%F7%E0%F4%F7%F1%E6%FD%B3%B2%C7%FC%B2%E2%FD%E0%E6%F3%E2%FB%FE%F3%E1%B2%E1%E7%F7%FE%E6%FD%B2%E2%FD%F6%E0%7F%F3%B2%F7%E1%E6%E0%FD%E2%F7%F3%E0%B2%FE%F3%B2%E2%FE%F3%F1%F3%B2%F3%FE%B2%F1%FA%FD%F1%F3%E0%B2%F1%FD%FC%B2%F7%FE%FE%F3%B2%F7%FC%B2%F7%FE%B2%F3%E6%F7%E0%E0%FB%E8%F3%F8%F7%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%D7%FE%B2%E2%FD%E0%E6%F3%E2%FB%FE%F3%E1%B2%F7%E1%B2%E7%FC%B2%F7%FE%F7%FF%F7%FC%E6%FD%B2%E2%F7%E1%F3%F6%FD%BC%B2%C1%FB%B2%E1%F7%B2%FF%E7%F7%E4%F7%B2%F6%E7%E0%F3%FC%E6%F7%B2%F7%FE%B2%E4%E7%F7%FE%FD%BE%B2%E2%FD%F6%E0%7F%F3%B2%F6%F7%E1%F1%FD%FC%F7%F1%E6%F3%E0%B2%F1%F3%F0%FE%F7%E1%B2%FD%B2%F6%F7%E1%F7%E3%E7%FB%FE%FB%F0%E0%F3%E0%B2%F7%FE%B2%E1%F3%E6%7B%FE%FB%E6%F7%BC%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%A2%BE%B0%E6%FB%FF%F7%B0%A8%A2%BE%B0%FC%E7%FF%F0%F7%E0%DD%E2%E6%FB%FD%FC%E1%B0%A8%A6%BE%B0%EA%B0%A8%A2%BE%B0%EB%B0%A8%A2%BE%B0%F3%E7%E6%FA%FD%E0%B0%A8%B0%B0%BE%B0%F3%FE%E6%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%A3%BE%B0%E7%E0%FE%B0%A8%B0%B0%BE%B0%F3%E7%F6%FB%FD%B0%A8%B0%B0%BE%B0%E1%FD%E7%FC%F6%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%FF%F3%F5%F7%C4%FB%F6%F7%FD%B0%A8%A3%BE%B0%FB%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F4%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%E6%C1%FB%FE%F7%FC%E6%C4%FB%F6%F7%FD%B0%A8%A2%BE%B0%F7%C6%F7%EA%E6%B0%A8%B0%B0%BE%B0%E3%E7%F7%EA%E6%FB%FD%FC%B0%A8%B0%C1%FB%B2%F6%FB%E1%F7c%F3%FF%FD%E1%B2%E7%FC%F3%B2%FF%FB%E1%FBa%FC%B2%E1%F7%F1%E7%FC%F6%F3%E0%FB%F3%B2%E1%FD%F0%E0%F7%B2%F0%FB%FD%BF%FB%FC%E1%E2%FB%E0%F3%F1%FBa%FC%BE%B2-%F7%FC%B2%E3%E7%7B%B2%E2%FD%F6%E0%7F%F3%FF%FD%E1%B2%F4%FB%F8%F3%E0%FC%FD%E1%B2%E2%F3%E0%F3%B2%FF%F7%F8%FD%E0%F3%E0%B2%FC%E7%F7%E1%E6%E0%FD%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%AD%B0%BE%B0%FD%E2%E6%FB%FD%FC%E1%B0%A8%C9%B0%D7%FC%B2%FE%F3%B2%F4%FD%E0%FF%F3%B2%F7%FC%B2%E3%E7%F7%B2%F1%F3%F7%FC%B2%FE%F3%E1%B2%E1%F7%FF%FB%FE%FE%F3%E1%BE%B2%FA%FD%F8%F3%E1%B2%FD%B2%E2%FE%E7%FF%F3%E1%B2%F7%FC%B2%FE%F3%B2%FC%F3%E6%E7%E0%F3%FE%F7%E8%F3%BC%B0%BE%B0%D7%FC%B2%F7%FE%B2%FF%FD%E6%FD%E0%B2%F6%F7%B2%FE%FD%E1%B2%F3%E4%FB%FD%FC%F7%E1%B2%F3%B2%E0%F7%F3%F1%F1%FBa%FC%B2%F1%FD%FF%F7%E0%F1%FB%F3%FE%F7%E1%BC%B0%BE%B0%D7%FC%B2%F1a%FF%FD%B2%FC%F3%F6%F3%FC%B2%FE%FD%E1%B2%E2%F7%F1%F7%E1%B2%F7%FC%B2%FE%FD%E1%B2%E0%7F%FD%E1%BC%B0%BE%B0%D7%FC%B2%FE%FD%E1%B2%E1%FB%E1%E6%F7%FF%F3%E1%B2%F6%F7%B2%FE%F3%E1%B2%F3%FC%E6%F7%FC%F3%E1%B2%F6%F7%B2%E6%F7%FE%F7%E4%FB%E1%FBa%FC%B2%F3%FC%E6%FB%F5%E7%F3%E1%BC%B0%CF%BE%B0%E1%FD%FE%E7%E6%FB%FD%FC%B0%A8%A2%BE%B0%FF%E1%F5%DA%FB%E6%B0%A8%B03%DF%E7%EB%B2%FD%F0%E1%F7%E0%E4%F3%F6%FD%E0%BD%F3%B3%B2%DE%F3%B2%FC%F3%E6%E7%E0%F3%FE%F7%E8%F3%B2%F7%E1%B2%FE%F3%B2%FF%F7%F8%FD%E0%B2%FB%FC%F5%F7%FC%FB%F7%E0%F3%BE%B2%EB%B2%FF%E7%F1%FA%F3%E1%B2%E1%F7%FF%FB%FE%FE%F3%E1%B2%E6%FB%F7%FC%F7%FC%B2%F4%FD%E0%FF%F3%E1%B2%F6%FB%E1%F7c%F3%F6%F3%E1%B2%E2%F3%E0%F3%B2%E2%FE%F3%FC%F7%F3%E0%B2%FE%F3%E0%F5%F3%E1%B2%F6%FB%E1%E6%F3%FC%F1%FB%F3%E1%BC%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%B0%A8%B0%D0%FB%FD%BF%FB%FC%E1%E2%FB%E0%F3%F1%FBa%FC%B2%E1%FB%F5%FC%FB%F4%FB%F1%F3%B2%FB%FC%E1%E2%FB%E0%F3%E0%E1%F7%B2%F7%FC%B2%FE%F3%B2%F0%FB%FD%FE%FD%F5%7F%F3%B2%BA%F7%FC%B2%E1%F7%E0%F7%E1%B2%E4%FB%E4%FD%E1%B2%FD%B2%FC%F3%E6%E7%E0%F3%FE%F7%E8%F3%BB%BC%B2-%C3%E7%7B%B2%F7%FE%F7%FF%F7%FC%E6%FD%B2%F6%F7%B2%FE%F3%B2%FC%F3%E6%E7%E0%F3%FE%F7%E8%F3%B2%E4%E7%F7%FE%F3%B2%FD%B2%E2%FE%F3%FC%F7%F3%B2%FE%F7%FC%E6%F3%FF%F7%FC%E6%F7%AD%B0%BE%B0%FA%FB%E6%B0%A8%BF%A3%BE%B0%F7%E0%E0%FD%E0%B0%A8%BF%A3%EF%CF%BE%B0%FB%E1%C1%F1%FD%E0%FF%B0%A8%A2%BE%B0%E6%F7%EA%E6%D0%E7%E6%E6%FD%FC%C1%F1%FD%E0%FF%B0%A8%B0%D5%E7%F3%E0%F6%F3%E0%B2%FE%F3%B2%E2%E7%FC%E6%E7%F3%F1%FBa%FC%B0%BE%B0%E0%F7%E2%F7%F3%E6%D3%F1%E6%FB%E4%FB%E6%EB%B0%A8%F4%F3%FE%E1%F7%BE%B0%E6%FB%E6%FE%F7%B0%A8%B0%B0%BE%B0%F1%E7%E1%E6%FD%FF%C1%F1%FD%E0%F7%B0%A8%F4%F3%FE%E1%F7%BE%B0%E6%F7%EA%E6%D3%F4%E6%F7%E0%B0%A8%B0%B0%BE%B0%E6%F7%EA%E6%D4%F7%F7%F6%D0%F3%F1%F9%B0%A8%B0%B0%BE%B0%F5%F3%FF%F7%DF%FD%F6%F7%B0%A8%A2%BE%B0%F4%F7%F7%F6%D0%F3%F1%F9%B0%A8%F4%F3%FE%E1%F7%BE%B0%E2%F7%E0%F1%F7%FC%E6%F3%F8%F7%D4%D0%B0%A8%A3%A2%A2%BE%B0%E4%F7%E0%E1%FB%FD%FC%B0%A8%A0%BE%B0%F1%E7%E1%E6%FD%FF%DF%F7%E1%E1%F3%F5%F7%E1%B0%A8%E6%E0%E7%F7%BE%B0%E2%F7%E0%F1%F7%FC%E6%F3%F8%F7%C3%E7%F7%E1%E6%FB%FD%FC%E1%B0%A8%A5%A2%BE%B0%F7%E4%F3%FE%E7%F3%E6%FB%FD%FC%B0%A8%F4%F3%FE%E1%F7%BE%B0%F7%E4%F3%FE%E7%F3%E6%FB%FD%FC%DB%D6%B0%A8%B0%B0%BE%B0%FB%F6%B0%A8%B0%A0%A2%A0%A4%A7%A5%A3%A4%A3%A5%A1%A0%BF%A3%A0%A2%B0%BE%B0%FF%E1%F5%E1%B0%A8%E9%B0%FF%E1%F5%C1%E6%F3%E0%E6%D5%F3%FF%F7%B0%A8%B0%C2%E7%FE%E1%F7%B2%F3%E3%E7%7F%B2%E2%F3%E0%F3%B2%F7%FF%E2%F7%E8%F3%E0%B0%BE%B0%FF%E1%F5%C1%E7%F0%FF%FB%E6%B0%A8%B0%D7%FC%E4%FB%F3%E0%B0%BE%B0%FF%E1%F5%D1%FE%E7%F7%B0%A8%B03%D5%F7%FC%FB%F3%FE%B3%B2%DE%F3%B2%E2%FB%E1%E6%F3%B2%F7%E1%A8%B0%BE%B0%FF%E1%F5%DC%F7%E5%D5%F3%FF%F7%B0%A8%B0%C2%E7%FE%E1%F7%B2%F3%E3%E7%7F%B2%E2%F3%E0%F3%B2%F7%FF%E2%F7%E8%F3%E0%B2%FD%E6%E0%F3%B2%E2%F3%E0%E6%FB%F6%F3%B0%BE%B0%FF%E1%F5%D1%FD%F6%F7%D3%F1%F1%F7%E1%E1%B0%A8%B0%D1a%F6%FB%F5%FD%B2%F6%F7%B2%F3%F1%F1%F7%E1%FD%B0%BE%B0%FF%E1%F5%DB%FC%F4%FD%E0%FF%F3%E6%FB%FD%FC%DE%FD%FD%F9%FB%FC%F5%B0%A8%B03%D5%F7%FC%FB%F3%FE%B3%B2%DE%F3%B2%FB%FC%F4%FD%E0%FF%F3%F1%FBa%FC%B2%E3%E7%F7%B2%F7%E1%E6%F3%F0%F3%B2%F0%E7%E1%F1%F3%FC%F6%FD%B0%BE%B0%FF%E1%F5%C2%FE%F3%EB%C1%E6%F3%E0%E6%B0%A8%B0%C2%E7%FE%E1%F7%B2%F3%E3%E7%7F%B2%E2%F3%E0%F3%B2%F8%E7%F5%F3%E0%B0%BE%B0%FF%E1%F5%D7%E0%E0%FD%E0%E1%B0%A8%B0%D7%E0%E0%FD%E0%F7%E1%B0%BE%B0%FF%E1%F5%DA%FB%E6%E1%B0%A8%B0%D3%F1%FB%F7%E0%E6%FD%E1%B0%BE%B0%FF%E1%F5%C1%F1%FD%E0%F7%B0%A8%B0%C2%E7%FC%E6%E7%F3%F1%FBa%FC%B0%BE%B0%FF%E1%F5%DF%FB%FC%FB%FF%FB%E8%F7%B0%A8%B0%DF%FB%FC%FB%FF%FB%E8%F3%E0%B0%BE%B0%FF%E1%F5%DF%F3%EA%FB%FF%FB%E8%F7%B0%A8%B0%DF%F3%EA%FB%FF%FB%E8%F3%E0%B0%BE%B0%FF%E1%F5%C6%FB%FF%F7%B0%A8%B0%C6%FB%F7%FF%E2%FD%B2%E2%FD%E0%B2%E2%E0%F7%F5%E7%FC%E6%F3%B0%BE%B0%FF%E1%F5%DE%FB%E4%F7%B0%A8%B0%C4%FB%F6%F3%B0%BE%B0%FF%E1%F5%D4%E7%FE%FE%C1%F1%E0%F7%F7%FC%B0%A8%B0%C2%F3%FC%E6%F3%FE%FE%F3%B2%D1%FD%FF%E2%FE%F7%E6%F3%B0%BE%B0%FF%E1%F5%D7%EA%FB%E6%D4%E7%FE%FE%C1%F1%E0%F7%F7%FC%B0%A8%B0%C1%F3%FE%FB%E0%B2%F6%F7%FE%B2%FF%FD%F6%FD%B2%E2%F3%FC%E6%F3%FE%FE%F3%B2%F1%FD%FF%E2%FE%F7%E6%F3%B0%BE%B0%FF%E1%F5%DC%E7%FF%C3%E7%F7%E1%E6%FB%FD%FC%E1%B0%A8%B0%DCh%FF%F7%E0%FD%B2%F6%F7%B2%E2%E0%F7%F5%E7%FC%E6%F3%E1%B0%BE%B0%FF%E1%F5%DC%FD%DB%FF%F3%F5%F7%B0%A8%B0%C2%E0%F7%F5%E7%FC%E6%F3%B2%E1%FB%FC%B2%FB%FFs%F5%F7%FC%F7%E1%B0%BE%B0%FF%E1%F5%D1%FD%FD%FE%B0%A8%B03%D0%FB%F7%FC%B3%B0%BE%B0%FF%E1%F5%DE%FD%E1%F7%C6%B0%A8%B0%DA%F3%B2%E2%F7%E0%F6%FB%F6%FD%B2%A1%A1%A2%B2%E2%E7%FC%E6%FD%E1%B0%BE%B0%FF%E1%F5%DE%FD%E1%F7%DE%FB%E4%F7%B0%A8%B0%DA%F3%B2%E2%F7%E0%F6%FB%F6%FD%B2%E7%FC%F3%B2%E4%FB%F6%F3%B0%BE%B0%FF%E1%F5%DE%FD%E1%E6%DE%FB%E4%F7%E1%B0%A8%B03%DA%F3%B2%E2%F7%E0%F6%FB%F6%FD%B2%E6%FD%F6%F3%E1%B2%E1%E7%E1%B2%E4%FB%F6%F3%E1%B3%B0%BE%B0%FF%E1%F5%D3%FE%FE%C3%E7%F7%E1%E6%FB%FD%FC%E1%B0%A8%B03%D1%FD%FF%E2%FE%F7%E6%F3%F6%F3%E1%B2%FE%F3%E1%B2%E2%E0%F7%F5%E7%FC%E6%F3%E1%B3%B0%BE%B0%FF%E1%F5%C1%E7%F1%F1%F7%E1%E1%F7%E1%B0%A8%B03%D1%FD%E0%E0%F7%F1%E6%FD%B3%B2%EE%B23%D7%EA%F1%F7%FE%F7%FC%E6%F7%B3%B2%EE%B23%D5%F7%FC%FB%F3%FE%B3%B2%EE%B23%DF%E7%EB%B2%F0%FB%F7%FC%B3%B2%EE%B23%C2%F7%E0%F4%F7%F1%E6%FD%B3%B0%BE%B0%FF%E1%F5%D4%F3%FB%FE%E7%E0%F7%E1%B0%A8%B03%DC%FD%B2%F7%E0%F3%B2%F7%E1%FD%B3%B2%EE%B23%DB%FC%F1%FD%E0%E0%F7%F1%E6%FD%B3%B2%EE%B23%DC%FD%B2%F7%E1%B2%F1%FD%E0%E0%F7%F1%E6%FD%B3%B2%EE%B23%DE%FD%B2%E1%F7%FC%E6%FB%FF%FD%E1%B3%B2%EE%B23%D7%E0%E0%FD%E0%B3%B0%BE%B0%FF%E1%F5%C1%F1%FD%E0%F7%C1%F1%FD%E0%FF%B0%A8%B0%DE%F3%B2%E2%E7%FC%E6%E7%F3%F1%FBa%FC%B2%FC%FD%B2%E1%F7%B2%E2%E7%F7%F6%F7%B2%F5%E7%F3%E0%F6%F3%E0%B2%E2%FD%E0%E3%E7%F7%B2%F7%E1%E6%F3%B2%E2s%F5%FB%FC%F3%B2%FC%FD%B2%F4%FD%E0%FF%F3%B2%E2%F3%E0%E6%F7%B2%B2%F6%F7%B2%E7%FC%B2%E2%F3%E3%E7%F7%E6%F7%B2%C1%D1%DD%C0%DF%BC%B0%BE%B0%FF%E1%F5%C3%E7%F7%E1%E6%FB%FD%FC%B0%A8%B0%C2%E0%F7%F5%E7%FC%E6%F3%B0%BE%B0%FF%E1%F5%DD%FC%FE%EB%C1%F3%E4%F7%C1%F1%FD%E0%F7%B0%A8%B03%C1a%FE%FD%B2%E2%E7%F7%F6%F7%B2%F5%E7%F3%E0%F6%F3%E0%B2%FE%F3%B2%E2%E7%FC%E6%E7%F3%F1%FBa%FC%B2%E7%FC%F3%B2%E4%F7%E8%B3%B0%BE%B0%FF%E1%F5%DD%FC%FE%EB%C1%F3%E4%F7%B0%A8%B0%C1a%FE%FD%B2%E2%E7%F7%F6%F7%B2%F5%E7%F3%E0%F6%F3%E0%B2%E7%FC%F3%B2%E4%F7%E8%B0%BE%B0%FF%E1%F5%DB%FC%F4%FD%E0%FF%F3%E6%FB%FD%FC%B0%A8%B0%DB%FC%F4%FD%E0%FF%F3%F1%FBa%FC%B0%BE%B0%FF%E1%F5%D3%E7%E6%FA%FD%E0%B0%A8%B0%D3%E7%E6%FD%E0%7F%F3%B0%BE%B0%FF%E1%F5%DD%FC%FE%EB%C1%F3%E4%F7%D3%E7%E6%FD%B0%A8%B0%C1%E7%B2%E2%E7%FC%E6%E7%F3%F1%FBa%FC%B2%E1%F7%B2%F5%E7%F3%E0%F6%F3%E0s%B2%F6%F7%E1%E2%E7%7B%E1%B2%F6%F7%B2%F1%F3%F6%F3%B2%E2%E0%F7%F5%E7%FC%E6%F3%BC%B2%C1a%FE%FD%B2%E2%E7%F7%F6%F7%B2%F8%E7%F5%F3%E0%B2%E7%FC%F3%B2%E4%F7%E8%BC%B0%BE%B0%FF%E1%F5%C1%F3%E4%F7%D3%E7%E6%FD%B0%A8%B0%C1%E7%B2%E2%E7%FC%E6%E7%F3%F1%FBa%FC%B2%E1%F7%B2%F5%E7%F3%E0%F6%F3%E0s%B2%F3%E7%E6%FD%FFs%E6%FB%F1%F3%FF%F7%FC%E6%F7%B2%F6%F7%E1%E2%E7%7B%E1%B2%F6%F7%B2%F1%F3%F6%F3%B2%E2%E0%F7%F5%E7%FC%E6%F3%BC%B0%BE%B0%FF%E1%F5%CB%FD%E7%C1%F1%FD%E0%F7%B0%A8%B0%C1%E7%B2%E2%E7%FC%E6%E7%F3%F1%FBa%FC%B0%BE%B0%FF%E1%F5%C1%F7%E4%F7%E0%F3%FE%C1%F1%FD%E0%F7%B0%A8%B0%C2%E7%F7%F6%F7%B2%F5%E7%F3%E0%F6%F3%E0%B2%FE%F3%B2%E2%E7%FC%E6%E7%F3%F1%FBa%FC%B2%E6%F3%FC%E6%F3%E1%B2%E4%F7%F1%F7%E1%B2%F1%FD%FF%FD%B2%E3%E7%FB%F7%E0%F3%B0%BE%B0%FF%E1%F5%CB%FD%E7%DE%F3%E1%E6%C1%F1%FD%E0%F7%B0%A8%B0%DE%F3%B2h%FE%E6%FB%FF%F3%B2%E2%E7%FC%E6%E7%F3%F1%FBa%FC%B2%F5%E7%F3%E0%F6%F3%F6%F3%B2%F7%E1%B0%BE%B0%FF%E1%F5%D3%F1%E6%FB%E6%EB%D1%FD%FF%E2%FE%EB%B0%A8%B0%CB%F3%B2%FA%F3%B2%E0%F7%F3%FE%FB%E8%F3%F6%FD%B2%F7%E1%E6%F3%B2%F3%F1%E6%FB%E4%FB%F6%F3%F6%BC%B0%BE%B0%FF%E1%F5%C2%FE%F3%EB%C1%F7%E4%F7%E0%F3%FE%C6%FB%FF%F7%E1%B0%A8%B0%C2%E7%F7%F6%F7%B2%E0%F7%F3%FE%FB%E8%F3%E0%B2%F7%E1%E6%F3%B2%F3%F1%E6%FB%E4%FB%F6%F3%F6%B2%F1%E7%F3%FC%E6%F3%E1%B2%E4%F7%F1%F7%E1%B2%E3%E7%FB%F7%E0%F3%B0%BE%B0%FF%E1%F5%C6%E0%EB%D3%F5%F3%FB%FC%B0%A8%B0%DC%F7%F1%F7%E1%FB%E6%F3%B2%F3%FE%B2%FF%F7%FC%FD%E1%B2%E7%FC%B2%B7%E1%B7%B2%F6%F7%B2%E0%F7%E1%E2%E7%F7%E1%E6%F3%E1%B2%F1%FD%E0%E0%F7%F1%E6%F3%E1%B2%E2%F3%E0%F3%B2%F1%FD%FC%E1%F7%F5%E7%FB%E0%B2%FE%F3%B2%FB%FC%F4%FD%E0%FF%F3%F1%FBa%FC%BC%B2%C4%E7%F7%FE%E4%F3%B2%F3%B2%FB%FC%E6%F7%FC%E6%F3%E0%FE%FD%BC%B0%BE%B0%FF%E1%F5%C4%FB%F6%F7%FD%DB%FC%E6%E0%FD%B0%A8%B0%C4%7F%F6%F7%FD%B2%F6%F7%B2%FB%FC%E6%E0%FD%F6%E7%F1%F1%FBa%FC%B0%BE%B0%FF%E1%F5%D1%FE%FD%E1%F7%B0%A8%B0%D1%F7%E0%E0%F3%E0%B0%BE%B0%FF%E1%F5%DD%E2%E6%FB%FD%FC%B0%A8%B0%DD%E2%F1%FBa%FC%B0%BE%B0%FF%E1%F5%C7%E1%F7%D4%E7%FE%DB%FC%F4%FD%E0%FF%F3%E6%FB%FD%FC%B0%A8%B0%F7%B2%FB%FC%F4%FD%E0%FF%F3%F1%FBa%FC%B2%E3%E7%F7%B2%E1%F7%E0s%B2%FF%E7%EB%B2h%E6%FB%FE%B0%BE%B0%FF%E1%F5%DE%FD%F3%F6%FB%FC%F5%B0%A8%B0%D1%F3%E0%F5%F3%FC%F6%FD%BC%B2%D7%E1%E2%F7%E0%F7%BE%B2%E2%FD%E0%B2%F4%F3%E4%FD%E0%BC%BC%BC%B0%BE%B0%FF%E1%F5%C2%FD%FB%FC%E6%E1%B0%A8%B0%E2%E7%FC%E6%FD%E1%B0%BE%B0%FF%E1%F5%D3%E7%F6%FB%FD%B0%A8%B0%D3%E7%F6%FB%FD%B0%BE%B0%FF%E1%F5%D7%FC%F6%D5%F3%FF%F7%C1%F1%FD%E0%F7%B0%A8%B0%DB%FC%FB%F1%FB%F3%B2%F7%FE%B2%F8%E7%F7%F5%FD%BC%BC%BC%B0%BE%B0%FF%E1%F5%C7%FC%F1%FD%FF%E2%FE%F7%E6%F7%F6%D3%F1%E6%FB%E4%FB%E6%EB%B0%A8%B0%D3%F1%E6%FB%E4%FB%F6%F3%F6%B2%FC%FD%B2%F1%FD%FF%E2%FE%F7%E6%F3%F6%F3%B0%BE%B0%FF%E1%F5%C1%E7%F1%F1%F7%E1%E1%F4%E7%FE%D3%F1%E6%FB%E4%FB%E6%EB%B0%A8%B0%D3%F1%E6%FB%E4%FB%F6%F3%F6%B2%E1%E7%E2%F7%E0%F3%F6%F3%BC%B2%C2%E7%FC%E6%E7%F3%F1%FBa%FC%A8%B2%B7%E1%B0%BE%B0%FF%E1%F5%C7%FC%E1%E7%F1%F1%F7%E1%E1%F4%E7%FE%D3%F1%E6%FB%E4%FB%E6%EB%B0%A8%B0%D3%F1%E6%FB%E4%FB%F6%F3%F6%B2%FC%FD%B2%E1%E7%E2%F7%E0%F3%F6%F3%BC%B2%C2%E7%FC%E6%E7%F3%F1%FBa%FC%A8%B2%B7%E1%B0%BE%B0%FF%E1%F5%C6%EB%E2%F7%D5%F3%FF%F7%B0%A8%B0%C3%E7%D7%EA%E6%B0%EF%EF</div><div class="quext-bns js-hidden">Su navegador no es compatible con esta herramienta.</div></div>
+</div>
+</div>
+</article><article id="block-mpczpc16-kl4w1wioh" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Rúbrica: sistema de lanzamiento</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-qm5u2abnd" class="idevice_node rubric rubric" data-idevice-path="../idevices/rubric/" data-idevice-type="rubric">
+<div class="rubric"><div class="exe-rubrics-DataGame js-hidden">%7B%22title%22%3A%22R%FAbrica%20de%20evaluaci%F3n%20del%20sistema%20de%20lanzamiento%22%2C%22categories%22%3A%5B%22Construcci%F3n%20del%20cohete%22%2C%22Sistema%20de%20sujeci%F3n%22%2C%22Presurizaci%F3n%20y%20seguridad%22%2C%22Prueba%20de%20lanzamiento%22%5D%2C%22scores%22%3A%5B%224%20Excelente%22%2C%223%20Satisfactorio%22%2C%222%20Mejorable%22%2C%221%20Insuficiente%22%5D%2C%22descriptions%22%3A%5B%5B%7B%22text%22%3A%22Usamos%20una%20botella%20de%20gas%2C%20insertamos%20el%20tap%F3n%20herm%E9tico%20y%20creamos%20un%20compartimento%20seguro%20para%20el%20MiniCanSat.%22%2C%22weight%22%3A%222.5%22%7D%2C%7B%22text%22%3A%22Montamos%20el%20cohete%20completo%2C%20pero%20el%20compartimento%20requiere%20cinta%20extra%20o%20ajustes%20para%20que%20la%20lata%20no%20baile.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22Usamos%20los%20materiales%2C%20pero%20el%20tap%F3n%20no%20ajusta%20bien%20o%20el%20compartimento%20resulta%20muy%20inestable.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22No%20utilizamos%20una%20botella%20segura%20o%20no%20logramos%20construir%20un%20cohete%20que%20retenga%20el%20agua.%22%2C%22weight%22%3A%221%22%7D%5D%2C%5B%7B%22text%22%3A%22Dise%F1amos%20una%20estructura%20que%20mantiene%20el%20cohete%20totalmente%20vertical%20sin%20necesidad%20de%20sujetarlo%20con%20las%20manos.%22%2C%22weight%22%3A%222.5%22%7D%2C%7B%22text%22%3A%22Nuestro%20sistema%20de%20apoyo%20funciona%2C%20pero%20presenta%20cierta%20inestabilidad%20al%20conectar%20la%20bomba%20de%20aire.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22Sujetamos%20el%20cohete%20con%20un%20sistema%20improvisado%20que%20requiere%20ajustes%20continuos%20para%20que%20no%20se%20caiga.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22No%20disponemos%20de%20sistema%20de%20sujeci%F3n%20y%20dependemos%20de%20agarrarlo%20directamente%20con%20las%20manos.%22%2C%22weight%22%3A%221%22%7D%5D%2C%5B%7B%22text%22%3A%22Respeto%20estrictamente%20el%20per%EDmetro%20de%205m%20y%20uso%20gafas%20de%20protecci%F3n%20si%20me%20encargo%20de%20bombear%20hasta%20los%202-3%20bares.%22%2C%22weight%22%3A%222.5%22%7D%2C%7B%22text%22%3A%22Cumplo%20las%20normas%2C%20pero%20el%20docente%20tiene%20que%20recordarme%20puntualmente%20el%20uso%20de%20las%20gafas%20o%20la%20distancia.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22Participo%20en%20la%20presurizaci%F3n%2C%20pero%20tiendo%20a%20acercarme%20demasiado%20o%20dudo%20en%20la%20aplicaci%F3n%20de%20la%20seguridad.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22Incumplo%20las%20normas%20de%20seguridad%20poniendo%20en%20riesgo%20al%20equipo%20%28sin%20gafas%20o%20acerc%E1ndome%20demasiado%29.%22%2C%22weight%22%3A%221%22%7D%5D%2C%5B%7B%22text%22%3A%22Realizamos%20una%20prueba%20sin%20carga%20de%20forma%20exitosa%2C%20documentando%20que%20el%20tap%F3n%20salta%20y%20el%20cohete%20se%20eleva%20recto.%22%2C%22weight%22%3A%222.5%22%7D%2C%7B%22text%22%3A%22Realizamos%20la%20prueba%2C%20el%20cohete%20despega%2C%20pero%20el%20vuelo%20es%20err%E1tico%20o%20inestable.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22El%20cohete%20apenas%20se%20eleva%20debido%20a%20fugas%20de%20presi%F3n%20durante%20la%20prueba%20o%20a%20un%20exceso/defecto%20de%20agua.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22El%20sistema%20falla%20completamente%20en%20la%20prueba%20y%20el%20cohete%20no%20logra%20despegar%20del%20suelo.%22%2C%22weight%22%3A%221%22%7D%5D%5D%2C%22i18n%22%3A%7B%22activity%22%3A%22Actividad%22%2C%22name%22%3A%22Nombre%22%2C%22date%22%3A%22Fecha%22%2C%22score%22%3A%22Puntuaci%F3n%22%2C%22notes%22%3A%22Notas%22%2C%22reset%22%3A%22Reiniciar%22%2C%22print%22%3A%22Imprimir%22%2C%22apply%22%3A%22Aplicar%22%2C%22newWindow%22%3A%22Ventana%20nueva%22%7D%7D</div><p class="exe-rubrics-authorship"><span class="title"><em>Rúbrica de evaluación del sistema de lanzamiento</em></span> <span class="license">(<a href="http://creativecommons.org/licenses/" rel="license nofollow noopener" target="_blank" title="Creative Commons CC-BY-SA">CC BY-SA</a>)</span></p><ul class="exe-rubrics-strings"><li class="activity">Actividad</li><li class="name">Nombre</li><li class="date">Fecha</li><li class="score">Puntuación</li><li class="notes">Notas</li><li class="reset">Reiniciar</li><li class="print">Imprimir</li><li class="apply">Aplicar</li><li class="newWindow">Ventana nueva</li></ul><div class="exe-rubrics-wrapper"><div class="exe-rubrics-content"><div id="exe-rubrics-header"><div><label for="activity">Actividad:</label><input type="text" id="activity" data-rubric-field="activity" class="form-control form-control-sm"></div><div><label for="name">Nombre:</label><input type="text" id="name" data-rubric-field="name" class="form-control form-control-sm"></div><div><label for="score">Puntuación:</label><input type="text" id="score" data-rubric-field="score" class="form-control form-control-sm"></div><div><label for="date">Fecha:</label><input type="text" id="date" data-rubric-field="date" class="form-control form-control-sm" value="19/5/2026"></div></div><div class="exe-rubrics-table-slot"><table class="exe-table exe-rubrics-export-table" data-rubric-table-type="export"><caption>Rúbrica de evaluación del sistema de lanzamiento</caption><thead><tr><th>&nbsp;</th><th>4 Excelente</th><th>3 Satisfactorio</th><th>2 Mejorable</th><th>1 Insuficiente</th></tr></thead><tbody><tr><th>Construcción del cohete</th><td>Usamos una botella de gas, insertamos el tapón hermético y creamos un compartimento seguro para el MiniCanSat. <span>(2.5)</span></td><td>Montamos el cohete completo, pero el compartimento requiere cinta extra o ajustes para que la lata no baile. <span>(2)</span></td><td>Usamos los materiales, pero el tapón no ajusta bien o el compartimento resulta muy inestable. <span>(1.5)</span></td><td>No utilizamos una botella segura o no logramos construir un cohete que retenga el agua. <span>(1)</span></td></tr><tr><th>Sistema de sujeción</th><td>Diseñamos una estructura que mantiene el cohete totalmente vertical sin necesidad de sujetarlo con las manos. <span>(2.5)</span></td><td>Nuestro sistema de apoyo funciona, pero presenta cierta inestabilidad al conectar la bomba de aire. <span>(2)</span></td><td>Sujetamos el cohete con un sistema improvisado que requiere ajustes continuos para que no se caiga. <span>(1.5)</span></td><td>No disponemos de sistema de sujeción y dependemos de agarrarlo directamente con las manos. <span>(1)</span></td></tr><tr><th>Presurización y seguridad</th><td>Respeto estrictamente el perímetro de 5m y uso gafas de protección si me encargo de bombear hasta los 2-3 bares. <span>(2.5)</span></td><td>Cumplo las normas, pero el docente tiene que recordarme puntualmente el uso de las gafas o la distancia. <span>(2)</span></td><td>Participo en la presurización, pero tiendo a acercarme demasiado o dudo en la aplicación de la seguridad. <span>(1.5)</span></td><td>Incumplo las normas de seguridad poniendo en riesgo al equipo (sin gafas o acercándome demasiado). <span>(1)</span></td></tr><tr><th>Prueba de lanzamiento</th><td>Realizamos una prueba sin carga de forma exitosa, documentando que el tapón salta y el cohete se eleva recto. <span>(2.5)</span></td><td>Realizamos la prueba, el cohete despega, pero el vuelo es errático o inestable. <span>(2)</span></td><td>El cohete apenas se eleva debido a fugas de presión durante la prueba o a un exceso/defecto de agua. <span>(1.5)</span></td><td>El sistema falla completamente en la prueba y el cohete no logra despegar del suelo. <span>(1)</span></td></tr></tbody></table></div><div id="exe-rubrics-footer"><p><label for="notes">Notas:</label><textarea id="notes" data-rubric-field="notes" class="form-control form-control-sm" cols="32" rows="1"></textarea></p></div><p class="exe-rubrics-actions"><button type="button" class="exe-rubrics-download btn btn-primary btn-sm">Download</button><button type="button" class="exe-rubrics-reset btn btn-primary btn-sm">Reiniciar</button></p></div></div></div><div class="exe-rubrics-richtext-data sr-av"><span class="exe-rubrics-instructions-data"></span><span class="exe-rubrics-text-after-data"></span></div>
+</div>
+</div>
+</article><article id="block-mpczpc16-1do511q1r" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Diario individual de Misión MiniCanSat</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-ef8xtj44e" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc16-ef8xtj44e&quot;}">
+<p>Antes de terminar esta fase del proyecto, dedicaremos entre 10 y 15 minutos a reflexionar, en grupo y de manera individual, sobre lo aprendido durante esta fase de nuestro proyecto.</p>
+<p>Dejaremos constancia de nuestro aprendizaje. Rellenaremos nuestro propio documento <strong>Diario individual de misión MiniCanSat</strong> y lo guardaremos en nuestra carpeta personal.</p>
+<p>Además, cada equipo actualizará el <strong>Diario de misión MiniCanSat de equipo</strong>, incluyendo los avances en la programación, pruebas realizadas y ajustes necesarios.</p>
+<!-- Contenidos del diario con estilo de tarjeta/diario -->
+<p>Completar este diario nos ayudará a ser conscientes de nuestro progreso, superar obstáculos y compartir información clave con el equipo. Nos tomaremos unos minutos al final de cada sesión para reflexionar sobre estos puntos.</p>
+<!-- Contenedor principal para control de ancho (DUA) -->
+<div style="max-width: 875px; margin: 0 auto;">
+<div>
+<p class="muestraOcultaSiguiente" style="background-color: #4a90e2; color: white; border-radius: 10px; font-weight: bold; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; padding-left: 0.5em;">📖 Contenidos del Diario de Aprendizaje <span style="font-size: 0.8em; font-weight: normal;">(clic para mostrar)</span></p>
+<div style="background-color: #fdfdfd; border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.05); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><!-- Introducción DUA: Fomento de la metacognición y autorregulación -->
+<ul style="list-style: none; padding-left: 0;"><!-- Sección 1 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #d35400; display: block; background: #fff5eb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🧠 Reflexión personal </span>
+<ul style="list-style-type: '✎ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Qué tareas he realizado hoy?</li>
+<li style="margin-left: 1em;">¿Qué dificultades he encontrado y cómo las he resuelto?</li>
+</ul>
+</li>
+<!-- Sección 2 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #27ae60; display: block; background: #ebf9f1; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🌟 Aprendizaje diario </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '✔ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Qué conceptos nuevos he aprendido?</li>
+<li style="margin-left: 1em;">¿Qué ideas o habilidades he mejorado?</li>
+</ul>
+</li>
+<!-- Sección 3 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #2980b9; display: block; background: #ebf5fb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🤝 Colaboración en el equipo </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '👥 ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Cómo ha sido mi comunicación y trabajo con el equipo?</li>
+<li style="margin-left: 1em;">¿Qué aspectos podría mejorar en la colaboración?</li>
+</ul>
+</li>
+<!-- Sección 4 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #8e44ad; display: block; background: #f5eef8; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 📝 Otra información </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '📌 ';">
+<li style="margin-top: 5px; margin-left: 1em;">Anotaciones adicionales sobre el proceso, ideas o problemas.</li>
+<li style="margin-left: 1em;"><strong>Diario de equipo:</strong> ¿Qué información de mi diario individual es útil para el grupo?</li>
+</ul>
+</li>
+</ul>
+<!-- Botones de descarga -->
+<div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
+<p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Descarga del diario:</p>
+<a href="https://drive.google.com/file/d/1S4ESi1AfEeOB_TRMwk9QaUX1DsiHnPLR/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #5cb85c; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener">💾 Formato Editable</a> <a href="https://drive.google.com/file/d/1EiXe__9apTJkXo2A0z9yQO-yGox4lRnr/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #d9534f; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener">📄 Formato PDF</a></div>
+</div>
+</div>
+</div>
+<!-- Aquí acaban los contenidos del diario--><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="Cuestiones para la reflexión" /></div><div class="feedback js-feedback js-hidden"><ul class="listaResaltada">
+<li><span aria-hidden="true">🤔</span> ¿Qué parte de la construcción del sistema de lanzamiento <strong>nos</strong> ha parecido más interesante o divertida?</li>
+<li><span aria-hidden="true">🛠️</span> ¿Cómo hemos resuelto los retos para adaptar la botella y el sistema de sujeción?</li>
+<li><span aria-hidden="true">📦</span> ¿El MiniCanSat ha quedado bien alojado y seguro dentro de nuestro cohete?</li>
+<li><span aria-hidden="true">🛡️</span> ¿Hemos cumplido bien las normas de seguridad durante las pruebas?</li>
+<li><span aria-hidden="true">🔄</span> ¿Qué <strong>mejoraríamos</strong> o <strong>cambiaríamos</strong> si <strong>tuviéramos</strong> que construir otro lanzador?</li>
+<li><span aria-hidden="true">💡</span> ¿Se <strong>nos</strong> ha ocurrido alguna idea diferente que podríamos probar (otro tipo de rampa, sistema de encaje, etc.)?</li>
+</ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/construimos-el-minicansat.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/operaciones-de-vuelo-del-lanzamiento-al-analisis-d.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+<div id="siteUserFooter"> <div><div style="display: flex; justify-content: center;" class="addthis_inline_share_toolbox"></div>
+<p style="text-align: center;"><span style="font-size: 0.8em;">Programa <a href="https://programacrea.educarex.es" target="_blank">CREA</a> Extremadura (Creación de Recursos Educativos Abiertos)</p>
+<script>
+$("#packageLicense a").click(function(){
+window.open(this.href);
+return false;
+});
+</script>
+<script>
+  $(function() {
+    /* ==========================================
+  CONFIGURACIÓN DE TEXTOS
+  ========================================== */
+    const textoDesplegar = "Desplegar";
+    const textoContraer = "Contraer";
+    /* ==========================================
+  1. INICIALIZACIÓN
+  ========================================== */
+// Recorremos todos los elementos para asignar el tooltip correcto al cargar
+    $('.muestraOcultaSiguiente').each(function() {
+   var $this = $(this);
+   if ($this.hasClass('visible')) {
+  $this.attr('title', textoContraer);
+   } else {
+  $this.attr('title', textoDesplegar);
+   }
+    });
+    /* ==========================================
+  2. LÓGICA PRINCIPAL (CLICK EN ENCABEZADO)
+  ========================================== */
+    $(document).on('click', '.muestraOcultaSiguiente', function(){
+ var $this = $(this);
+ 
+ // Alternamos la visibilidad
+ $this.toggleClass('visible');
+ 
+ // Actualizamos el texto del tooltip según el estado
+ if ($this.hasClass('visible')) {
+   $this.attr('title', textoContraer);
+ } else {
+   $this.attr('title', textoDesplegar);
+ }
+    });
+    /* ==========================================
+  3. LÓGICA "CLICABLE" (CERRAR AL TOCAR CONTENIDO)
+  ========================================== */
+    // Si el elemento es .clicable, al pulsar en su contenido se cierra,
+    // salvo que pulsemos explícitamente en el botón de cierre (para evitar doble evento).
+    $(document).on('click', '.clicable + *', function(e) {
+ if ($(e.target).closest('.zona-cierre').length) return;
+ var elementoAnterior = $(this).prev('.clicable');
+ if (elementoAnterior.hasClass('muestraOcultaSiguiente')) {
+   // Disparamos click en el encabezado para reutilizar la lógica principal
+   elementoAnterior.click(); 
+ }
+    });
+    /* ==========================================
+  4. GENERADOR DE CIERRE (.conCierre)
+  ========================================== */
+    // Busca elementos con la clase .conCierre e inyecta el botón al final de su contenido
+    $('.muestraOcultaSiguiente.conCierre').each(function(){
+ var contenido = $(this).next();
+ // Evitamos duplicados si el script corre varias veces
+ if (contenido.find('.zona-cierre').length === 0) {
+   contenido.append('<div class="zona-cierre" title="Contraer esta parte"><span class="icono-cierre">❯</span></div>');
+ }
+    });
+    /* ==========================================
+  5. ACCIÓN DEL BOTÓN DE CIERRE (INCLUYE SCROLL)
+  ========================================== */
+    $(document).on('click', '.zona-cierre', function() {
+ // Identificamos el encabezado correspondiente
+ var encabezado = $(this).parent().prev('.muestraOcultaSiguiente');
+ 
+ // Simulamos click para cerrar
+ encabezado.click();
+ 
+ // SCROLL AUTOMÁTICO SUAVE
+ // Llevamos la pantalla de vuelta al título para no perder el contexto
+ $('html, body').animate({
+scrollTop: encabezado.offset().top - 20 // Dejamos 20px de margen superior
+ }, 500); // 500ms de duración de la animación
+    });
+  });
+</script>
+</div>
+</div></div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(nueva ventana)</span></span></a></p>
+</body>
+</html>

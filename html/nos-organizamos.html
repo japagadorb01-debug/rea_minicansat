@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mpdr044m-a5swnyr9h">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>Nos organizamos | MiniCanSat: primeros pasos en la exploración espacial</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Este Recurso Educativo Abierto (REA) ofrece una guía paso a paso para que docentes y estudiantes desarrollen un MiniCanSat, una primera aproximación al desafío CanSat. A través de este proyecto, los estudiantes diseñarán y construirán un MiniCanSat, incluyendo la carcasa, un sistema de caída controlado (paracaídas), la programación básica con Micro:bit y el uso de sensores para la recopilación y análisis de datos. Se proponen diferentes misiones científicas y tecnológicas, adaptadas a distintos niveles educativos, que permiten a los estudiantes experimentar con la exploración espacial a pequeña escala. Con este REA, cualquier docente podrá guiar a su alumnado en una experiencia práctica y motivadora que fomenta el pensamiento computacional, la creatividad y el interés por la ciencia y la tecnología, preparándolos para futuras competiciones CanSat.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../search_index.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/checklist/checklist.js"></script><link rel="stylesheet" href="../idevices/checklist/checklist.css">
+<script src="../idevices/checklist/html2canvas.js"></script>
+<script src="../libs/exe_effects/exe_effects.js"> </script>
+<link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
+<script src="../libs/exe_lightbox/exe_lightbox.js"> </script>
+<link rel="stylesheet" href="../libs/exe_lightbox/exe_lightbox.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
+<style>
+.tituloSeccion{
+    border-radius: 10px 0px 10px 0px;
+    font-size: 1.05em;
+    margin-left: 10px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.resaltarAlPasar {
+transition-duration: 0.2s;
+border-radius:10px;
+padding:5px;
+}
+.resaltarAlPasar:hover{background-color: #f5deb3}
+
+.listaResaltada
+{ border-left: 6px solid #CC1155A1; 
+margin-left: 30px; 
+background-color: #73d41312; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+
+.listaGuion li {
+list-style-type: none;
+position: relative;
+}
+.listaGuion li::before {
+content: "-"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaCheck li {
+list-style-type: none;
+position: relative;
+}
+.listaCheck li::before {
+color: #53b528;
+content: "✔"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaInfantil
+{ border-left: 6px solid #fd8b31; 
+margin-left: 30px; 
+background-color: #f5f5ff; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+    .tabla-ordenable th {
+   cursor: pointer;
+    }
+   .tabla-ordenable td.numero-fila {
+   text-align: center;
+   font-size: small;
+    }
+.lista-xl > li::marker {
+  font-size: 1.5em;
+ color: #db688e; /* Color para los números */
+ font-weight: bold; /* Negrita para los números */
+   }
+
+/* =========================================
+   A PARTIR DE AQUÍ, PARA MuestraOcultaSiguiente. 
+    ESTILOS BASE (MECÁNICA)
+   ========================================= */
+.muestraOcultaSiguiente {
+  cursor: pointer;
+  user-select: none; /* Evita que se seleccione el texto al hacer click rápido */
+}
+/* Ocultar/Mostrar el contenido adyacente */
+.muestraOcultaSiguiente + * { display: none; }
+.muestraOcultaSiguiente.visible + * { display: block; }
+/* Si es clicable, el contenido también muestra mano */
+.muestraOcultaSiguiente.clicable + * { cursor: pointer; }
+
+/* =========================================
+   ESTILOS DEL CHEVRON INICIAL (.conMarca)
+   ========================================= */
+.muestraOcultaSiguiente.conMarca {
+  position: relative;
+  padding-left: 40px;
+}
+.muestraOcultaSiguiente.conMarca + * {
+  position: relative;
+  padding-left: 40px;
+}
+/* El pseudo-elemento que dibuja el chevron ❯ */
+.muestraOcultaSiguiente.conMarca::before {
+  content: "❯";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  font-size: 0.9em;
+  color: #666; 
+  /* Transición suave para rotación, color y movimiento */
+  transition: transform 0.4s ease-in, color 0.3s ease;
+  
+  /* ESTADO CERRADO (Por defecto): Apunta hacia abajo (rotado 90deg) */
+  transform: rotate(90deg);
+}
+/* ESTADO ABIERTO: Apunta hacia arriba (rotado -90deg) */
+.muestraOcultaSiguiente.conMarca.visible::before {
+  transform: rotate(-90deg);
+}
+/* --- INTERACCIÓN HOVER EN CHEVRON INICIAL --- */
+/* Al pasar el ratón por el título, el chevron se oscurece y da un saltito */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  color: #000; /* Se oscurece */
+}
+/* Saltito cuando está cerrado (salta en la dirección de la flecha) */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  /* Mantenemos la rotación y movemos en el eje X local (hacia la punta) */
+  transform: rotate(90deg) translateX(4px);
+}
+/* Saltito cuando está abierto */
+.muestraOcultaSiguiente.conMarca.visible:hover::before {
+  transform: rotate(-90deg) translateX(4px);
+}
+
+/* =========================================
+   ESTILOS DEL CIERRE FINAL (.conCierre)
+   ========================================= */
+.zona-cierre {
+  display: flex;   /* Flexbox para alinear */
+  align-items: center;  /* Centrado verticalmente */
+  justify-content: flex-start; /* Alineado a la IZQUIERDA */
+    
+  cursor: pointer;
+  color: #ccc;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+/* Solo dibujamos la línea a la derecha (::after) */
+.zona-cierre::after {
+  content: "";
+  flex: 1;    /* Ocupa todo el espacio restante a la derecha */
+  border-bottom: 1px solid currentColor;
+  margin-left: 10px;    /* Separación entre el icono y la línea */
+}
+/* El icono de cierre */
+.icono-cierre {
+  font-size: 0.9em;
+  color: #888;
+  display: inline-block;
+  margin-left: 0.2em;
+  
+  /* ROTAMOS EL ❯ PARA QUE MIRE ARRIBA */
+  transform: rotate(-90deg);
+  
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Hover Cierre */
+.zona-cierre:hover { opacity: 1; color: #999; }
+.zona-cierre:hover .icono-cierre {
+  color: #333;
+  /* Animación ajustada a la rotación: empujamos en el eje X para que suba */
+  transform: rotate(-90deg) translateX(4px);
+}
+</style>
+
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mpdr044m-a5swnyr9h" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">MiniCanSat: primeros pasos en la exploración espacial</a>
+</li>
+<li class="active"> <a href="../html/nos-organizamos.html" class="active no-ch">Nos organizamos</a>
+</li>
+<li> <a href="../html/programamos-nuestro-satelite-artificial.html" class="no-ch">Programamos nuestro satélite artificial</a>
+</li>
+<li> <a href="../html/construimos-el-minicansat.html" class="no-ch">Construimos el MiniCanSat</a>
+</li>
+<li> <a href="../html/preparamos-el-sistema-de-lanzamiento.html" class="no-ch">Preparamos el sistema de lanzamiento</a>
+</li>
+<li> <a href="../html/operaciones-de-vuelo-del-lanzamiento-al-analisis-d.html" class="no-ch">Operaciones de vuelo: del lanzamiento al análisis de datos</a>
+</li>
+<li> <a href="../html/mision-cumplida-nuestras-conclusiones-finales.html" class="no-ch">¡Misión cumplida! Nuestras conclusiones finales</a>
+</li>
+<li> <a href="../html/guia-didactica-y-fichero-fuente.html" class="no-ch">Guía didáctica y fichero fuente</a>
+</li>
+</ul>
+</nav><main id="page-mpdr044m-a5swnyr9h" class="page"> <div id="exe-client-search" data-block-order-string="Caja %e" data-no-results-string="Sin resultados.">
+</div>
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">2</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">8</strong></span></p>
+
+<div class="package-header"><p class="package-title">MiniCanSat: primeros pasos en la exploración espacial</p></div>
+<div class="page-header"><h1 class="page-title">Nos organizamos</h1></div>
+</header><div id="page-content-page-mpdr044m-a5swnyr9h" class="page-content">
+<article id="block-mpczpc0z-8h9yjybk6" class="box">
+<header class="box-head">
+<div class="box-icon exe-icon">
+<img src="../theme/icons/objectives.png" alt="">
+</div>
+<h1 class="box-title">¿Qué vamos a aprender?</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc0z-nwivxdsnp" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc0z-nwivxdsnp&quot;}">
+<p>En este proyecto nos convertiremos en ingenieros e ingenieras espaciales. Para ello, aprenderemos:</p>
+<ul class="listaResaltada">
+<li>Qué es un <strong>MiniCanSat</strong>, cómo funciona y por qué es importante en la exploración espacial.</li>
+<li>Descubriremos cómo usar <strong>sensores</strong> electrónicos para medir datos del entorno.</li>
+<li>Aprenderemos a programar la <strong>placa Micro:bit</strong> y a analizar la información obtenida tras el lanzamiento.</li>
+<li>Trabajaremos en equipo para <strong>diseñar, construir y probar</strong> nuestro propio <strong>MiniCanSat</strong>, documentando el proceso como lo hacen los científicos e ingenieros reales.</li>
+</ul>
+<div>
+<p style="font-size: 1.2em; color: #2980b9; margin-top: 0;"><span aria-hidden="true">🎯</span> <strong>Herramientas para nuestra mochila espacial</strong></p>
+<p>A lo largo de nuestra misión MiniCanSat, no solo construiremos un satélite, sino que entrenaremos un montón de habilidades como verdaderos profesionales. Estas son las herramientas que llevaremos en nuestra "mochila espacial":</p>
+<ul class="listaCheck">
+<li><span aria-hidden="true">🚀</span> <strong>Ciencia y Tecnología (<em>Hard Skills</em>):</strong> Aprenderemos programación por bloques, entenderemos cómo funcionan la telemetría y la radiofrecuencia, aplicaremos la física del vuelo (resistencia del aire y presión atmosférica) y realizaremos análisis de datos reales usando archivos CSV y gráficas.</li>
+<li><span aria-hidden="true">🧠</span> <strong>Habilidades para la vida (<em>Soft Skills</em>):</strong> Mejoraremos nuestro trabajo en equipo y liderazgo al asumir roles específicos, practicaremos la resolución de problemas bajo presión, tomaremos decisiones en grupo, desarrollaremos el pensamiento crítico y aprenderemos a comunicar nuestros descubrimientos científicos a los demás.</li>
+</ul>
+</div>
+<hr />
+<p>Además, manejaremos muchos términos relacionados con el espacio y la programación. Si necesitamos aclarar alguno de ellos, podemos usar el siguiente glosario.</p><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="Glosario" /></div><div class="feedback js-feedback js-hidden"><p>Aquí tenemos una lista de los principales conceptos que utilizaremos y aprenderemos, divididos en tres categorías para que sea más fácil consultarlos. Pulsar en los títulos para desplegarlos y en las imágenes para ampliarlas.</p>
+<h2 class="muestraOcultaSiguiente conCierre"><span aria-hidden="true">🌌</span> <span class="resaltarAlPasar tituloSeccion">1. Misión y Espacio</span></h2>
+<div>
+<table border="1" style="width: 100%; max-width: 1000px; font-size: 0.8em;" class="exe-table">
+<tbody>
+<tr>
+<th style="width: 12%;"></th>
+<th style="width: 23%;">Término</th>
+<th style="width: 65%;">Definición</th>
+</tr>
+<tr>
+<td>
+<div style="width: 72px; height: 72px; overflow: hidden; border-radius: 25%;"><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Pillars_of_Creation_%28NIRCam_Image%29.jpg/500px-Pillars_of_Creation_%28NIRCam_Image%29.jpg" target="_blank" rel="lightbox noopener" title="Abre en nueva ventana"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Pillars_of_Creation_%28NIRCam_Image%29.jpg/500px-Pillars_of_Creation_%28NIRCam_Image%29.jpg" alt="Pilares de la creación" width="250" height="247" /></a></div>
+</td>
+<td><strong>Astronomía</strong></td>
+<td>Ciencia que se encarga del estudio del origen y desarrollo del universo y los distintos cuerpos celestes que orbitan en él.</td>
+</tr>
+<tr>
+<td>
+<div style="width: 72px; height: 72px; overflow: hidden; border-radius: 25%;"><a href="../content/resources/Radio_y_cine.png" target="_blank" rel="lightbox noopener" title="Abre en nueva ventana"><img src="../content/resources/Radio_y_cine.png" alt="CanSat con carcasa impresa en 3D" width="72" height="72" style="object-fit: cover;" /></a></div>
+</td>
+<td><strong>CanSat / MiniCanSat</strong></td>
+<td>Un modelo de satélite real, con todos sus sistemas integrados (batería, sensores y microprocesador), que cabe en el volumen de una lata de refresco.</td>
+</tr>
+<tr>
+<td><strong><a href="https://upload.wikimedia.org/wikipedia/commons/4/47/Lunas.jpg" target="_blank" title="Abre en nueva ventana" rel="lightbox noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Lunas.jpg" alt="Satélite natural" width="80" height="57" align="middle" style="vertical-align: middle; border-radius: 25%;" /></a></strong></td>
+<td><strong>Satélite natural</strong></td>
+<td>Cuerpo celeste que orbita alrededor de un planeta. Generalmente, es más pequeño y acompaña al planeta en su órbita.</td>
+</tr>
+<tr>
+<td><strong><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Soyuz_TMA-16_approaching_ISS.jpg/1280px-Soyuz_TMA-16_approaching_ISS.jpg" target="_blank" title="Abre en nueva ventana" rel="lightbox noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Soyuz_TMA-16_approaching_ISS.jpg/500px-Soyuz_TMA-16_approaching_ISS.jpg" alt="Satélite artificial" width="72" height="72" align="middle" style="vertical-align: middle; border-radius: 25%; object-fit: cover;" /></a></strong></td>
+<td><strong>Satélite artificial</strong></td>
+<td>Objeto creado por el ser humano y colocado en órbita alrededor de un cuerpo celeste para funciones de comunicación, observación o investigación.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🎯</span></td>
+<td><strong>Misión primaria</strong></td>
+<td>Conjunto de objetivos obligatorios para todos los equipos. En nuestro caso: medir temperatura, nivel de luz y aceleración.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🔍</span></td>
+<td><strong>Misión secundaria</strong></td>
+<td>Objetivo adicional elegido libremente por el equipo para aportar creatividad y valor científico (ej. medir ruido, impacto, etc.).</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🎖️</span></td>
+<td><strong>ODS</strong></td>
+<td>(Objetivos de Desarrollo Sostenible): 17 metas globales de la ONU para proteger el planeta y asegurar la prosperidad de todas las personas.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">📓</span></td>
+<td><strong>Diario de Misión (MiniPDR)</strong></td>
+<td>Documento donde el equipo registra todos los avances, fallos y éxitos de la investigación (basado en el <em>Preliminary Design Review</em> real).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="muestraOcultaSiguiente conCierre"><span aria-hidden="true">💻</span> <span class="resaltarAlPasar tituloSeccion">2. Electrónica y Código</span></h2>
+<div>
+<table border="1" style="width: 100%; max-width: 1000px; font-size: 0.8em;" class="exe-table">
+<tbody>
+<tr>
+<th style="width: 12%;"></th>
+<th style="width: 23%;">Término</th>
+<th style="width: 65%;">Definición</th>
+</tr>
+<tr>
+<td><strong><img src="../content/resources/Microbit_placa.png" alt="Placa Micro:bit" width="90" height="74" style="border-radius: 10px;" /></strong></td>
+<td><strong>Micro:bit</strong></td>
+<td>Pequeña placa programable que actúa como el "corazón" o procesador del MiniCanSat, encargada de leer los sensores y enviar la información.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🌡️</span></td>
+<td><strong>Sensor</strong></td>
+<td>Dispositivo electrónico que detecta cambios en el entorno físico, como la temperatura, la luz, el sonido o la presión.</td>
+</tr>
+<tr>
+<td>
+<div style="width: 72px; height: 72px; overflow: hidden; border-radius: 25%;"><a href="../content/resources/WhatsApp_Image_2026-02-16_at_17.45.28.jpg" target="_blank" rel="lightbox noopener" title="Abre en nueva ventana"><img src="../content/resources/WhatsApp_Image_2026-02-16_at_17.45.28.jpg" alt="Acelerómetro" width="86" height="75" /></a></div>
+</td>
+<td><strong>Acelerómetro</strong></td>
+<td>Sensor electrónico que mide las fuerzas de aceleración y permite saber si el MiniCanSat está cayendo, girando o si ha impactado.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">📦</span></td>
+<td><strong>Variable</strong></td>
+<td>Concepto fundamental de programación que actúa como una "caja" para guardar un dato o un estado (ej. verdadero o falso) dentro de nuestro código.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">📻</span></td>
+<td><strong>Grupo de Radio</strong></td>
+<td>Canal o frecuencia numérica que permite que dos placas Micro:bit se comuniquen entre sí de forma privada, sin interferencias de otros equipos.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">📡</span></td>
+<td><strong>Radiofrecuencia</strong></td>
+<td>Tecnología que utiliza ondas invisibles para transmitir datos sin cables entre el satélite y la estación de tierra.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">📊</span></td>
+<td><strong>Telemetría</strong></td>
+<td>El proceso de medir datos de forma remota y enviarlos en tiempo real a una estación base para su seguimiento.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🖥️</span></td>
+<td><strong>Estación de Tierra</strong></td>
+<td>La placa Micro:bit (conectada al ordenador) que recibe los mensajes de radio que envía el satélite desde el aire.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">👥</span></td>
+<td><strong>Roles de Misión</strong></td>
+<td>Distribución de tareas profesionales (Ingeniería, Datos, Coordinación) para que el equipo trabaje de forma eficiente y organizada.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="muestraOcultaSiguiente conCierre"><span aria-hidden="true">🚀</span> <span class="resaltarAlPasar tituloSeccion">3. Lanzamiento y Datos</span></h2>
+<div>
+<table border="1" style="width: 100%; max-width: 1000px; font-size: 0.8em;" class="exe-table">
+<tbody>
+<tr>
+<th style="width: 12%;"></th>
+<th style="width: 23%;">Término</th>
+<th style="width: 65%;">Definición</th>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🪂</span></td>
+<td><strong>Paracaídas</strong></td>
+<td>Sistema de descenso controlado, diseñado para frenar la caída del MiniCanSat aprovechando la resistencia del aire.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🌪️</span></td>
+<td><strong>Presión Atmosférica</strong></td>
+<td>Fuerza que ejerce el peso del aire sobre los objetos. Es fundamental para entender el vuelo y la fuerza de nuestro cohete de agua.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🎈</span></td>
+<td><strong>Presurización</strong></td>
+<td>Proceso mediante el cual se introduce aire a presión en un espacio cerrado (como nuestra botella lanzadora) para acumular energía.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">🔌</span></td>
+<td><strong>Puerto Serie</strong></td>
+<td>Canal de comunicación que permite que la Micro:bit conectada por cable al ordenador muestre los datos que recibe desde el aire.</td>
+</tr>
+<tr>
+<td>
+<div style="width: 72px; height: 72px; overflow: hidden; border-radius: 25%;"><a href="../content/resources/CSV_2.jpg" target="_blank" rel="lightbox noopener" title="Abre en nueva ventana"><img src="../content/resources/CSV_2.jpg" alt="Icono CSV" width="72" height="72" style="object-fit: cover;" /></a></div>
+</td>
+<td><strong>CSV</strong></td>
+<td>(Valores separados por comas): Formato de archivo sencillo que permite guardar los datos de la Micro:bit para abrirlos en una hoja de cálculo.</td>
+</tr>
+<tr>
+<td style="text-align: center; font-size: 2em;"><span aria-hidden="true">📈</span></td>
+<td><strong>Análisis de datos</strong></td>
+<td>Proceso de examinar los números recogidos durante el vuelo, limpiarlos de errores y convertirlos en gráficas para extraer conclusiones.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="display: flex; justify-content: flex-end; font-size: 0.7em; margin-top: 20px;">
+<p class="muestraOcultaSiguiente conMarca">Referencia de las imágenes:<br />(clic para mostrar)</p>
+<div>
+<ul>
+<li><a href="https://es.wikipedia.org/wiki/Archivo:Pillars_of_Creation_(NIRCam_Image).jpg" target="_blank" title="Abre en nueva ventana" rel="noopener">Pilares de la creación</a>, NASA (Public domain), Wikimedia</li>
+<li><a href="../content/resources/Radio_y_cine.png" target="_blank" rel="noopener">CanSat</a>, CanSat Extremadura (<a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA</a>)</li>
+<li><a href="https://es.wikipedia.org/wiki/Sat%C3%A9lite_natural" target="_blank" title="Abre en nueva ventana" rel="noopener">Satélite natural</a>, Bricktop (<a href="https://creativecommons.org/licenses/by/2.0">CC BY</a>). Wikimedia.</li>
+<li><a href="https://commons.wikimedia.org/wiki/File:Soyuz_TMA-16_approaching_ISS.jpg" target="_blank" title="Abre en nueva ventana" rel="noopener">Satélite artificial</a>, NASA (Public domain), Wikimedia</li>
+<li><a href="../content/resources/Microbit_placa.png" target="_blank" rel="noopener">Micro:bit</a>, Captura de pantalla Makecode</li>
+<li><a href="../content/resources/WhatsApp_Image_2026-02-16_at_17.45.28.jpg" target="_blank" rel="noopener">Acelerómetro</a>, CanSat Extremadura (<a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA</a>)</li>
+<li><a href="../content/resources/CSV_2.jpg" target="_blank" rel="noopener">CSV</a>, CanSat Extremadura (<a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA</a>)</li>
+</ul>
+</div>
+</div></div>
+</div>
+</div>
+</article><article id="block-mpczpc10-b0ndr3v4w" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Nuestra misión</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc10-j0ubksqjj" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc10-j0ubksqjj&quot;}">
+<div class="exe-text-template">
+    <p>En este apartado veremos exactamente cuál será la misión a la que estamos encomendados: el desafío CanSat, junto con una pequeña descripción del objetivo de nuestra investigación y cuáles son los materiales que debemos ir recopilando a lo largo de la misión.</p>
+<p style="background-color: #ebf5fb; padding: 15px; border-radius: 8px; border-left: 5px solid #5dade2;"><span aria-hidden="true">👋</span> ¡Pero no estaremos solos! <strong>Nuestros amigos Alex y Sara nos han preparado una pequeña introducción interactiva</strong> para darnos la bienvenida oficial al equipo. <br />Para disfrutarla al máximo, aconsejamos visualizarla a <strong>pantalla completa</strong> ⛶ y, si no molestáis a nadie a vuestro alrededor, ¡no olvidéis <strong>activar el audio</strong> 🔊! Así será mucho más divertido.</p>
+<p><visual-novel id-guion="guion-cansat-intro" id-fondos="fondos-cansat-intro" id-personajes="personajes-cansat-intro" id-musica="musica-cansat-intro" titulo="Misión MiniCanSat: ¡Iniciamos el despegue!" ancho="700px" alto="450px" titulo-fin="¡Fin de la introducción!" subtitulo-fin="Ahora que conocemos la misión, vamos a repasar el itinerario estelar." style="display: block; border: 4px dashed #4a90e2; background: #f4f9fc; padding: 20px; color: #334155; font-family: sans-serif; text-align: center; border-radius: 10px;"> <strong style="font-size: 1.2em;">🚀 CARGANDO INSTRUCCIONES DE LA MISIÓN...</strong> <br /><br /><span>(El simulador interactivo aparecerá aquí al previsualizar o exportar el REA)</span> </visual-novel></p>
+<div id="musica-cansat-intro"><audio controls="controls" src="../content/resources/audio_intro_cansat.mp3"><a href="../content/resources/audio_intro_cansat.mp3">audio/mpeg</a></audio></div>
+<div id="guion-cansat-intro">
+<table border="1" style="height: 476px;">
+<thead>
+<tr style="height: 28px;">
+<th style="height: 28px; width: 97.5312px;">Tema</th>
+<th style="height: 28px; width: 1078.11px;">Mensaje</th>
+<th style="height: 28px; width: 43.125px;">Pers.</th>
+<th style="height: 28px; width: 104.828px;">Pose</th>
+<th style="height: 28px; width: 84.125px;">Color</th>
+<th style="height: 28px; width: 107.281px;">Fondo</th>
+</tr>
+</thead>
+<tbody>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 97.5312px;">Bienvenida</td>
+<td style="height: 28px; width: 1078.11px;">¡Hola, equipo! Somos Alex y Sara. Estamos emocionadísimos de que os hayáis unido a la Misión MiniCanSat.</td>
+<td style="height: 28px; width: 43.125px;">Alex</td>
+<td style="height: 28px; width: 104.828px;">feliz</td>
+<td style="height: 28px; width: 84.125px;">#e67e22</td>
+<td style="height: 28px; width: 107.281px;">clase</td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 97.5312px;">Misión</td>
+<td style="height: 28px; width: 1078.11px;">¿Nuestra misión? Construir un satélite real del tamaño de una lata ¡y hacerlo volar! <br />¿Cómo? Por ejemplo, ¡con un cohete de agua! Ya veréis que es perfectamente posible 😉</td>
+<td style="height: 28px; width: 43.125px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">explicando</td>
+<td style="height: 28px; width: 84.125px;">#2980b9</td>
+<td style="height: 28px; width: 107.281px;">clase</td>
+</tr>
+<tr style="height: 56px;">
+<td style="height: 56px; width: 97.5312px;">Roles</td>
+<td style="height: 56px; width: 1078.11px;">Pero para que funcione, tenemos que organizarnos. Sara y yo os enseñaremos los roles de ingeniería y ciencia. ¡Nadie trabaja solo en el espacio!</td>
+<td style="height: 56px; width: 43.125px;">Alex</td>
+<td style="height: 56px; width: 104.828px;">explicando</td>
+<td style="height: 28px; width: 84.125px;">#e67e22</td>
+<td style="height: 28px; width: 107.281px;">clase</td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 97.5312px;">Roles</td>
+<td style="height: 28px; width: 1078.11px;">Yo me encargo de la programación y los datos. ¡Es alucinante ver cómo los números se convierten en gráficas que muestran cómo ha sido la caída!</td>
+<td style="height: 28px; width: 43.125px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">feliz</td>
+<td style="height: 28px; width: 84.125px;">#2980b9</td>
+<td style="height: 28px; width: 107.281px;">clase</td>
+</tr>
+<tr style="height: 56px;">
+<td style="height: 56px; width: 97.5312px;">Física</td>
+<td style="height: 56px; width: 1078.11px;">¡Y yo de que el cohete y el paracaídas aguanten! He diseñado una carcasa con un churro de piscina que es súper resistente.</td>
+<td style="height: 56px; width: 43.125px;">Alex</td>
+<td style="height: 56px; width: 104.828px;">orgulloso</td>
+<td style="height: 28px; width: 84.125px;">#e67e22</td>
+<td style="height: 28px; width: 107.281px;">clase</td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 97.5312px;">Taller</td>
+<td style="height: 28px; width: 1078.11px;">¡Exacto, Alex! Pero recuerda lo que nos dijo la profesora cuando fuimos al taller de construcción...</td>
+<td style="height: 28px; width: 43.125px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">pensativa</td>
+<td style="height: 28px; width: 84.125px;">#2980b9</td>
+<td style="height: 28px; width: 107.281px;">taller</td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 97.5312px;">Seguridad</td>
+<td style="height: 28px; width: 1078.11px;">¡Uf, sí! Mucho ojo con el cúter. La seguridad es lo primero. ¡Cualquier corte o paso difícil, pedimos ayuda a los profes!</td>
+<td style="height: 28px; width: 43.125px;">Alex</td>
+<td style="height: 28px; width: 104.828px;">preocupado</td>
+<td style="height: 28px; width: 84.125px;">#e67e22</td>
+<td style="height: 28px; width: 107.281px;">taller</td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 97.5312px;">Cohete</td>
+<td style="height: 28px; width: 1078.11px;">¡Y no olvides el cohete! Solo botellas de refresco con gas. ¡Si no, podrían reventar con la presión!</td>
+<td style="height: 28px; width: 43.125px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">explicando</td>
+<td style="height: 28px; width: 84.125px;">#2980b9</td>
+<td style="height: 28px; width: 107.281px;">lanzamiento</td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 97.5312px;">ODS</td>
+<td style="height: 28px; width: 1078.11px;">Todo este esfuerzo no es solo por diversión. Estamos midiendo datos de temperatura y luz para entender nuestro entorno.</td>
+<td style="height: 28px; width: 43.125px;">Alex</td>
+<td style="height: 28px; width: 104.828px;">serio</td>
+<td style="height: 28px; width: 84.125px;">#e67e22</td>
+<td style="height: 28px; width: 107.281px;">lanzamiento</td>
+</tr>
+<tr style="height: 56px;">
+<td style="height: 56px; width: 97.5312px;">ODS 13</td>
+<td style="height: 56px; width: 1078.11px;">¡Así es! Con nuestra misión estamos apoyando los Objetivos de Desarrollo Sostenible, como la Acción por el clima (ODS 13).</td>
+<td style="height: 56px; width: 43.125px;">Sara</td>
+<td style="height: 56px; width: 104.828px;">decidida</td>
+<td style="height: 28px; width: 84.125px;">#2980b9</td>
+<td style="height: 28px; width: 107.281px;">lanzamiento</td>
+</tr>
+<tr style="height: 56px;">
+<td style="height: 56px; width: 97.5312px;">Ánimo</td>
+<td style="height: 56px; width: 1078.11px;">¡Equipazo, la cuenta atrás ha comenzado! Pasaremos por fases de programación, construcción y lanzamiento. ¡Vamos a pasarlo genial!</td>
+<td style="height: 56px; width: 43.125px;">Alex</td>
+<td style="height: 56px; width: 104.828px;">feliz</td>
+<td style="height: 28px; width: 84.125px;">#e67e22</td>
+<td style="height: 28px; width: 107.281px;">lanzamiento</td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 97.5312px;">Fin</td>
+<td style="height: 28px; width: 1078.11px;">¿Estáis listos? Pues seguid leyendo para conocer vuestra primera parada en el itinerario estelar. ¡Despegamos!</td>
+<td style="height: 28px; width: 43.125px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">feliz</td>
+<td style="height: 28px; width: 84.125px;">#2980b9</td>
+<td style="height: 28px; width: 107.281px;">lanzamiento</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="fondos-cansat-intro">
+<table border="1">
+<tbody>
+<tr>
+<td>clase</td>
+<td><img src="../content/resources/fondo_clase.jpg" alt="Fondo clase de secundaria moderna" width="150" height="82" /></td>
+</tr>
+<tr>
+<td>taller</td>
+<td><img src="../content/resources/fondo_taller.jpg" alt="Fondo taller de tecnología maker" width="100" height="55" /></td>
+</tr>
+<tr>
+<td>lanzamiento</td>
+<td><img src="../content/resources/fondo_lanzamiento.jpg" alt="Fondo patio de colegio con cielo despejado" width="100" height="55" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="personajes-cansat-intro">
+<table border="1" style="height: 525px;">
+<tbody>
+<tr style="height: 185px;">
+<td style="height: 185px; width: 39.4688px;">Alex</td>
+<td style="height: 185px; width: 104.828px;">feliz</td>
+<td style="height: 185px; width: 261.594px;"><img src="../content/resources/pers_alex_feliz.png" alt="Alex estudiante feliz" width="100" height="177" /></td>
+</tr>
+<tr style="height: 144px;">
+<td style="height: 144px; width: 39.4688px;">Alex</td>
+<td style="height: 144px; width: 104.828px;">explicando</td>
+<td style="height: 144px; width: 261.594px;"><img src="../content/resources/pers_alex_explica.png" alt="Alex estudiante explicando" width="100" height="137" /></td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 39.4688px;">Alex</td>
+<td style="height: 28px; width: 104.828px;">orgulloso</td>
+<td style="height: 28px; width: 261.594px;"><img src="../content/resources/pers_alex_orgulloso.png" alt="Alex estudiante orgulloso" width="63" height="148" /></td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 39.4688px;">Alex</td>
+<td style="height: 28px; width: 104.828px;">preocupado</td>
+<td style="height: 28px; width: 261.594px;"><img src="../content/resources/pers_alex_preocupado.png" alt="Alex estudiante preocupado" width="70" height="140" /></td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 39.4688px;">Alex</td>
+<td style="height: 28px; width: 104.828px;">serio</td>
+<td style="height: 28px; width: 261.594px;"><img src="../content/resources/pers_alex_serio.png" alt="Alex estudiante serio" width="70" height="148" /></td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 39.4688px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">feliz</td>
+<td style="height: 28px; width: 261.594px;"><img src="../content/resources/pers_sara_feliz.png" alt="Sara estudiante feliz" width="70" height="124" /></td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 39.4688px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">explicando</td>
+<td style="height: 28px; width: 261.594px;"><img src="../content/resources/pers_sara_explica.png" alt="Sara estudiante explaining" width="70" height="105" /></td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 39.4688px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">pensativa</td>
+<td style="height: 28px; width: 261.594px;"><img src="../content/resources/pers_sara_piensa.png" alt="Sara estudiante pensativa" width="70" height="169" /></td>
+</tr>
+<tr style="height: 28px;">
+<td style="height: 28px; width: 39.4688px;">Sara</td>
+<td style="height: 28px; width: 104.828px;">decidida</td>
+<td style="height: 28px; width: 261.594px;"><img src="../content/resources/pers_sara_decidida.png" alt="Sara estudiante decidida" width="70" height="135" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="display: flex; justify-content: flex-end; font-size: 0.7em; margin-top: 20px;">
+<p class="muestraOcultaSiguiente conMarca">Referencia de las imágenes y audio:<br />(clic para mostrar)</p>
+<div>
+<ul>
+<li><strong>Alex, Sara y Fondos:</strong> Generados mediante IA Nanobanana para Programa CREA (CC0).</li>
+<li><strong>Música:</strong> Generada mediante Google Lyria para Programa CREA (CC0).</li>
+</ul>
+</div>
+</div>
+<hr />
+<p>Pulsar en cada título para desplegar el contenido.</p>
+<h1 class="muestraOcultaSiguiente conCierre" style="font-size: 1.5em;"><img style="vertical-align: middle; border-radius: 100%; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" src="../content/resources/planeta-orbita.jpg" alt="Concepción artística de un planeta con anillos" width="74" height="74" /> <span class="resaltarAlPasar tituloSeccion">El desafío</span></h1>
+<div>
+<p>El <strong>desafío MiniCanSat</strong> consiste en diseñar, construir y lanzar un pequeño satélite del tamaño de una lata de refresco, con el objetivo de simular una misión real de exploración espacial. Nuestro MiniCanSat deberá recoger y transmitir datos durante su ascenso y descenso, lo que nos permitirá analizarlos y extraer conclusiones científicas.</p>
+<p>En el siguiente vídeo (1:02) tenemos la presentación del <a href="https://www.youtube.com/watch?v=2lKd43eRs94" target="_blank" title="Abre en nueva ventana" rel="noopener">concurso MiniCanSat Extremadura</a>.</p>
+<figure class="exe-figure exe-media position-center license-CC-BY" style="width: 560px; text-align: center;"><iframe width="560" height="315" src="https://www.youtube.com/embed/2lKd43eRs94?si=YgAof9hn2twdrZfk" allowfullscreen="allowfullscreen"></iframe>
+<figcaption class="figcaption"><a href="https://www.youtube.com/@CanSatExtremadura" target="_blank" class="author" rel="noopener">CanSat Extremadura</a>. <span class="title"><em>CanSat y MiniCanSat</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY</a><span class="sep">)</span></span></figcaption>
+</figure>
+</div>
+<h1 class="muestraOcultaSiguiente conCierre" style="font-size: 1.5em;"><img style="vertical-align: middle; border-radius: 100%; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" src="../content/resources/planeta-orbita.jpg" alt="Concepción artística de un planeta con anillos" width="74" height="74" /> <span class="resaltarAlPasar tituloSeccion">¿Qué queremos medir o investigar?</span></h1>
+<div>
+<p>Nuestra <strong>misión primaria</strong>, que es común a todos los equipos participantes en el desafío, consistirá en medir y registrar la <strong>temperatura, el nivel de luz y la aceleración</strong> durante el ascenso y descenso del MiniCanSat. Estos datos nos ayudarán a comprender cómo varían estas magnitudes y nos permitirán analizar su comportamiento físico.</p>
+<p>Además, podemos definir una <strong>misión secundaria</strong>, en la que elegiremos otro fenómeno a investigar, como la humedad, la calidad del aire o el impacto acústico.</p>
+</div>
+<h1 class="muestraOcultaSiguiente conCierre" style="font-size: 1.5em;"><img style="vertical-align: middle; border-radius: 100%; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" src="../content/resources/planeta-orbita.jpg" alt="Concepción artística de un planeta con anillos" width="74" height="74" /> <span class="resaltarAlPasar tituloSeccion">Producto final</span></h1>
+<div>
+<p>A partir de toda la información recogida en el Diario de Misión MiniCanSat, cada equipo presentará su MiniCanSat, explicará su funcionamiento y mostrará los datos obtenidos en gráficos, describiendo qué aprendieron durante el proceso.</p>
+</div>
+<p>
+<script>
+/**
+ * Componente Web: Novela Visual (Visual Novel)
+ * @class VisualNovel
+ * @extends HTMLElement
+ * @description Componente narrativo interactivo.
+ * Incorpora gestión de datos externos, transiciones de pose (Double Buffering),
+ * escalado relativo absoluto con caja protectora (bounding-box) optimizada, 
+ * menú de navegación, pantalla de inicio con título, sistema inteligente de audio, 
+ * y manejo robusto de gráficos faltantes (Fallbacks).
+ */
+class VisualNovel extends HTMLElement {
+    constructor() {
+   super();
+   this.attachShadow({ mode: 'open' });
+   
+   // Configuración predeterminada
+   this.config = {
+  title: "",
+  width: "700px",
+  height: "400px",
+  endTitle: "¡Lección Completada!",
+  endSubtitle: "Has explorado todos los contenidos."
+   };
+
+   // Estado interno
+   this.script = []; 
+   this.backgrounds = {}; 
+   this.characters = {};  
+   this.topics = []; 
+   this.currentIndex = 0; 
+   this.isTyping = false; 
+   this.typingTimer = null; 
+   this.fullText = "";
+   
+   // Objeto de audio en memoria (aislado del DOM)
+   this.audio = null; 
+    }
+
+    connectedCallback() {
+   if (this.hasAttribute('style')) this.removeAttribute('style');
+
+   if (this.hasAttribute('titulo')) this.config.title = this.getAttribute('titulo');
+   if (this.hasAttribute('ancho')) this.config.width = this.getAttribute('ancho');
+   if (this.hasAttribute('alto')) this.config.height = this.getAttribute('alto');
+   if (this.hasAttribute('titulo-fin')) this.config.endTitle = this.getAttribute('titulo-fin');
+   if (this.hasAttribute('subtitulo-fin')) this.config.endSubtitle = this.getAttribute('subtitulo-fin');
+
+   setTimeout(() => {
+  const idGuion = this.getAttribute('id-guion');
+  const idFondos = this.getAttribute('id-fondos');
+  const idPersonajes = this.getAttribute('id-personajes');
+  const idMusica = this.getAttribute('id-musica');
+  this.initGame(idGuion, idFondos, idPersonajes, idMusica);
+   }, 100);
+    }
+
+    initGame(idG, idF, idP, idM) {
+   const divG = document.getElementById(idG);
+   const divF = document.getElementById(idF);
+   const divP = document.getElementById(idP);
+   const divM = idM ? document.getElementById(idM) : null;
+   
+   const tG = divG ? divG.querySelector('table') : null;
+   const tF = divF ? divF.querySelector('table') : null;
+   const tP = divP ? divP.querySelector('table') : null;
+
+   if (divM) {
+  const audioEl = divM.querySelector('audio');
+  if (audioEl) {
+ const audioSrc = audioEl.getAttribute('src');
+ if (audioSrc) {
+this.audio = new Audio(audioSrc);
+this.audio.loop = true;
+this.audio.load();
+ }
+  }
+  divM.style.display = 'none';
+   }
+
+   if (tG && tF && tP) {
+  this.parseData(tG, tF, tP);
+  divG.style.display = 'none'; 
+  divF.style.display = 'none'; 
+  divP.style.display = 'none';
+  
+  this.innerHTML = ''; 
+  this.renderInterface(); 
+   } else {
+  this.showError(idG, idF, idP);
+   }
+    }
+
+    showError(idG, idF, idP) {
+   this.shadowRoot.innerHTML = `
+  <div style="border:4px solid #c0392b; padding:20px; background:#fff; color:#333; font-family:sans-serif;">
+ <h3>⚠️ Error de Datos</h3>
+ <p>No se encuentran los contenedores principales:</p>
+ <ul><li>Guion: ${idG}</li><li>Fondos: ${idF}</li><li>Personajes: ${idP}</li></ul>
+  </div>`;
+    }
+
+    parseData(tScript, tBg, tChar) {
+   tScript.querySelectorAll('tr').forEach((row) => {
+  const cols = row.querySelectorAll('td');
+  if (cols.length < 6) return;
+
+  const topic = cols[0].textContent.trim();
+  if (this.script.length === 0 || this.script[this.script.length-1].topic !== topic) {
+ if(topic) this.topics.push({ title: topic, index: this.script.length });
+  }
+  
+  this.script.push({
+ topic: topic, 
+ text: cols[1].innerHTML, 
+ charId: cols[2].textContent.trim(),
+ poseId: cols[3].textContent.trim(), 
+ color: cols[4].textContent.trim() || '#e67e22',
+ bgId: cols[5].textContent.trim()
+  });
+   });
+
+   tBg.querySelectorAll('tr').forEach(row => {
+  const cols = row.querySelectorAll('td'); if (cols.length < 2) return;
+  const img = cols[1].querySelector('img'); const id = cols[0].textContent.trim();
+  if (id) this.backgrounds[id] = img ? img.src : cols[1].textContent.trim();
+   });
+
+   tChar.querySelectorAll('tr').forEach(row => {
+  const cols = row.querySelectorAll('td'); if (cols.length < 3) return;
+  const img = cols[2].querySelector('img'); const charId = cols[0].textContent.trim();
+  if (!this.characters[charId]) this.characters[charId] = {};
+  if (img) this.characters[charId][cols[1].textContent.trim()] = img.src;
+   });
+    }
+
+    renderInterface() {
+   const musicBtnHtml = this.audio ? `<button class="icon-btn music-btn-toggle" aria-label="Reproducir música de fondo" title="Reproducir música de fondo" tabindex="0">🔇</button>` : '';
+   const titleHtml = this.config.title ? `<h1 class="start-title">${this.config.title}</h1>` : '';
+
+   this.shadowRoot.innerHTML = `
+   <style>
+  :host { 
+ display: block; width: ${this.config.width}; height: ${this.config.height}; 
+ max-width: 100%; margin: 20px auto; font-family: 'Georgia', serif; 
+ position: relative; overflow: hidden; border: 0.3em solid #5d4037; 
+ border-radius: 0.5em; background-color: #000; --theme-color: #e67e22; 
+ --base-size: 16px; 
+  }
+  :host(:fullscreen) { width: 100vw; height: 100vh; max-width: none; border: none; border-radius: 0; --base-size: 26px; }
+  
+  .game-container { width: 100%; height: 100%; position: relative; font-size: var(--base-size); transition: font-size 0.3s; }
+  .layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  .bg-layer { background-size: cover; background-position: center; transition: opacity 0.8s; }
+  
+  /* CAJA PROTECTORA DEL PERSONAJE OPTIMIZADA */
+  .char-layer { 
+ position: absolute;
+ top: 3em; 
+ left: 5%; 
+ width: 65%; 
+ height: calc(100% - 3em); 
+ pointer-events: none;
+  }
+  
+  .character-img { 
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ width: 100%; 
+ height: 85%; 
+ object-fit: contain; 
+ object-position: bottom left; 
+ filter: drop-shadow(0.2em 0 0.5em rgba(0,0,0,0.3)); 
+ transform-origin: bottom left;
+ transition: transform 0.5s ease-out, opacity 0.4s ease-in-out;
+  }
+  
+  .slide-in { animation: slideIn 0.6s forwards; } 
+  .slide-out { animation: slideOut 0.5s forwards; }
+  .ui-layer { pointer-events: auto; display: flex; flex-direction: column; justify-content: space-between; }
+  
+  .top-bar { 
+ background: rgba(93, 64, 55, 0.95); color: #fff; padding: 0.5em 1em; 
+ display: flex; justify-content: space-between; align-items: center; 
+ box-shadow: 0 0.1em 0.5em rgba(0,0,0,0.5); transform: translateY(-100%); 
+ animation: slideDown 0.5s 0.5s forwards; height: 3em; font-size: 1em; 
+  }
+  .top-bar-controls { display: flex; gap: 1em; align-items: center; }
+  .topic-selector select { 
+ background: #fff; border: none; padding: 0.2em 0.5em; border-radius: 0.2em; 
+ font-family: inherit; font-weight: bold; color: #5d4037; cursor: pointer; font-size: 0.9em; 
+  }
+  .icon-btn { background: none; border: none; color: white; cursor: pointer; font-size: 1.5em; padding: 0; line-height: 1; transition: transform 0.2s; }
+  .icon-btn:hover { transform: scale(1.1); }
+  
+  .dialog-container { padding: 1em; padding-bottom: 1.5em; display: flex; justify-content: center; transform: translateY(100%); animation: slideUp 0.5s 0.8s forwards; }
+  .speech-bubble { 
+ background: rgba(255, 255, 255, 0.95); border: 0.25em solid var(--theme-color); 
+ border-radius: 1em; width: 100%; max-width: 40em; min-height: 7em; 
+ position: relative; box-shadow: 0 0.5em 1em rgba(0,0,0,0.4); 
+ display: flex; flex-direction: column; padding: 1em 1.5em; cursor: pointer;
+  }
+  .speech-bubble::before { content: ''; position: absolute; bottom: 1.5em; left: -1.2em; border-width: 0.6em 1.2em 0.6em 0; border-style: solid; border-color: transparent var(--theme-color) transparent transparent; display: block; width: 0; }
+  .char-name-tag { position: absolute; top: -1em; left: 1.5em; background: var(--theme-color); color: white; padding: 0.2em 1em; border-radius: 1em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85em; box-shadow: 0 0.1em 0.3em rgba(0,0,0,0.3); }
+  .text-content { flex-grow: 1; font-size: 1.1em; line-height: 1.5; color: #333; margin-top: 0.5em; }
+  
+  .nav-controls { display: flex; justify-content: flex-end; gap: 0.5em; margin-top: 0.5em; }
+  .nav-btn { background: var(--theme-color); color: white; border: none; padding: 0.4em 0.8em; border-radius: 0.3em; cursor: pointer; font-weight: bold; transition: filter 0.2s; font-size: 0.9em; font-family: inherit; }
+  .nav-btn:hover { filter: brightness(1.1); } .nav-btn:disabled { background: #ccc; cursor: not-allowed; }
+  
+  .start-layer { 
+ background: rgba(0, 0, 0, 0.85); display: flex; flex-direction: column; align-items: center; 
+ justify-content: center; z-index: 200; pointer-events: auto; 
+ transition: opacity 0.5s, visibility 0.5s; 
+ backdrop-filter: blur(5px);
+  }
+  .start-layer.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  
+  .start-controls {
+ position: absolute; top: 1em; right: 1em;
+ display: flex; gap: 1em; z-index: 201;
+  }
+
+  .start-title { 
+ font-size: 2.5em; color: #f1c40f; margin-bottom: 1em; text-align: center; 
+ text-shadow: 0 0.1em 0.2em rgba(0,0,0,0.8); padding: 0 1em; font-family: inherit;
+ line-height: 1.3;
+  }
+  .start-btn { 
+ background: #e67e22; color: white; border: none; padding: 1em 3em; 
+ font-size: 1.2em; border-radius: 3em; cursor: pointer; font-weight: bold; 
+ font-family: inherit; box-shadow: 0 0.3em 0.8em rgba(0,0,0,0.5); 
+ transition: transform 0.2s, background 0.2s; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .start-btn:hover { transform: scale(1.05); background: #d35400; }
+
+  .end-layer { background: rgba(44, 62, 80, 0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.5s; color: #fff; text-align: center; backdrop-filter: blur(5px); z-index: 100; }
+  .end-layer.visible { opacity: 1; pointer-events: auto; }
+  .end-title { font-size: 3em; margin: 0; color: #f1c40f; text-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5); line-height: 1.2; }
+  .end-subtitle { font-size: 1.2em; margin-top: 0.5em; opacity: 0.9; }
+  .restart-btn { margin-top: 2em; background: #e67e22; color: white; border: none; padding: 0.8em 2em; font-size: 1.2em; border-radius: 2em; cursor: pointer; font-weight: bold; font-family: inherit; box-shadow: 0 0.2em 0.5em rgba(0,0,0,0.3); transition: transform 0.2s; }
+  .restart-btn:hover { transform: scale(1.05); background: #d35400; }
+  
+  @media (max-width: 600px) { 
+ .char-layer { width: 100%; left: 0; } 
+ .character-img { 
+height: 60%; 
+bottom: 6em; 
+object-position: bottom center; 
+transform-origin: bottom center;
+ } 
+ .speech-bubble::before { left: 50%; top: -1.2em; bottom: auto; transform: translateX(-50%) rotate(90deg); border-color: transparent var(--theme-color) transparent transparent; } 
+ .char-name-tag { left: 50%; transform: translateX(-50%); top: -1.8em; } 
+ .start-title { font-size: 1.8em; }
+  }
+  @keyframes slideDown { to { transform: translateY(0); } } @keyframes slideUp { to { transform: translateY(0); } } 
+  @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } } 
+  @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+   </style>
+
+   <div class="game-container">
+  <div class="layer start-layer" id="startLayer">
+ <div class="start-controls">
+${musicBtnHtml}
+<button class="icon-btn fs-btn-toggle" aria-label="Alternar pantalla completa" title="Pantalla Completa" tabindex="0">⛶</button>
+ </div>
+ ${titleHtml}
+ <button class="start-btn" id="startBtn" tabindex="0">Comenzar</button>
+  </div>
+
+  <div class="layer bg-layer" id="bgLayer"></div>
+  
+  <div class="layer char-layer">
+ <img id="charGhost" class="character-img" style="opacity:0" alt="">
+ <img id="charMain" class="character-img" style="opacity:0" alt="">
+  </div>
+  
+  <div class="layer ui-layer" id="uiLayer">
+ <div class="top-bar">
+<div class="topic-selector"><label>Ir a: </label><select id="topicSelect" aria-label="Seleccionar escena">${this.topics.map(t => `<option value="${t.index}">${t.title}</option>`).join('')}</select></div>
+<div class="top-bar-controls">
+     ${musicBtnHtml}
+     <button class="icon-btn fs-btn-toggle" aria-label="Alternar pantalla completa" title="Pantalla Completa" tabindex="0">⛶</button>
+</div>
+ </div>
+ <div class="dialog-container">
+<div class="speech-bubble" id="bubbleBox" role="button" tabindex="0" aria-label="Avanzar texto">
+     <div class="char-name-tag" id="charName">...</div>
+     <div class="text-content" id="textBox" aria-live="polite"></div>
+     <div class="nav-controls">
+    <button class="nav-btn" id="prevBtn" aria-label="Diálogo anterior">◀ Anterior</button>
+    <button class="nav-btn" id="nextBtn" aria-label="Siguiente diálogo">Siguiente ▶</button>
+     </div>
+</div>
+ </div>
+  </div>
+  
+  <div class="layer end-layer" id="endLayer">
+ <h1 class="end-title">${this.config.endTitle}</h1>
+ <p class="end-subtitle">${this.config.endSubtitle}</p>
+ <button class="restart-btn" id="restartBtn" tabindex="0">↻ Volver al Inicio</button>
+  </div>
+   </div>`;
+
+   this.shadowRoot.querySelectorAll('.fs-btn-toggle').forEach(btn => {
+  btn.addEventListener('click', () => this.toggleFullscreen());
+   });
+
+   if (this.audio) {
+  this.shadowRoot.querySelectorAll('.music-btn-toggle').forEach(btn => {
+ btn.addEventListener('click', () => this.toggleMusic());
+  });
+   }
+
+   this.shadowRoot.getElementById('startBtn').addEventListener('click', () => this.unlockAndStart());
+   this.shadowRoot.getElementById('nextBtn').addEventListener('click', (e) => { e.stopPropagation(); this.next(); });
+   this.shadowRoot.getElementById('prevBtn').addEventListener('click', (e) => { e.stopPropagation(); this.prev(); });
+   this.shadowRoot.getElementById('bubbleBox').addEventListener('click', () => this.completeTextOrNext());
+   this.shadowRoot.getElementById('topicSelect').addEventListener('change', (e) => this.jumpTo(e.target.value));
+   this.shadowRoot.getElementById('restartBtn').addEventListener('click', () => this.restart());
+    }
+
+    unlockAndStart() {
+   if (this.audio && this.audio.paused) {
+  const playPromise = this.audio.play();
+  if (playPromise !== undefined) {
+ playPromise.then(() => {
+this.audio.pause();
+this.audio.currentTime = 0;
+ }).catch(error => {
+console.warn("Fallo en el desbloqueo del audio:", error);
+ });
+  }
+   }
+   
+   this.shadowRoot.getElementById('startLayer').classList.add('hidden');
+   this.loadScene(0);
+    }
+
+    toggleMusic() {
+   if (!this.audio) return;
+   const btns = this.shadowRoot.querySelectorAll('.music-btn-toggle');
+   
+   if (this.audio.paused) {
+  this.audio.play().catch(e => console.warn("Error reproduciendo audio:", e));
+  btns.forEach(btn => {
+ btn.textContent = '🔊';
+ btn.setAttribute('aria-label', 'Pausar música de fondo');
+ btn.setAttribute('title', 'Pausar música de fondo');
+  });
+   } else {
+  this.audio.pause();
+  btns.forEach(btn => {
+ btn.textContent = '🔇';
+ btn.setAttribute('aria-label', 'Reproducir música de fondo');
+ btn.setAttribute('title', 'Reproducir música de fondo');
+  });
+   }
+    }
+
+    loadScene(index) {
+   if (index < 0 || index >= this.script.length) return;
+   clearInterval(this.typingTimer);
+   
+   const prevData = this.script[this.currentIndex]; 
+   const data = this.script[index]; 
+   this.currentIndex = index;
+   
+   const bgLayer = this.shadowRoot.getElementById('bgLayer'); 
+   const newBg = this.backgrounds[data.bgId];
+   if (newBg && (!prevData || prevData.bgId !== data.bgId || index === 0)) bgLayer.style.backgroundImage = `url('${newBg}')`;
+   
+   const charMain = this.shadowRoot.getElementById('charMain'); 
+   const charGhost = this.shadowRoot.getElementById('charGhost');
+   const newCharSrc = this.characters[data.charId] ? this.characters[data.charId][data.poseId] : null;
+
+   if (newCharSrc) {
+  if (!prevData || prevData.charId !== data.charId) {
+ charGhost.style.opacity = 0;
+ charMain.classList.remove('slide-in'); 
+ charMain.classList.add('slide-out'); 
+ setTimeout(() => { 
+charMain.src = newCharSrc; 
+charMain.classList.remove('slide-out'); 
+charMain.classList.add('slide-in'); 
+charMain.style.opacity = 1;
+ }, 400); 
+  } else if (prevData.poseId !== data.poseId) {
+ charGhost.src = charMain.src;
+ charGhost.style.opacity = 1;
+ charMain.style.opacity = 0;
+ charMain.src = newCharSrc;
+ 
+ setTimeout(() => {
+     charGhost.style.opacity = 0;
+     charMain.style.opacity = 1;
+ }, 50);
+  } else {
+ charMain.src = newCharSrc;
+ charMain.style.opacity = 1;
+  }
+   } else {
+  charMain.style.opacity = 0;
+  charGhost.style.opacity = 0;
+   }
+
+   this.shadowRoot.getElementById('charName').textContent = data.charId || '???';
+   this.style.setProperty('--theme-color', data.color);
+
+   const select = this.shadowRoot.getElementById('topicSelect');
+   const currentTopicOpts = this.topics.filter(t => t.index <= index);
+   if (currentTopicOpts.length > 0) {
+  select.value = currentTopicOpts[currentTopicOpts.length - 1].index;
+   }
+
+   this.shadowRoot.getElementById('prevBtn').disabled = (index === 0);
+   
+   this.fullText = data.text;
+   this.typeText(data.text);
+    }
+
+    typeText(htmlText) {
+   const box = this.shadowRoot.getElementById('textBox');
+   box.innerHTML = '';
+   this.isTyping = true;
+   
+   const tempDiv = document.createElement('div');
+   tempDiv.innerHTML = htmlText;
+   const nodes = Array.from(tempDiv.childNodes);
+   
+   let currentNodeIndex = 0;
+   let currentCharIndex = 0;
+   
+   const typeNext = () => {
+  if (currentNodeIndex >= nodes.length) {
+ this.isTyping = false;
+ return;
+  }
+  
+  const currentNode = nodes[currentNodeIndex];
+  
+  if (currentNode.nodeType === Node.TEXT_NODE) {
+ if (currentCharIndex === 0) {
+     box.appendChild(document.createTextNode(''));
+ }
+ box.lastChild.textContent += currentNode.textContent[currentCharIndex];
+ currentCharIndex++;
+ 
+ if (currentCharIndex >= currentNode.textContent.length) {
+     currentNodeIndex++;
+     currentCharIndex = 0;
+ }
+ this.typingTimer = setTimeout(typeNext, 15);
+  } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+ const clone = currentNode.cloneNode(false);
+ box.appendChild(clone);
+ 
+ if (currentNode.childNodes.length > 0) {
+     let childIndex = 0;
+     let childCharIndex = 0;
+     const childNodes = Array.from(currentNode.childNodes);
+     
+     const typeChild = () => {
+    if (childIndex >= childNodes.length) {
+        currentNodeIndex++;
+        this.typingTimer = setTimeout(typeNext, 15);
+        return;
+    }
+    const currentChild = childNodes[childIndex];
+    if (currentChild.nodeType === Node.TEXT_NODE) {
+        if (childCharIndex === 0) {
+       clone.appendChild(document.createTextNode(''));
+        }
+        clone.lastChild.textContent += currentChild.textContent[childCharIndex];
+        childCharIndex++;
+        if (childCharIndex >= currentChild.textContent.length) {
+       childIndex++;
+       childCharIndex = 0;
+        }
+        this.typingTimer = setTimeout(typeChild, 15);
+    } else {
+        clone.appendChild(currentChild.cloneNode(true));
+        childIndex++;
+        this.typingTimer = setTimeout(typeChild, 15);
+    }
+     };
+     typeChild();
+ } else {
+     currentNodeIndex++;
+     this.typingTimer = setTimeout(typeNext, 15);
+ }
+  } else {
+ currentNodeIndex++;
+ this.typingTimer = setTimeout(typeNext, 15);
+  }
+   };
+   typeNext();
+    }
+
+    completeTextOrNext() {
+   if (this.isTyping) {
+  clearInterval(this.typingTimer);
+  this.isTyping = false;
+  this.shadowRoot.getElementById('textBox').innerHTML = this.fullText;
+   } else {
+  this.next();
+   }
+    }
+
+    next() {
+   if (this.currentIndex < this.script.length - 1) {
+  this.loadScene(this.currentIndex + 1);
+   } else {
+  this.shadowRoot.getElementById('endLayer').classList.add('visible');
+   }
+    }
+
+    prev() {
+   if (this.currentIndex > 0) {
+  this.loadScene(this.currentIndex - 1);
+   }
+    }
+
+    jumpTo(index) {
+   this.loadScene(parseInt(index, 10));
+    }
+
+    restart() {
+   this.shadowRoot.getElementById('endLayer').classList.remove('visible');
+   this.shadowRoot.getElementById('startLayer').classList.remove('hidden');
+   this.currentIndex = 0;
+    }
+
+    toggleFullscreen() {
+   if (!document.fullscreenElement) {
+  this.requestFullscreen().catch(err => {
+ console.error(`Error al activar pantalla completa: ${err.message}`);
+  });
+   } else {
+  document.exitFullscreen();
+   }
+    }
+}
+
+customElements.define('visual-novel', VisualNovel);
+</script>
+</p>
+</div>
+</div>
+</div>
+</article><article id="block-mpczpc10-efkeubk5p" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">¿Cómo lo haremos?</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc10-e7czd2flx" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc10-e7czd2flx&quot;}">
+<div class="exe-text-template">
+    <p>A continuación tenemos el itinerario de nuestro proyecto, con cada una de las etapas y los productos que iremos creando hasta llegar a nuestra misión final.</p>
+<ul>
+<li>Durante nuestra misión, trabajaremos aspectos relacionados con varias materias (ciencias, matemáticas, tecnología...). En el apartado "contenidos" podemos ver cuáles son.</li>
+<li>También, incluimos una propuesta de plan de trabajo, para ayudarnos a organizarnos lo mejor posible. ¡Va a ser un reto genial!</li>
+</ul>
+<p><cansat-itinerary data-id="datos-itinerario-cansat"> <span style="color: #4a90e2; font-style: italic;">(🛰️ El mapa orbital interactivo se cargará aquí al exportar o previsualizar el proyecto. ¡No borres la tabla de abajo!)</span> </cansat-itinerary></p>
+<div id="datos-itinerario-cansat">
+<p><strong>Configuración del mapa interactivo (Esta tabla se ocultará automáticamente):</strong></p>
+<table border="1" style="width: 100%;" class="exe-table">
+<tbody>
+<tr>
+<td>UI</td>
+<td>Comenzar Exploración</td>
+<td>Entendido</td>
+<td>Mapa Orbital de la Misión</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Nos organizamos</td>
+<td>👥</td>
+<td>Conoceremos qué es un MiniCanSat y cómo funciona, estableceremos grupos, distribuiremos roles, aprenderemos a usar el Diario y conoceremos cómo será la evaluación.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Programamos</td>
+<td>💻</td>
+<td>Exploraremos la placa Micro:bit, definiremos nuestra misión secundaria y programaremos los sensores (temperatura, luz, aceleración) para la recopilación de datos y su transmisión a tierra.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Construimos</td>
+<td>🛠️</td>
+<td>Diseñaremos y ensamblaremos nuestro MiniCanSat: crearemos su carcasa protectora, construiremos un paracaídas resistente y montaremos la placa con su sistema de alimentación.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Sistema de lanzamiento</td>
+<td>🚀</td>
+<td>Construiremos un cohete de agua seguro con su lanzadera, estableciendo los protocolos de seguridad necesarios para un despegue espectacular.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Lanzamiento y Análisis</td>
+<td>📈</td>
+<td>Realizaremos el lanzamiento superando el check-list, recogeremos la telemetría, limpiaremos el archivo CSV y analizaremos los datos creando gráficas como verdaderos científicos.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Conclusiones finales</td>
+<td>🏆</td>
+<td>Recogeremos todo lo aprendido en nuestro informe final, comunicaremos nuestros descubrimientos al resto de la clase y... ¡desbloquearemos nuestras insignias ODS!</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="muestraOcultaSiguiente "><img style="vertical-align: middle; border-radius: 100%; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" src="../content/resources/planeta-orbita.jpg" alt="Concepción artística de un planeta con anillos" width="74" height="74" /> <span class="resaltarAlPasar tituloSeccion">Itinerario</span></h2>
+<div>
+<ul class="lista-xl">
+<li><strong>Nos organizamos</strong>. Conoceremos qué es un MiniCanSat y cómo funciona, establecemos grupos, distribuimos roles, aprendemos a usar el cuaderno de trabajo (MiniPDR), conocemos los productos finales a realizar y cómo será la evaluación.</li>
+<li><strong>Programamos</strong>. Exploraremos la placa Micro:bit, sus sensores integrados y sus sistemas de comunicación. Definiremos nuestra misión y programaremos los sensores para la recopilación de datos y su transmisión a tierra.</li>
+<li><strong>Construimos el MiniCanSat.</strong> Diseñaremos y ensamblaremos nuestro MiniCanSat, creando su carcasa, construyendo el paracaídas, montando la placa Micro:bit con su sistema de alimentación y asegurando la correcta integración de todos los componentes.</li>
+<li><strong>Preparamos el sistema de lanzamiento</strong>. Diseñaremos y construiremos un sistema seguro de lanzamiento para nuestro MiniCanSat, asegurándonos de que cumple con los requisitos para un despliegue adecuado.</li>
+<li><strong>Lanzamos, recogemos datos y analizamos</strong>. Realizaremos el lanzamiento de nuestro MiniCanSat, observaremos su descenso y recopilaremos los datos transmitidos por los sensores, los compararemos con nuestras hipótesis iniciales y reflexionaremos sobre el proceso, nuestro aprendizaje y las posibles mejoras.</li>
+<li><strong>¡Misión cumplida! Nuestras conclusiones finales</strong>. Recogemos todo lo aprendido y completamos nuestro informe final MiniPDR, donde documentamos los resultados, dificultades y mejoras de nuestra misión. Finalmente, compartimos nuestras conclusiones con el resto de la clase como verdaderos equipos científicos.</li>
+</ul>
+</div>
+<h2 class="muestraOcultaSiguiente "><img style="vertical-align: middle; border-radius: 100%; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" src="../content/resources/planeta-orbita.jpg" alt="Concepción artística de un planeta con anillos" width="74" height="74" /> <span class="resaltarAlPasar tituloSeccion">Contenidos</span></h2>
+<div>
+<p>Este proyecto nos permitirá trabajar de manera interdisciplinar diferentes contenidos:</p>
+<div class="exe-fx exe-tabs">
+<h2>Ciencias de la Naturaleza</h2>
+<ul>
+<li>Identificación de los factores meteorológicos y su medición.</li>
+<li>Conceptos básicos sobre la atmósfera terrestre y la variación de la presión con la altitud.</li>
+<li>Funcionamiento de los sensores y su aplicación en la recogida de datos científicos.</li>
+</ul>
+<h2>Matemáticas</h2>
+<ul>
+<li>Registro y análisis de datos (tablas, gráficos y patrones).</li>
+<li>Relación entre variables (por ejemplo, cómo varía la temperatura con la altitud).</li>
+</ul>
+<h2>Tecnología</h2>
+<ul>
+<li>Uso de Micro:bit para la recopilación de datos.</li>
+<li>Programación básica con bloques o código para procesar información.</li>
+</ul>
+<h2>Trabajo en equipo y comunicación</h2>
+<ul>
+<li>Organización y distribución de tareas dentro del equipo.</li>
+<li>Exposición de conclusiones utilizando el método científico.</li>
+</ul>
+</div>
+</div>
+<h2 class="muestraOcultaSiguiente "><img style="vertical-align: middle; border-radius: 100%; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" src="../content/resources/planeta-orbita.jpg" alt="Concepción artística de un planeta con anillos" width="74" height="74" /> <span class="resaltarAlPasar tituloSeccion">Plan de trabajo</span></h2>
+<div>
+<p>A continuación describimos algunas opciones de trabajo:</p>
+<div class="exe-fx exe-tabs">
+<h2>Agrupamientos</h2>
+<p>A lo largo de todo el proceso trabajaremos de varias maneras:</p>
+<ul>
+<li><strong>Individualmente</strong>: para actividades de reflexión, registro en el Diario de Misión MiniCanSat y análisis de datos.</li>
+<li><strong>Pequeños grupos</strong>: para el diseño, construcción y programación del MiniCanSat, así como el desarrollo del sistema de lanzamiento.</li>
+<li><strong>Gran grupo</strong>: para puesta en común de ideas, toma de decisiones y análisis colectivo de los resultados.</li>
+</ul>
+<p>Esta organización es una propuesta flexible. Nuestro profesor/a adaptará esta propuesta a las características de nuestra clase y lo particularizará para enfocar más personalmente lo que vamos a aprender.</p>
+<h2>Diario de Misión MiniCanSat</h2>
+<p>Para documentar nuestro trabajo y aprendizaje, utilizaremos un Diario de Misión MiniCanSat, que podrá ser en formato digital o en papel.</p>
+<p>Se crearán:</p>
+<ol>
+<li><strong>Diario individual de misión MiniCanSat</strong>: aquí registraremos nuestros avances, descubrimientos y reflexiones sobre cada etapa del proyecto. Será un diario individual.
+<p>Completar este diario nos ayudará a ser conscientes de nuestro progreso, superar obstáculos y compartir información clave con el equipo. Nos tomaremos unos minutos al final de cada sesión para reflexionar sobre estos puntos.</p>
+<div style="max-width: 875px; margin: 0 auto;">
+<div>
+<p class="muestraOcultaSiguiente" style="background-color: #4a90e2; color: white; border-radius: 10px; font-weight: bold; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; padding-left: 0.5em;">📖 Contenidos del Diario de Aprendizaje <span style="font-size: 0.8em; font-weight: normal;">(clic para mostrar)</span></p>
+<div style="background-color: #fdfdfd; border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.05); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+<ul style="list-style: none; padding-left: 0;">
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #d35400; display: block; background: #fff5eb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🧠 Reflexión personal </span>
+<ul style="list-style-type: '✎ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Qué tareas he realizado hoy?</li>
+<li style="margin-left: 1em;">¿Qué dificultades he encontrado y cómo las he resuelto?</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #27ae60; display: block; background: #ebf9f1; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🌟 Aprendizaje diario </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '✔ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Qué conceptos nuevos he aprendido?</li>
+<li style="margin-left: 1em;">¿Qué ideas o habilidades he mejorado?</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #2980b9; display: block; background: #ebf5fb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🤝 Colaboración en el equipo </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '👥 ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Cómo ha sido mi comunicación y trabajo con el equipo?</li>
+<li style="margin-left: 1em;">¿Qué aspectos podría mejorar en la colaboración?</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #8e44ad; display: block; background: #f5eef8; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 📝 Otra información </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '📌 ';">
+<li style="margin-top: 5px; margin-left: 1em;">Anotaciones adicionales sobre el proceso, ideas o problemas.</li>
+<li style="margin-left: 1em;"><strong>Diario de equipo:</strong> ¿Qué información de mi diario individual es útil para el grupo?</li>
+</ul>
+</li>
+</ul>
+<div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
+<p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Descarga del diario:</p>
+<a href="https://drive.google.com/file/d/1S4ESi1AfEeOB_TRMwk9QaUX1DsiHnPLR/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #5cb85c; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener" title="Abre en nueva ventana">💾 Formato Editable</a> <a href="https://drive.google.com/file/d/1EiXe__9apTJkXo2A0z9yQO-yGox4lRnr/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #d9534f; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener" title="Abre en nueva ventana">📄 Formato PDF</a></div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Diario de Misión MiniCanSat de equipo</strong>: este documento compartido recogerá la información más relevante de los diarios individuales. En él, cada equipo plasmará el diseño, programación y resultados obtenidos en la misión, permitiendo una visión conjunta del proyecto. <br />Lo iremos rellenando a medida que vayamos terminando cada una de las fases del proyecto.  Nos servirá para organizar nuestro trabajo, aprender de los errores y reflexionar sobre todo lo que hemos descubierto. <br />¡Vamos a convertirnos en verdaderos ingenieros espaciales!</p>
+<div style="max-width: 875px; margin: 0 auto;">
+<div>
+<p class="muestraOcultaSiguiente" style="background-color: #e67e22; color: white; border-radius: 10px; font-weight: bold; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; padding-left: 0.5em;">🚀 Contenidos del Diario de Misión (Equipo) <span style="font-size: 0.8em; font-weight: normal;">(clic para mostrar)</span></p>
+<div style="background-color: #fdfdfd; border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.05); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+<ul style="list-style: none; padding-left: 0;">
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #d35400; display: block; background: #fff5eb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 👥 Presentación del Equipo </span>
+<ul style="list-style-type: '🛰️ ';">
+<li style="margin-top: 5px; margin-left: 1em;">Nombre de nuestro equipo y participantes.</li>
+<li style="margin-left: 1em;">Nombre de nuestra profesora o profesor.</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #27ae60; display: block; background: #ebf9f1; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🎯 Nuestra Misión </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '✔ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Cuál es el propósito de nuestro MiniCanSat?</li>
+<li style="margin-left: 1em;">¿Qué queremos medir o investigar y por qué es importante?</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #2980b9; display: block; background: #ebf5fb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 💻 Programación </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '⚙️ ';">
+<li style="margin-top: 5px; margin-left: 1em;">Instrucciones, bloques y comandos principales utilizados.</li>
+<li style="margin-left: 1em;">¿Funciona correctamente? Cambios y ajustes realizados.</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #8e44ad; display: block; background: #f5eef8; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🛠️ Diseño y construcción del MiniCanSat </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '📦 ';">
+<li style="margin-top: 5px; margin-left: 1em;">Componentes (Micro:bit, sensores, carcasa, paracaídas...).</li>
+<li style="margin-left: 1em;">Dibujo o esquema del prototipo y resolución de dificultades.</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #c0392b; display: block; background: #fdedec; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🚀 Sistema de lanzamiento </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '🔥 ';">
+<li style="margin-top: 5px; margin-left: 1em;">Materiales, funcionamiento y esquema del sistema.</li>
+<li style="margin-left: 1em;"><strong>Seguridad:</strong> Medidas adoptadas para garantizar el éxito.</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #16a085; display: block; background: #e8f8f5; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 📈 Lanzamiento y recogida de datos </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '📊 ';">
+<li style="margin-top: 5px; margin-left: 1em;">Fecha, lugar y observaciones durante el vuelo.</li>
+<li style="margin-left: 1em;">Datos recopilados (temperatura, altura, tiempo...).</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #f39c12; display: block; background: #fef5e7; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🧐 Análisis y reflexión final </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '✨ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Coinciden los datos con las expectativas?</li>
+<li style="margin-left: 1em;">Aprendizajes obtenidos y propuestas de mejora.</li>
+</ul>
+</li>
+</ul>
+<div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
+<p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Descarga del diario de equipo:</p>
+<a href="https://drive.google.com/file/d/1K6qpCFWjtMgLp3G__0DE35DMnhETWQvt/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #5cb85c; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener" title="Abre en nueva ventana">💾 Formato Editable</a> <a href="https://drive.google.com/file/d/1g1gZd11a8B3MhlsaEJX2TEr88fp1w93p/view" target="_blank" style="text-decoration: none; background: #d9534f; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener" title="Abre en nueva ventana">📄 Formato PDF</a></div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+<h2>Productos</h2>
+A lo largo del proyecto, generaremos distintos productos que reflejarán nuestro trabajo:
+<ol class="listaResaltada">
+<li><strong>Diario</strong> individual de misión MiniCanSat</li>
+<li><strong>Diario</strong> de misión MiniCanSat de equipo</li>
+<li><strong>Programación</strong> de las Micro:bit (sensores y comunicación)</li>
+<li><strong>MiniCanSat</strong> funcional (carcasa y ensamblaje de placa y sistema de alimentación)</li>
+<li>Paracaídas.</li>
+<li>Sistema de lanzamiento.</li>
+<li><strong>Presentación</strong> final con nuestras <strong>conclusiones</strong>.</li>
+</ol>
+<h2>Evaluación</h2>
+<p>En la evaluación del proyecto participaremos tanto el alumnado como el profesorado.</p>
+<ul class="listaResaltada">
+<li>Autoevaluación: Reflexionaremos sobre nuestro propio aprendizaje y desempeño en el equipo.</li>
+<li>Coevaluación: Valoraremos el trabajo de nuestros compañeros y el funcionamiento del equipo.</li>
+<li>Evaluación docente: Se utilizarán rúbricas y documentos de seguimiento para evaluar:
+<ul>
+<li>El Diario de Misión MiniCanSat y el trabajo de equipo.</li>
+<li>La construcción y programación del MiniCanSat.</li>
+<li>La calidad del análisis de datos.</li>
+<li>La presentación final del proyecto.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<hr />
+<blockquote class="exe-quote-cite styled-qc">
+<p>Nuestro objetivo no solo es construir un MiniCanSat, sino también aprender a trabajar en equipo, resolver problemas y desarrollar nuestra creatividad científica.</p>
+</blockquote>
+<p>
+<script>
+/**
+ * Componente: cansat-itinerary
+ * Descripción: Mapa interactivo orbital con animaciones de trayectoria, andamiaje visual (glow),
+ * accesibilidad (numeración secuencial) y escalado perfecto a pantalla completa.
+ */
+class CansatItinerary extends HTMLElement {
+    constructor() {
+   super();
+   this.attachShadow({ mode: 'open' });
+   this.initialized = false;
+   this.steps = [];
+   this.uiTexts = { start: 'Iniciar Misión', close: 'Cerrar', title: 'Itinerario MiniCanSat' };
+   
+   // Coordenadas orbitales predefinidas para la trayectoria (en porcentajes)
+   this.orbit = [
+  { x: 15, y: 30 }, { x: 45, y: 15 }, { x: 75, y: 30 },
+  { x: 80, y: 70 }, { x: 50, y: 85 }, { x: 20, y: 75 }
+   ];
+   this.currentStep = 0;
+    }
+
+    connectedCallback() {
+   if (this.initialized) return;
+   this.initialized = true;
+
+   if (this.hasAttribute('style')) this.removeAttribute('style');
+
+   setTimeout(() => {
+  this.init();
+   }, 0);
+    }
+
+    init() {
+   this.loadData();
+   this.render();
+   this.addEventListeners();
+    }
+
+    loadData() {
+   const tableId = this.getAttribute('data-id');
+   if (!tableId) return;
+
+   const tableContainer = document.getElementById(tableId);
+   if (!tableContainer) return;
+
+   const rows = tableContainer.querySelectorAll('tbody tr');
+   rows.forEach(row => {
+  const cells = row.querySelectorAll('td');
+  if (cells.length >= 4) {
+ const type = cells[0].textContent.trim();
+ if (type.toLowerCase() === 'ui') {
+this.uiTexts.start = cells[1].textContent.trim();
+this.uiTexts.close = cells[2].textContent.trim();
+this.uiTexts.title = cells[3].textContent.trim();
+ } else {
+this.steps.push({
+     title: cells[1].textContent.trim(),
+     icon: cells[2].textContent.trim(),
+     desc: cells[3].innerHTML.trim()
+});
+ }
+  }
+   });
+
+   // Ocultar la tabla original dinámicamente
+   tableContainer.style.display = 'none';
+    }
+
+    render() {
+   this.shadowRoot.innerHTML = `
+  <style>
+:host {
+--base-size: 16px;
+--primary: #4a90e2;
+--primary-glow: #80d8ff;
+--secondary: #f39c12;
+--dark: #0b1320;
+--light: #f4f4f4;
+
+display: flex;
+flex-direction: column;
+width: 100%;
+max-width: 752px;
+height: 423px;
+margin: 0 auto;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+box-sizing: border-box;
+border-radius: 0.5em;
+overflow: hidden;
+box-shadow: 0 0.5em 1em rgba(0,0,0,0.3);
+background: radial-gradient(circle at center, #1a2a40 0%, var(--dark) 100%);
+color: var(--light);
+position: relative;
+font-size: var(--base-size);
+}
+
+/* Escalado relacional perfecto en Fullscreen */
+:host(:fullscreen) {
+max-width: none;
+width: 100vw;
+height: 100vh;
+border-radius: 0;
+--base-size: calc(1.5vh + 0.8vw); 
+}
+
+/* Barra superior */
+.top-bar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0.3em 1em;
+background: rgba(11, 19, 32, 0.8);
+border-bottom: 2px solid var(--primary);
+color: white;
+height: 2.5em;
+flex-shrink: 0;
+z-index: 100;
+}
+.top-title {
+font-size: 1.1em;
+font-weight: bold;
+color: var(--primary-glow);
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+.icon-btn {
+background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
+color: white; padding: 0.2em 0.5em; border-radius: 0.3em; cursor: pointer; font-size: 1.2em;
+transition: transform 0.2s, background 0.2s;
+}
+.icon-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
+
+#app {
+width: 100%;
+flex: 1;
+position: relative;
+}
+
+.screen {
+position: absolute;
+top: 0; left: 0; right: 0; bottom: 0;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+transition: opacity 0.5s ease, visibility 0.5s ease;
+opacity: 0;
+visibility: hidden;
+z-index: 10;
+}
+.screen.active {
+opacity: 1;
+visibility: visible;
+}
+
+/* Start Screen */
+.title { font-size: 2em; margin-bottom: 0.5em; text-align: center; color: var(--primary); text-shadow: 0 0 15px rgba(74, 144, 226, 0.8); }
+.btn {
+background: var(--primary); color: white; border: none; padding: 0.8em 1.5em;
+font-size: 1em; border-radius: 2em; cursor: pointer; font-weight: bold;
+transition: transform 0.2s, background 0.2s; box-shadow: 0 0.2em 0.5em rgba(0,0,0,0.3);
+}
+.btn:hover, .btn:focus { transform: scale(1.05); background: #357abd; outline: 2px solid white; }
+
+/* Map Screen */
+#map-container { position: relative; width: 100%; height: 100%; }
+
+/* Nodos */
+.node {
+position: absolute; width: 3em; height: 3em;
+background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.3);
+border-radius: 50%; display: flex; justify-content: center; align-items: center;
+font-size: 1.2em; cursor: pointer; transition: all 0.3s ease;
+transform: translate(-50%, -50%); z-index: 20;
+}
+.node:hover, .node:focus {
+background: rgba(74, 144, 226, 0.5); transform: translate(-50%, -50%) scale(1.15);
+outline: none;
+}
+.node.visited {
+border-color: var(--primary);
+background: rgba(74, 144, 226, 0.2);
+}
+
+/* Efecto Glow para el andamiaje (Siguiente paso) */
+@keyframes pulse-glow {
+0% { box-shadow: 0 0 0 0 rgba(128, 216, 255, 0.7); border-color: var(--primary-glow); }
+70% { box-shadow: 0 0 0 15px rgba(128, 216, 255, 0); border-color: white; }
+100% { box-shadow: 0 0 0 0 rgba(128, 216, 255, 0); border-color: var(--primary-glow); }
+}
+.glow-active {
+animation: pulse-glow 2s infinite;
+background: rgba(74, 144, 226, 0.4);
+}
+
+/* Tooltip y número */
+.node::after {
+content: attr(data-title); position: absolute; top: 120%; left: 50%;
+transform: translateX(-50%); font-size: 0.6em; white-space: nowrap; font-weight: bold;
+background: rgba(0,0,0,0.8); padding: 0.4em 0.8em; border-radius: 0.4em;
+pointer-events: none; opacity: 0; transition: opacity 0.3s;
+border: 1px solid rgba(255,255,255,0.2);
+}
+.node:hover::after, .node:focus::after { opacity: 1; }
+
+.step-num {
+position: absolute; top: -0.5em; right: -0.5em;
+background: var(--secondary); color: white; border-radius: 50%;
+width: 1.5em; height: 1.5em; display: flex; justify-content: center; align-items: center;
+font-size: 0.65em; font-weight: bold; border: 2px solid var(--dark);
+box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Orbital path */
+.path-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+.path-line { fill: none; stroke: rgba(74, 144, 226, 0.4); stroke-width: 3px; stroke-dasharray: 6,6; }
+
+/* Cohete Animado */
+#rocket {
+position: absolute;
+font-size: 1.8em;
+z-index: 25;
+transition: left 0.8s ease-in-out, top 0.8s ease-in-out, transform 0.6s ease-in-out;
+transform-origin: center;
+pointer-events: none;
+filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+/* El emoji cohete 🚀 apunta a 45º (arriba-derecha) por defecto */
+}
+
+/* Modal */
+#modal {
+position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+background: rgba(11, 19, 32, 0.95); z-index: 50;
+display: flex; justify-content: center; align-items: center;
+opacity: 0; visibility: hidden; transition: all 0.3s ease;
+backdrop-filter: blur(3px);
+}
+#modal.active { opacity: 1; visibility: visible; }
+.modal-content {
+background: var(--light); color: #333; padding: 2em; border-radius: 0.5em;
+max-width: 80%; max-height: 80%; overflow-y: auto; text-align: center;
+position: relative; box-shadow: 0 1em 2em rgba(0,0,0,0.5);
+transform: translateY(20px); transition: transform 0.3s ease; border-top: 5px solid var(--primary);
+}
+#modal.active .modal-content { transform: translateY(0); }
+.modal-icon { font-size: 3em; margin-bottom: 0.1em; }
+.modal-title { font-size: 1.5em; color: var(--primary); margin-bottom: 0.5em; margin-top: 0; }
+.modal-content .modal-desc { font-size: 1.1em; line-height: 1.6; text-align: left; }
+.close-btn { margin-top: 1.5em; background: var(--secondary); width: 100%; }
+
+@media (max-width: 680px) {
+:host { height: 500px; }
+.node::after { display: none; }
+}
+  </style>
+  
+  <div class="top-bar">
+ <span class="top-title"><span aria-hidden="true">🛰️</span> ${this.uiTexts.title}</span>
+ <button id="fs-btn" class="icon-btn" aria-label="Pantalla completa" title="Pantalla completa">⛶</button>
+  </div>
+
+  <div id="app">
+ <div id="screen-start" class="screen active">
+<h1 class="title">Centro de Mando</h1>
+<button id="start-btn" class="btn">${this.uiTexts.start}</button>
+ </div>
+
+ <div id="screen-map" class="screen">
+<div id="map-container" role="navigation" aria-label="Mapa interactivo de fases">
+    <svg class="path-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+   <path class="path-line" d="M15,30 Q30,10 45,15 T75,30 T80,70 T50,85 T20,75" ></path>
+    </svg>
+    
+    <div id="rocket" style="left: ${this.orbit[0].x}%; top: ${this.orbit[0].y}%; transform: translate(-50%, -50%) rotate(45deg); opacity: 0;">🚀</div>
+
+    ${this.steps.map((step, index) => {
+   const pos = this.orbit[index % this.orbit.length];
+   return `
+   <div class="node ${index === 0 ? 'glow-active' : ''}" 
+   style="left: ${pos.x}%; top: ${pos.y}%;"
+   tabindex="0" role="button" aria-label="Paso ${index + 1}: ${step.title}" 
+   data-title="${step.title}" data-idx="${index}">
+  <div class="step-num" aria-hidden="true">${index + 1}</div>
+  <span aria-hidden="true">${step.icon}</span>
+   </div>
+   `;
+    }).join('')}
+</div>
+ </div>
+
+ <div id="modal" aria-live="polite">
+<div class="modal-content">
+    <div class="modal-icon" aria-hidden="true"></div>
+    <h2 class="modal-title"></h2>
+    <div class="modal-desc"></div>
+    <button id="close-modal" class="btn close-btn">${this.uiTexts.close}</button>
+</div>
+ </div>
+  </div>
+   `;
+    }
+
+    addEventListeners() {
+   const startBtn = this.shadowRoot.getElementById('start-btn');
+   const screenStart = this.shadowRoot.getElementById('screen-start');
+   const screenMap = this.shadowRoot.getElementById('screen-map');
+   const nodes = this.shadowRoot.querySelectorAll('.node');
+   const modal = this.shadowRoot.getElementById('modal');
+   const closeModalBtn = this.shadowRoot.getElementById('close-modal');
+   const fsBtn = this.shadowRoot.getElementById('fs-btn');
+   const rocket = this.shadowRoot.getElementById('rocket');
+
+   // Empezar Misión
+   startBtn.addEventListener('click', () => {
+  screenStart.classList.remove('active');
+  screenMap.classList.add('active');
+  rocket.style.opacity = '1';
+  nodes[0].focus();
+   });
+
+   // Interacción con los Nodos
+   nodes.forEach(node => {
+  const openModal = () => {
+ const idx = parseInt(node.getAttribute('data-idx'));
+ const step = this.steps[idx];
+ 
+ // --- Animación del Cohete ---
+ const prevPos = this.orbit[this.currentStep % this.orbit.length];
+ const newPos = this.orbit[idx % this.orbit.length];
+ 
+ // Calcular ángulo de giro (ajustando 45º porque el emoji 🚀 apunta arriba-derecha por defecto)
+ const dx = newPos.x - prevPos.x;
+ const dy = newPos.y - prevPos.y; 
+ let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+ let finalRotation = angle + 45; 
+ 
+ // Mover cohete
+ rocket.style.left = `${newPos.x}%`;
+ rocket.style.top = `${newPos.y}%`;
+ rocket.style.transform = `translate(-50%, -50%) rotate(${finalRotation}deg)`;
+ 
+ this.currentStep = idx;
+
+ // --- Gestión visual del Glow y Visitas ---
+ nodes.forEach(n => n.classList.remove('glow-active'));
+ node.classList.add('visited');
+ if(idx + 1 < nodes.length) {
+nodes[idx + 1].classList.add('glow-active');
+ }
+
+ // --- Mostrar Contenido ---
+ this.shadowRoot.querySelector('.modal-icon').textContent = step.icon;
+ this.shadowRoot.querySelector('.modal-title').textContent = `${idx + 1}. ${step.title}`;
+ this.shadowRoot.querySelector('.modal-desc').innerHTML = step.desc;
+ 
+ // Retrasar el modal un poco para dejar ver volar al cohete
+ setTimeout(() => {
+modal.classList.add('active');
+closeModalBtn.focus();
+ }, 600);
+  };
+  
+  node.addEventListener('click', openModal);
+  node.addEventListener('keyup', (e) => { if(e.key === 'Enter' || e.key === ' ') openModal(); });
+   });
+
+   // Cerrar Modal
+   const closeModal = () => { 
+  modal.classList.remove('active'); 
+  // Devolver el foco al nodo actual para accesibilidad
+  nodes[this.currentStep].focus();
+   };
+   closeModalBtn.addEventListener('click', closeModal);
+   modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+   // Pantalla Completa
+   fsBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+ this.requestFullscreen().catch(err => console.error(err));
+  } else {
+ document.exitFullscreen();
+  }
+   });
+
+   document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement === this) {
+ fsBtn.textContent = '✖';
+ fsBtn.setAttribute('title', 'Salir de pantalla completa');
+  } else {
+ fsBtn.textContent = '⛶';
+ fsBtn.setAttribute('title', 'Pantalla completa');
+  }
+   });
+    }
+}
+
+if (!customElements.get('cansat-itinerary')) {
+    customElements.define('cansat-itinerary', CansatItinerary);
+}
+</script>
+</p>
+</div>
+</div>
+</div>
+</article><article id="block-mpczpc11-u4ffpzf31" class="box">
+<header class="box-head">
+<div class="box-icon exe-icon">
+<img src="../theme/icons/activity.png" alt="">
+</div>
+<h1 class="box-title">**Actividad Previa. Creamos los equipos</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc11-t0e33t3sg" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc11-t0e33t3sg&quot;}">
+<p>Para llevar a cabo nuestra misión MiniCanSat, nos organizaremos en equipos de cuatro o cinco personas. Cada miembro del equipo asumirá un rol específico con funciones definidas, pero todos participaremos en las distintas tareas del proyecto.</p>
+<p>Cada miembro del equipo es vital para el éxito de la misión CANSAT. Vamos a desplegar los diferentes <strong>roles y funciones</strong> para descubrir sus responsabilidades.</p>
+<div style="max-width: 875px; margin: 0 auto;">
+<div>
+<p class="muestraOcultaSiguiente" style="background-color: #4a90e2; color: white; border-radius: 10px; font-weight: bold; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; padding-left: 0.5em;">👥 Roles y funciones de los equipos <span style="font-size: 0.8em; font-weight: normal;">(clic para mostrar)</span></p>
+<div style="background-color: #fdfdfd; border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.05); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+<ul style="list-style: none; padding-left: 0;">
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #2980b9; display: block; background: #ebf5fb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 👔 Coordinador/a de misión </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '• ';">
+<li style="margin-top: 5px; margin-left: 1em;">Organiza el trabajo del equipo.</li>
+<li style="margin-left: 1em;">Supervisa que cada miembro cumpla con su papel.</li>
+<li style="margin-left: 1em;">Gestiona el tiempo y la planificación de tareas.</li>
+<li style="margin-left: 1em;">Modera y resuelve conflictos dentro del equipo.</li>
+<li style="margin-left: 1em;">Se comunica con el docente y otros equipos.</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #d35400; display: block; background: #fff5eb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🛠️ Ingeniero/a de sistemas </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '• ';">
+<li style="margin-top: 5px; margin-left: 1em;">Se encarga del diseño y ensamblaje del MiniCanSat.</li>
+<li style="margin-left: 1em;">Garantiza que todos los componentes estén integrados.</li>
+<li style="margin-left: 1em;">Verifica el material para la carcasa y el paracaídas.</li>
+<li style="margin-left: 1em;">Supervisa el ensamblaje final y la integración.</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #c0392b; display: block; background: #fdf2f2; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 📡 Especialista en telecomunicaciones </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '• ';">
+<li style="margin-top: 5px; margin-left: 1em;">Configura y prueba la transmisión de datos.</li>
+<li style="margin-left: 1em;">Verifica que los datos se reciben correctamente en tierra.</li>
+<li style="margin-left: 1em;">Se encarga de programar la Micro:bit y comunicaciones.</li>
+<li style="margin-left: 1em;">Realiza pruebas previas de telemetría.</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #27ae60; display: block; background: #ebf9f1; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 📊 Científico/a de datos </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '• ';">
+<li style="margin-top: 5px; margin-left: 1em;">Analiza los datos recogidos durante la misión.</li>
+<li style="margin-left: 1em;">Interpreta resultados y los compara con hipótesis.</li>
+<li style="margin-left: 1em;">Asegura que los datos se documenten correctamente.</li>
+<li style="margin-left: 1em;">Colabora en la redacción del informe de análisis.</li>
+</ul>
+</li>
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #8e44ad; display: block; background: #f5eef8; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> ✍️ Gestor/a de información </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '• ';">
+<li style="margin-top: 5px; margin-left: 1em;">Redacta informes y prepara la presentación final.</li>
+<li style="margin-left: 1em;">Organiza la información de manera clara y atractiva.</li>
+<li style="margin-left: 1em;">Registra en el Diario de Misión de equipo la información relevante.</li>
+<li style="margin-left: 1em;">Presenta las conclusiones y aprendizajes en la exposición.</li>
+</ul>
+</li>
+</ul>
+<div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
+<p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Descarga de la ficha de roles:</p>
+<a href="https://drive.google.com/file/d/1yqXV6pEa0-F8jXVFCPR_jsP8bt7RtUTI/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #5cb85c; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener" title="Abre en nueva ventana">💾 Ficha Editable</a> <a href="https://drive.google.com/file/d/1x7P2uqteYvQc_LA1F6S1UNSO_ej_Di8D/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #d9534f; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener" title="Abre en nueva ventana">📄 Formato PDF</a></div>
+</div>
+</div>
+</div>
+<figure class="exe-figure exe-image position-center license-CC0" style="width: 560px;"><img src="../content/resources/equipo_roles_espacio.jpg" alt="Ilustración de un equipo de cinco adolescentes diversos trabajando juntos alegremente en un proyecto de tecnología espacial" title="Equipo de roles MiniCanSat" width="560" height="313" style="border-radius: 10px; object-fit: cover;" />
+<figcaption class="figcaption"><span class="author">Generado por IA Gemini</span>. <span class="title"><em>Equipo de roles MiniCanSat</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/publicdomain/zero/1.0/deed.es" rel="license nofollow noopener" target="_blank" title="Creative Commons (CC0)">CC0</a><span class="sep">)</span></span></figcaption>
+</figure>
+<p>Una vez adjudicados los roles, seguiremos estos pasos:</p>
+<ol class="listaResaltada lista-xl">
+<li><strong>Elegimos un nombre para nuestro equipo</strong> que nos represente y refleje nuestro espíritu de exploradores espaciales.</li>
+<li><strong>El/la coordinador/a de misión creará una carpeta en la nube</strong> (si trabajamos en formato digital), le pondrá el nombre del equipo y la compartirá con los demás miembros y con el docente. Si optamos por el formato físico, organizaremos un cuaderno de trabajo o carpeta en papel donde archivaremos toda la documentación relevante del equipo.</li>
+<li>El equipo completará el documento <strong>Registro de roles y funciones de los miembros del equipo MiniCaSat</strong> (descarga en formato editable y en pdf).</li>
+</ol>
+<p>Este proceso nos ayudará a organizarnos mejor, distribuir responsabilidades y garantizar que cada aspecto de la misión MiniCanSat se lleve a cabo de manera eficiente.</p>
+</div>
+</div>
+</article><article id="block-mpczpc11-tev85nk6b" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">**Profesiones del espacio</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc11-h4s89y68z" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc11-h4s89y68z&quot;}">
+<p>Un satélite no se construye solo. Detrás de cada lanzamiento hay equipos de personas muy preparadas trabajando juntas. Durante nuestra misión MiniCanSat, no solo aprenderemos ciencia, sino que experimentaremos cómo es trabajar en profesiones STEM (Ciencia, Tecnología, Ingeniería y Matemáticas).</p>
+<p>Con este trabajo, impulsaremos el <span style="color: #fd6925;"><strong>ODS 9: Industria, innovación e infraestructura</strong></span>, descubriendo profesiones clave como:</p>
+<ul class="listaResaltada">
+<li><strong>Ingeniería Aeroespacial y de Sistemas:</strong> Diseñan la estructura, el paracaídas y aseguran que todas las piezas encajen y resistan el vuelo.</li>
+<li><strong>Ingeniería de Telecomunicaciones:</strong> Aseguran que la señal de radio viaje correctamente desde el cielo hasta nuestros ordenadores sin perderse.</li>
+<li><strong>Ciencia de Datos:</strong> Analizan todos los números (temperatura, luz, aceleración) para convertirlos en gráficas e información útil.</li>
+<li><strong>Gestión de Proyectos:</strong> Coordinan al equipo, vigilan los tiempos y comunican los descubrimientos al mundo.</li>
+</ul>
+<p>A lo largo del proyecto, adoptaremos estos roles. ¡Quizás descubramos nuestra futura profesión!</p>
+</div>
+</div>
+</article><article id="block-mpczpc11-swb8fagck" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">**Check-list de Misión: ¿Estamos listos?</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc11-vvnr0yy2s" class="idevice_node checklist" data-idevice-path="../idevices/checklist/" data-idevice-type="checklist">
+<div class="listacotejo-IDevice"><div class="listacotejo-instructions CTJ-instructions"><p>Completa la lista de cotejo marcando las casillas al realizar las actividades correspondientes.</p></div><div class="listacotejo-DataGame js-hidden">%E9%B0%E6%EB%E2%F7%D5%F3%FF%F7%B0%A8%B0%D1%FD%E6%F7%F8%FD%B0%BE%B0%FB%F6%B0%A8%B0%A0%A2%A0%A4%A7%AA%AA%A3%A7%A0%A5%BF%A3%A0%A2%B0%BE%B0%E6%FB%E6%FE%F7%B0%A8%B0%D3%F1%E6%FB%E4%FB%F6%F3%F6%F7%E1%BC%B2%DF%FB%FC%FB%D1%F3%FC%E1%F3%E6%B0%BE%B0%E1%E7%F0%E6%FB%E6%FE%F7%B0%A8%B0%DE%FB%E1%E6%F3%B2%F6%F7%B2%F1%FD%E6%F7%F8%FD%B0%BE%B0%FE%F7%E4%F7%FE%E1%B0%A8%C9%E9%B0%E6%EB%E2%F7%B0%A8%B0%A1%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A2%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%AE%F0%AC%D4%F3%E1%F7%B2%A3%A8%B2%C2%E0%F7%E2%F3%E0%F3%F1%FBa%FC%B2%EB%B2%D6%FB%E1%F7c%FD%AE%BD%F0%AC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A2%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%DA%F7%FF%FD%E1%B2%F4%FD%E0%FF%F3%F6%FD%B2%FC%E7%F7%E1%E6%E0%FD%B2%F7%E3%E7%FB%E2%FD%B2%F7%E1%E2%F3%F1%FB%F3%FE%B2%EB%B2%F3%E1%FB%F5%FC%F3%F6%FD%B2%FE%FD%E1%B2%E0%FD%FE%F7%E1%B2%BA%DB%FC%F5%F7%FC%FB%F7%E0%7F%F3%BE%B2%D6%F3%E6%FD%E1%BE%B2%F7%E6%F1%BC%BB%BC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A0%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D6%FB%F3%E0%FB%FD%B2%F6%F7%B2%DF%FB%E1%FBa%FC%B2%C9-%DE%FD%B2%F7%E1%E6%F3%FF%FD%E1%B2%E0%F7%FE%FE%F7%FC%F3%FC%F6%FD%B2%F1%F3%F6%F3%B2%F6%7F%F3%AD%CF%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A2%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%DA%F7%FF%FD%E1%B2%F6%F7%F4%FB%FC%FB%F6%FD%B2%F1%FD%FC%B2%F1%FE%F3%E0%FB%F6%F3%F6%B2%FC%E7%F7%E1%E6%E0%F3%B2%DF%FB%E1%FBa%FC%B2%C1%F7%F1%E7%FC%F6%F3%E0%FB%F3%B2%BA%FC%E7%F7%E1%E6%E0%FD%B2%F7%EA%E2%F7%E0%FB%FF%F7%FC%E6%FD%B2%F1%E0%F7%F3%E6%FB%E4%FD%BB%BC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A1%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A2%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%AE%F0%AC%D4%F3%E1%F7%B2%A0%A8%B2%C2%E0%FD%F5%E0%F3%FF%F3%F1%FBa%FC%B2%BA%D7%FE%B2%D1%F7%E0%F7%F0%E0%FD%BB%AE%BD%F0%AC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A2%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%DA%F7%FF%FD%E1%B2%E1%E7%E2%F7%E0%F3%F6%FD%B2%F7%FE%B2%F8%E7%F7%F5%FD%B2%F6%F7%B2%E0%F7%E2%F3%E1%FD%B2%CE%B0%D5%E7%F3%E0%F6%FB%F3%FC%F7%E1%B2%F6%F7%FE%B2%D1a%F6%FB%F5%FD%CE%B0%BC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A0%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%DF%FB%F1%E0%FD%A8%F0%FB%E6%B2%F6%F7%FE%B2%C1%F3%E6%7B%FE%FB%E6%F7%B2%C9%C2%E0%FD%F5%E0%F3%FF%F3%B2%F6%F7%B2%E6%F7%FF%E2%F7%E0%F3%E6%E7%E0%F3%BE%B2%FE%E7%E8%B2%EB%B2%F3%F1%F7%FE%F7%E0%F3%F1%FBa%FC%CF%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A0%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D7%E1%E6%F3%F1%FBa%FC%B2%F6%F7%B2%C6%FB%F7%E0%E0%F3%B2%C9%C0%F7%F1%F7%E2%F1%FBa%FC%B2%F6%F7%B2%F6%F3%E6%FD%E1%B2%E2%FD%E0%B2%E0%F3%F6%FB%FD%CF%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A1%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A2%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%AE%F0%AC%D4%F3%E1%F7%B2%A1%A8%B2%D1%FD%FC%E1%E6%E0%E7%F1%F1%FBa%FC%B2%BA%D7%FE%B2%D1%E7%F7%E0%E2%FD%BB%AE%BD%F0%AC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A2%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%DA%F7%FF%FD%E1%B2%E1%E7%E2%F7%E0%F3%F6%FD%B2%F7%FE%B2%F8%E7%F7%F5%FD%B2%F6%F7%B2%E0%F7%E2%F3%E1%FD%B2%CE%B0%DB%FC%F5%F7%FC%FB%F7%E0%FD%E1%B2%F7%FC%B2%D3%F1%F1%FBa%FC%CE%B0%BC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A2%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D7%FE%B2%E2%F3%E0%F3%F1%F3%7F%F6%F3%E1%B2%F7%E1%E6s%B2%E6%F7%E0%FF%FB%FC%F3%F6%FD%BE%B2%F0%FB%F7%FC%B2%F3%FC%F1%FE%F3%F6%FD%B2%EB%B2%FA%F7%FF%FD%E1%B2%F3%E1%F7%F5%E7%E0%F3%F6%FD%B2%FE%FD%E1%B2%FC%E7%F6%FD%E1%BC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A0%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D7%FC%E1%F3%FF%F0%FE%F3%F8%F7%B2%C9%DE%F3%B2%F7%FE%F7%F1%E6%E0a%FC%FB%F1%F3%B2%F7%E1%E6s%B2%F0%FB%F7%FC%B2%E1%E7%F8%F7%E6%F3%B2%F6%F7%FC%E6%E0%FD%B2%F6%F7%B2%FE%F3%B2%F1%F3%E0%F1%F3%E1%F3%CF%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A1%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A2%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%AE%F0%AC%D4%F3%E1%F7%B2%A6%A8%B2%DD%E2%F7%E0%F3%F1%FB%FD%FC%F7%E1%B2%F6%F7%B2%C4%E7%F7%FE%FD%AE%BD%F0%AC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A2%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D3%E2%E0%FD%F0%F3%F6%FD%B2%F7%FE%B2%F7%EA%F3%FF%F7%FC%B2%F6%F7%B2%CE%B0%DE%FB%F1%F7%FC%F1%FB%F3%B2%F6%F7%B2%C4%E7%F7%FE%FD%CE%B0%BC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A2%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D3%E2%FE%FB%F1%F3%F6%FD%B2%F7%FE%B2%E2%E0%FD%E6%FD%F1%FD%FE%FD%B2%F6%F7%B2%E1%F7%F5%E7%E0%FB%F6%F3%F6%B2%F7%FC%B2%F7%FE%B2%FE%F3%FC%E8%F3%FF%FB%F7%FC%E6%FD%B2%BA%F5%F3%F4%F3%E1%B2%EB%B2%F6%FB%E1%E6%F3%FC%F1%FB%F3%BB%BC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A0%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D3%FCs%FE%FB%E1%FB%E1%B2%D1%FB%F7%FC%E6%7F%F4%FB%F1%FD%B2%C9%DA%F7%FF%FD%E1%B2%FE%FB%FF%E2%FB%F3%F6%FD%B2%F7%FE%B2%F3%E0%F1%FA%FB%E4%FD%B2%D1%C1%C4%B2%EB%B2%F1%E0%F7%F3%F6%FD%B2%FE%F3%E1%B2%F5%E0s%F4%FB%F1%F3%E1%CF%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A1%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A2%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%AE%F0%AC%D4%F3%E1%F7%B2%A7%A8%B2%C0%F7%F4%FE%F7%EA%FBa%FC%B2%D4%FB%FC%F3%FE%AE%BD%F0%AC%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A3%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D7%FE%B2%FD%F0%E1%E6s%F1%E7%FE%FD%B2%FFs%E1%B2%F6%FB%F4%7F%F1%FB%FE%B2%E3%E7%F7%B2%FA%F7%FF%FD%E1%B2%E1%E7%E2%F7%E0%F3%F6%FD%B2%F1%FD%FF%FD%B2%F7%E3%E7%FB%E2%FD%B2%FA%F3%B2%E1%FB%F6%FD%A8%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A3%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%D6%F7%B2%E6%FD%F6%FD%B2%FE%FD%B2%E3%E7%F7%B2%FA%F7%FF%FD%E1%B2%F1%FD%FC%E1%E6%E0%E7%FB%F6%FD%B2%FD%B2%E2%E0%FD%F5%E0%F3%FF%F3%F6%FD%BE%B2%FC%FD%E1%B2%E1%F7%FC%E6%FB%FF%FD%E1%B2%FFs%E1%B2%FD%E0%F5%E7%FE%FE%FD%E1%FD%E1%B2%F6%F7%A8%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%BE%E9%B0%E6%EB%E2%F7%B0%A8%B0%A3%B0%BE%B0%FC%FB%E4%F7%FE%B0%A8%B0%A3%B0%BE%B0%FB%E6%F7%FF%B0%A8%B0%DE%F3%B2%DB%FC%E1%FB%F5%FC%FB%F3%B2%DD%D6%C1%B2%E3%E7%F7%B2%FF%F7%F8%FD%E0%B2%E0%F7%E2%E0%F7%E1%F7%FC%E6%F3%B2%FC%E7%F7%E1%E6%E0%FD%B2%E6%E0%F3%F0%F3%F8%FD%B2%F7%E1%A8%B0%BE%B0%E2%FD%FB%FC%E6%E1%B0%A8%B0%B0%EF%CF%BE%B0%FA%F3%E1%DE%FD%F5%FD%B0%A8%E6%E0%E7%F7%BE%B0%E7%E0%FE%DE%FD%F5%FD%B0%A8%B0%B0%BE%B0%FA%F3%E1%D1%FD%FF%FF%E7%FC%FB%E6%EB%B0%A8%F4%F3%FE%E1%F7%BE%B0%E7%E0%FE%D1%FD%FF%FF%E7%FC%FB%E6%EB%B0%A8%B0%B0%BE%B0%FA%F3%E1%D6%F7%F1%FD%E0%F3%E6%FB%E4%F7%B0%A8%F4%F3%FE%E1%F7%BE%B0%E7%E0%FE%D6%F7%F1%FD%E0%F3%E6%FB%E4%F7%B0%A8%B0%B0%BE%B0%E1%F3%E4%F7%D6%F3%E6%F3%B0%A8%E6%E0%E7%F7%BE%B0%E7%E1%F7%E0%D6%F3%E6%F3%B0%A8%E6%E0%E7%F7%BE%B0%F4%FD%FD%E6%F7%E0%B0%A8%B0%B0%BE%B0%E7%E1%F7%C1%F1%FD%E0%F7%B0%A8%F4%F3%FE%E1%F7%BE%B0%FF%E1%F5%E1%B0%A8%E9%B0%FF%E1%F5%D1%FD%FF%E2%FE%FB%E6%B0%A8%B0%D1%FD%FF%E2%FE%F7%E6%F3%F6%F3%E1%B0%BE%B0%FF%E1%F5%D6%FD%FC%F7%B0%A8%B0%DA%F7%F1%FA%FD%B0%BE%B0%FF%E1%F5%DB%FC%C2%E0%FD%F5%E0%F7%E1%E1%B0%A8%B0%D7%FC%B2%E2%E0%FD%F1%F7%E1%FD%B0%BE%B0%FF%E1%F5%C7%FC%E0%F7%F3%FE%FB%E8%F7%F6%B0%A8%B0%C1%FB%FC%B2%F1%FD%FF%E2%FE%F7%E6%F3%E0%B0%BE%B0%FF%E1%F5%E6%F3%E1%F9%DC%E7%FF%F0%F7%E0%B0%A8%B0%DCh%FF%F7%E0%FD%B2%F6%F7%B2%E6%F3%E0%F7%F3%E1%B0%BE%B0%FF%E1%F5%DC%F3%FF%F7%B0%A8%B0%DC%FD%FF%F0%E0%F7%B0%BE%B0%FF%E1%F5%D6%F3%E6%F7%B0%A8%B0%D4%F7%F1%FA%F3%B0%BE%B0%FF%E1%F5%C1%F3%E4%F7%B0%A8%B0%D6%F7%E1%F1%F3%E0%F5%F3%E0%B0%BE%B0%FF%E1%F5%DE%FB%E1%E6%B0%A8%B0%FE%FB%E1%E6%F3%CD%F6%F7%CD%F1%FD%E6%F7%F8%FD%B0%BE%B0%FF%E1%F5%C1%F1%FD%E0%F7%B0%A8%B0%C2%E7%FC%E6%E7%F3%F1%FBa%FC%B0%BE%B0%FF%E1%F5%C2%FD%FB%FC%E6%E1%B0%A8%B0%E2%E7%FC%E6%FD%E1%B0%BE%B0%FF%E1%F5%C2%FD%FB%FC%E6%B0%A8%B0%E2%E7%FC%E6%FD%B0%BE%B0%FF%E1%F5%C0%F7%F0%FD%FD%E6%B0%A8%B0%C0%F7%FB%FC%FB%F1%FB%F3%E0%B0%BE%B0%FF%E1%F5%D6%F7%FE%F7%E6%F7%B0%A8%B0-%C1%F7%F5%E7%E0%FD%B2%E3%E7%F7%B2%F6%F7%E1%F7%F3%B2%F0%FD%E0%E0%F3%E0%B2%E6%FD%F6%FD%E1%B2%FE%FD%E1%B2%F1%F3%FF%E2%FD%E1%B2%F6%F7%FE%B2%F4%FD%E0%FF%E7%FE%F3%E0%FB%FD%AD%B0%EF%EF</div><div class="listacotejo-bns js-hidden">Navegador incompatible</div></div>
+</div>
+</div>
+</article><article id="block-mpczpc11-wjj4sktkw" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">**Dossier Imprimible de la Misión 🖨️</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc11-3zwoz0qbx" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc11-3zwoz0qbx&quot;}">
+<p style="font-size: 1.1em; color: #333; line-height: 1.5;">Por si en algún momento necesitamos trabajar en papel, adaptar algunos materiales, o no tenemos conexión a Internet en el aula, aquí tenemos todo el contenido de nuestra aventura espacial estructurado en un formato listo para imprimir.</p>
+<p style="margin-top: 25px;"><a href="https://docs.google.com/document/d/1bGBqgi_wx8zxxs6PkXGv5IkBrVpsQWIoW2LxHAQEtI4/template/preview" target="_blank" rel="noopener" style="background-color: #2980b9; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 15px; font-size: 1.1em; display: inline-block; margin-bottom: 10px;" title="Abre el Dossier de Teoría"><span aria-hidden="true">📖</span> Abrir Dossier de Teoría</a> <a href="https://docs.google.com/document/d/1B6REN5h_NHz-wEhfQpW37f9fpLXmcO9rzNlOSYlWUUw/template/preview" target="_blank" rel="noopener" style="background-color: #f39c12; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.1em; display: inline-block; margin-bottom: 10px;" title="Abre el Cuaderno de Actividades"><span aria-hidden="true">✏️</span> Abrir Cuaderno de Actividades</a></p>
+<p style="font-size: 0.9em; color: #7f8c8d;">(Dentro de cada archivo, podemos ir a <strong>Archivo > Descargar</strong> si necesitamos guardarlo en el ordenador).</p>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../index.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/programamos-nuestro-satelite-artificial.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+<div id="siteUserFooter"> <div><div style="display: flex; justify-content: center;" class="addthis_inline_share_toolbox"></div>
+<p style="text-align: center;"><span style="font-size: 0.8em;">Programa <a href="https://programacrea.educarex.es" target="_blank">CREA</a> Extremadura (Creación de Recursos Educativos Abiertos)</p>
+<script>
+$("#packageLicense a").click(function(){
+window.open(this.href);
+return false;
+});
+</script>
+<script>
+  $(function() {
+    /* ==========================================
+  CONFIGURACIÓN DE TEXTOS
+  ========================================== */
+    const textoDesplegar = "Desplegar";
+    const textoContraer = "Contraer";
+    /* ==========================================
+  1. INICIALIZACIÓN
+  ========================================== */
+// Recorremos todos los elementos para asignar el tooltip correcto al cargar
+    $('.muestraOcultaSiguiente').each(function() {
+   var $this = $(this);
+   if ($this.hasClass('visible')) {
+  $this.attr('title', textoContraer);
+   } else {
+  $this.attr('title', textoDesplegar);
+   }
+    });
+    /* ==========================================
+  2. LÓGICA PRINCIPAL (CLICK EN ENCABEZADO)
+  ========================================== */
+    $(document).on('click', '.muestraOcultaSiguiente', function(){
+ var $this = $(this);
+ 
+ // Alternamos la visibilidad
+ $this.toggleClass('visible');
+ 
+ // Actualizamos el texto del tooltip según el estado
+ if ($this.hasClass('visible')) {
+   $this.attr('title', textoContraer);
+ } else {
+   $this.attr('title', textoDesplegar);
+ }
+    });
+    /* ==========================================
+  3. LÓGICA "CLICABLE" (CERRAR AL TOCAR CONTENIDO)
+  ========================================== */
+    // Si el elemento es .clicable, al pulsar en su contenido se cierra,
+    // salvo que pulsemos explícitamente en el botón de cierre (para evitar doble evento).
+    $(document).on('click', '.clicable + *', function(e) {
+ if ($(e.target).closest('.zona-cierre').length) return;
+ var elementoAnterior = $(this).prev('.clicable');
+ if (elementoAnterior.hasClass('muestraOcultaSiguiente')) {
+   // Disparamos click en el encabezado para reutilizar la lógica principal
+   elementoAnterior.click(); 
+ }
+    });
+    /* ==========================================
+  4. GENERADOR DE CIERRE (.conCierre)
+  ========================================== */
+    // Busca elementos con la clase .conCierre e inyecta el botón al final de su contenido
+    $('.muestraOcultaSiguiente.conCierre').each(function(){
+ var contenido = $(this).next();
+ // Evitamos duplicados si el script corre varias veces
+ if (contenido.find('.zona-cierre').length === 0) {
+   contenido.append('<div class="zona-cierre" title="Contraer esta parte"><span class="icono-cierre">❯</span></div>');
+ }
+    });
+    /* ==========================================
+  5. ACCIÓN DEL BOTÓN DE CIERRE (INCLUYE SCROLL)
+  ========================================== */
+    $(document).on('click', '.zona-cierre', function() {
+ // Identificamos el encabezado correspondiente
+ var encabezado = $(this).parent().prev('.muestraOcultaSiguiente');
+ 
+ // Simulamos click para cerrar
+ encabezado.click();
+ 
+ // SCROLL AUTOMÁTICO SUAVE
+ // Llevamos la pantalla de vuelta al título para no perder el contexto
+ $('html, body').animate({
+scrollTop: encabezado.offset().top - 20 // Dejamos 20px de margen superior
+ }, 500); // 500ms de duración de la animación
+    });
+  });
+</script>
+</div>
+</div></div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(nueva ventana)</span></span></a></p>
+</body>
+</html>

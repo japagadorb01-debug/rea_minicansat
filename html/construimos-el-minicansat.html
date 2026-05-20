@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mpdr0455-vyb40u327">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>Construimos el MiniCanSat | MiniCanSat: primeros pasos en la exploración espacial</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Este Recurso Educativo Abierto (REA) ofrece una guía paso a paso para que docentes y estudiantes desarrollen un MiniCanSat, una primera aproximación al desafío CanSat. A través de este proyecto, los estudiantes diseñarán y construirán un MiniCanSat, incluyendo la carcasa, un sistema de caída controlado (paracaídas), la programación básica con Micro:bit y el uso de sensores para la recopilación y análisis de datos. Se proponen diferentes misiones científicas y tecnológicas, adaptadas a distintos niveles educativos, que permiten a los estudiantes experimentar con la exploración espacial a pequeña escala. Con este REA, cualquier docente podrá guiar a su alumnado en una experiencia práctica y motivadora que fomenta el pensamiento computacional, la creatividad y el interés por la ciencia y la tecnología, preparándolos para futuras competiciones CanSat.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../search_index.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/rubric/rubric.js"></script><link rel="stylesheet" href="../idevices/rubric/rubric.css">
+<script src="../libs/exe_effects/exe_effects.js"> </script>
+<link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
+<script src="../libs/exe_lightbox/exe_lightbox.js"> </script>
+<link rel="stylesheet" href="../libs/exe_lightbox/exe_lightbox.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
+<style>
+.tituloSeccion{
+    border-radius: 10px 0px 10px 0px;
+    font-size: 1.05em;
+    margin-left: 10px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.resaltarAlPasar {
+transition-duration: 0.2s;
+border-radius:10px;
+padding:5px;
+}
+.resaltarAlPasar:hover{background-color: #f5deb3}
+
+.listaResaltada
+{ border-left: 6px solid #CC1155A1; 
+margin-left: 30px; 
+background-color: #73d41312; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+
+.listaGuion li {
+list-style-type: none;
+position: relative;
+}
+.listaGuion li::before {
+content: "-"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaCheck li {
+list-style-type: none;
+position: relative;
+}
+.listaCheck li::before {
+color: #53b528;
+content: "✔"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaInfantil
+{ border-left: 6px solid #fd8b31; 
+margin-left: 30px; 
+background-color: #f5f5ff; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+    .tabla-ordenable th {
+   cursor: pointer;
+    }
+   .tabla-ordenable td.numero-fila {
+   text-align: center;
+   font-size: small;
+    }
+.lista-xl > li::marker {
+  font-size: 1.5em;
+ color: #db688e; /* Color para los números */
+ font-weight: bold; /* Negrita para los números */
+   }
+
+/* =========================================
+   A PARTIR DE AQUÍ, PARA MuestraOcultaSiguiente. 
+    ESTILOS BASE (MECÁNICA)
+   ========================================= */
+.muestraOcultaSiguiente {
+  cursor: pointer;
+  user-select: none; /* Evita que se seleccione el texto al hacer click rápido */
+}
+/* Ocultar/Mostrar el contenido adyacente */
+.muestraOcultaSiguiente + * { display: none; }
+.muestraOcultaSiguiente.visible + * { display: block; }
+/* Si es clicable, el contenido también muestra mano */
+.muestraOcultaSiguiente.clicable + * { cursor: pointer; }
+
+/* =========================================
+   ESTILOS DEL CHEVRON INICIAL (.conMarca)
+   ========================================= */
+.muestraOcultaSiguiente.conMarca {
+  position: relative;
+  padding-left: 40px;
+}
+.muestraOcultaSiguiente.conMarca + * {
+  position: relative;
+  padding-left: 40px;
+}
+/* El pseudo-elemento que dibuja el chevron ❯ */
+.muestraOcultaSiguiente.conMarca::before {
+  content: "❯";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  font-size: 0.9em;
+  color: #666; 
+  /* Transición suave para rotación, color y movimiento */
+  transition: transform 0.4s ease-in, color 0.3s ease;
+  
+  /* ESTADO CERRADO (Por defecto): Apunta hacia abajo (rotado 90deg) */
+  transform: rotate(90deg);
+}
+/* ESTADO ABIERTO: Apunta hacia arriba (rotado -90deg) */
+.muestraOcultaSiguiente.conMarca.visible::before {
+  transform: rotate(-90deg);
+}
+/* --- INTERACCIÓN HOVER EN CHEVRON INICIAL --- */
+/* Al pasar el ratón por el título, el chevron se oscurece y da un saltito */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  color: #000; /* Se oscurece */
+}
+/* Saltito cuando está cerrado (salta en la dirección de la flecha) */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  /* Mantenemos la rotación y movemos en el eje X local (hacia la punta) */
+  transform: rotate(90deg) translateX(4px);
+}
+/* Saltito cuando está abierto */
+.muestraOcultaSiguiente.conMarca.visible:hover::before {
+  transform: rotate(-90deg) translateX(4px);
+}
+
+/* =========================================
+   ESTILOS DEL CIERRE FINAL (.conCierre)
+   ========================================= */
+.zona-cierre {
+  display: flex;   /* Flexbox para alinear */
+  align-items: center;  /* Centrado verticalmente */
+  justify-content: flex-start; /* Alineado a la IZQUIERDA */
+    
+  cursor: pointer;
+  color: #ccc;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+/* Solo dibujamos la línea a la derecha (::after) */
+.zona-cierre::after {
+  content: "";
+  flex: 1;    /* Ocupa todo el espacio restante a la derecha */
+  border-bottom: 1px solid currentColor;
+  margin-left: 10px;    /* Separación entre el icono y la línea */
+}
+/* El icono de cierre */
+.icono-cierre {
+  font-size: 0.9em;
+  color: #888;
+  display: inline-block;
+  margin-left: 0.2em;
+  
+  /* ROTAMOS EL ❯ PARA QUE MIRE ARRIBA */
+  transform: rotate(-90deg);
+  
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Hover Cierre */
+.zona-cierre:hover { opacity: 1; color: #999; }
+.zona-cierre:hover .icono-cierre {
+  color: #333;
+  /* Animación ajustada a la rotación: empujamos en el eje X para que suba */
+  transform: rotate(-90deg) translateX(4px);
+}
+</style>
+
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mpdr0455-vyb40u327" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">MiniCanSat: primeros pasos en la exploración espacial</a>
+</li>
+<li> <a href="../html/nos-organizamos.html" class="no-ch">Nos organizamos</a>
+</li>
+<li> <a href="../html/programamos-nuestro-satelite-artificial.html" class="no-ch">Programamos nuestro satélite artificial</a>
+</li>
+<li class="active"> <a href="../html/construimos-el-minicansat.html" class="active no-ch">Construimos el MiniCanSat</a>
+</li>
+<li> <a href="../html/preparamos-el-sistema-de-lanzamiento.html" class="no-ch">Preparamos el sistema de lanzamiento</a>
+</li>
+<li> <a href="../html/operaciones-de-vuelo-del-lanzamiento-al-analisis-d.html" class="no-ch">Operaciones de vuelo: del lanzamiento al análisis de datos</a>
+</li>
+<li> <a href="../html/mision-cumplida-nuestras-conclusiones-finales.html" class="no-ch">¡Misión cumplida! Nuestras conclusiones finales</a>
+</li>
+<li> <a href="../html/guia-didactica-y-fichero-fuente.html" class="no-ch">Guía didáctica y fichero fuente</a>
+</li>
+</ul>
+</nav><main id="page-mpdr0455-vyb40u327" class="page"> <div id="exe-client-search" data-block-order-string="Caja %e" data-no-results-string="Sin resultados.">
+</div>
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">4</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">8</strong></span></p>
+
+<div class="package-header"><p class="package-title">MiniCanSat: primeros pasos en la exploración espacial</p></div>
+<div class="page-header"><h1 class="page-title">Construimos el MiniCanSat</h1></div>
+</header><div id="page-content-page-mpdr0455-vyb40u327" class="page-content">
+<article id="block-mpczpc14-ufl239fjj" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Nos preparamos</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc14-sl85ok64y" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc14-sl85ok64y&quot;}">
+<p>En esta etapa vamos a construir nuestro MiniCanSat y a ensamblar todos sus componentes. Usaremos materiales accesibles como un churro flotador de piscina, cuerda, bolsas de plástico y elementos básicos de montaje. Esta será nuestra opción principal por su sencillez y bajo coste. También ofreceremos diseños en 3D (opcional) por si nuestro equipo desea imprimir su carcasa.</p>
+<figure class="exe-figure exe-image position-center license-CC-BY-SA" style="width: 560px;"><a href="../content/resources/minicansat_churro_trans.png" target="_blank" rel="lightbox noopener" title="Ampliar imagen de aspecto esperado del MiniCanSat"><img src="../content/resources/minicansat_churro_trans.png" alt="MiniCanSat construido con un churro-flotador y una bolsa de basura" title="MiniCanSat fabricado con churro-flotador" width="560" height="315" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="title"><em>MiniCanSat fabricado con churro-flotador. Clic para ampliar</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+<p>Pulsando en el siguiente botón tenemos la lista de materiales que utilizaremos para nuestra construcción.</p><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="Material necesario" /></div><div class="feedback js-feedback js-hidden"><p>Para construir nuestro mini satélite vamos a necesitar los siguientes <a href="../content/resources/Materiales_MiniCanSat.jpeg" target="_blank" rel="lightbox noopener">materiales</a>:</p>
+<ul class="listaResaltada">
+<li>1 churro flotador (diámetro aproximado de 65 mm).</li>
+<li>Cúter o tijera.</li>
+<li>1 bolígrafo.</li>
+<li>Cuerda fina (diámetro aproximado 1.5-3 mm).</li>
+<li>1 bolsa de basura.</li>
+<li>Cinta adhesiva para fijación.</li>
+<li>Micro:bit con portapilas.</li>
+</ul></div>
+</div>
+</div>
+</article><article id="block-mpczpc14-poqwpqslp" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Manos a la obra</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc14-bjqp6jxf8" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc14-bjqp6jxf8&quot;}">
+<p>¡Es el momento de ponernos manos a la obra! En esta fase de nuestro proyecto, el <strong>Ingeniero o Ingeniera de sistemas</strong> de nuestro equipo liderará el proceso de montaje. Siguiendo con atención los pasos descritos en las siguientes pestañas, lograremos montar un MiniCanSat funcional y seguro. En la última pestaña, tenemos un <a href="https://www.youtube.com/watch?v=SznvEa7GZ78" target="_blank" title="Abre en nueva ventana" rel="noopener">vídeo explicativo (3:15)</a>.</p>
+<div class="exe-fx exe-tabs">
+<h2>PASO 1: Carcasa</h2>
+<p>Preparación de la carcasa o cuerpo del satélite:</p>
+<ul>
+<li>Cortamos un trozo de churro de piscina de aproximadamente 115 mm de altura.</li>
+<li>Realizamos dos cortes longitudinales en el centro, que permitirán insertar la placa Micro:bit y el portapilas.</li>
+<li>Con un bolígrafo, hacemos cuatro perforaciones en la parte superior del churro, formando una cruz, para fijar las cuerdas del paracaídas.</li>
+</ul>
+<figure class="exe-figure exe-image position-center license-CC-BY-SA" style="width: 560px;"><a href="../content/resources/Corte_CHURRO.png" target="_blank" rel="lightbox noopener" title="Ampliar imagen haciendo ranuras en la carcasa"><img src="../content/resources/Corte_CHURRO.png" alt="Manos cortando un churro flotador con un cúter" title="Haciendo ranuras en la carcasa del MiniCanSat" width="560" height="315" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="title"><em>Haciendo ranuras en la carcasa del MiniCanSat. Clic para ampliar</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+<div style="background-color: #f8d7da; border-left: 5px solid #dc3545; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+<p><span aria-hidden="true">⚠️</span> <strong>¡Seguridad en el taller!</strong> El uso del cúter es peligroso. El corte del churro flotador debe realizarse siempre bajo la <strong>supervisión directa de nuestro profesor o profesora</strong>, o delegar en ellos esta tarea, para evitar cortes o accidentes.</p>
+</div>
+<h2>PASO 2: Paracaídas</h2>
+<p>Diseño y fijación del paracaídas:</p>
+<ul>
+<li>Cortamos dos trozos de cuerda fina de 60 cm y los pasamos por los orificios opuestos, generando 4 puntos de anclaje.</li>
+<li>Cortamos un cuadrado o rectángulo de plástico de una bolsa de basura (30x30 cm o 30x35 cm).</li>
+<li>Unimos los extremos de las cuerdas a las esquinas del plástico con cinta adhesiva.</li>
+</ul>
+<figure class="exe-figure exe-image position-center license-CC-BY-SA" style="width: 560px;"><a href="../content/resources/Paracaidas_CHIURRO.png" target="_blank" rel="lightbox noopener" title="Ampliar imagen fijando las cuerdas"><img src="../content/resources/Paracaidas_CHIURRO.png" alt="Fijando las cuerdas a la bolsa de plástico para hacer el paracaídas" title="Fijando las cuerdas del paracaídas" width="560" height="315" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="title"><em>Fijando las cuerdas del paracaídas. Clic para ampliar</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+<h2>PASO 3: Montaje</h2>
+<p>Montaje de los componentes electrónicos:</p>
+<ul>
+<li>Insertamos la Micro:bit en la ranura longitudinal.</li>
+<li>Colocamos el portapilas en el interior del churro, asegurándonos de que no se mueva durante el vuelo.</li>
+</ul>
+<figure class="exe-figure exe-image position-center license-CC-BY-SA" style="width: 560px;"><a href="../content/resources/Placa_CHURRO.png" target="_blank" rel="lightbox noopener" title="Ampliar imagen insertando la placa"><img src="../content/resources/Placa_CHURRO.png" alt="Insertando la placa Micro:bit en la ranura de la carcasa" title="Insertando la placa Micro:bit en la ranura de la carcasa" width="560" height="315" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="title"><em>Insertando la placa Micro:bit en la ranura de la carcasa. Clic para ampliar</em></span> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+<h2>PASO 4: Misión secundaria</h2>
+<p>Además de la misión principal —medir la temperatura, la luz y la aceleración durante el vuelo—, nuestro MiniCanSat puede asumir otros retos que nos permitan seguir explorando y comprendiendo mejor el entorno.</p>
+<p>A continuación proponemos misiones secundarias. Muchas de ellas nos ayudan a pensar en los grandes retos globales:</p>
+<ul>
+<li><strong>Medición de la contaminación acústica:</strong> Usar el micrófono integrado para registrar el ruido (<span style="color: #4c9f38;"><strong>ODS 3: Salud y bienestar</strong></span> y <span style="color: #fd9d24;"><strong>ODS 11: Ciudades sostenibles</strong></span>).</li>
+<li><strong>Temperatura interna o ambiental:</strong> Analizar cómo varía la temperatura térmica dentro del MiniCanSat (<span style="color: #3f7e44;"><strong>ODS 13: Acción por el clima</strong></span>).</li>
+<li><strong>Luminosidad ambiental:</strong> Observar cambios en la intensidad de la luz y presencia de nubes.</li>
+<li><strong>Estudio de la aceleración y rotación:</strong> Detectar fases de caída libre o impactos físicos.</li>
+<li><strong>Calidad del aire:</strong> Colocar tiras reactivas (NO₂, CO₂) en el exterior del satélite (<span style="color: #fd9d24;"><strong>ODS 11: Ciudades sostenibles</strong></span>).</li>
+<li><strong>Análisis del suelo/agua:</strong> Medir pH o humedad tras el aterrizaje (<span style="color: #56c02b;"><strong>ODS 15: Vida de ecosistemas terrestres</strong></span>).</li>
+<li><strong>Resistencia de microorganismos a UV:</strong> Exponer muestras biológicas inofensivas a radiación simulada.</li>
+<li><strong>Paracaídas bio-inspirados:</strong> Explorar cómo semillas u hojas inspiran mejores descensos.</li>
+<li><strong>Simulación de clima espacial:</strong> Usar luz intensa o calor para recrear el espacio.</li>
+<li><strong>Registro de energía luminosa:</strong> Reflexionar sobre cómo estudiar el cambio climático o el albedo terrestre.</li>
+</ul>
+<div style="background-color: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+<p><span aria-hidden="true">⏱️</span> <strong>¡Atención al tiempo!</strong> En equipo, debatiremos y elegiremos <strong>SOLO UNA</strong> misión secundaria para realizar en esta sesión.</p>
+</div>
+<h2>Vídeo tutorial</h2>
+<p>El siguiente vídeo (3:16) nos muestra cómo construir nuestro MiniCanSat paso a paso:</p>
+<figure class="exe-figure exe-media position-center license-CC-BY-SA" style="width: 560px;"><iframe width="560" height="315" style="border-radius: 10px;" src="https://www.youtube.com/embed/SznvEa7GZ78?si=ASXFPA0D9Pae-rZl" allowfullscreen="allowfullscreen"></iframe>
+<figcaption class="figcaption"><a href="https://www.youtube.com/watch?v=SznvEa7GZ78" target="_blank" class="title" rel="noopener" title="Abre en nueva ventana"><em>Construcción de MiniCanSat con churro flotador</em></a> <span class="license"><span class="sep">(</span><a href="http://creativecommons.org/licenses/?lang=es" rel="license nofollow noopener" target="_blank" title="Abre en nueva ventana">CC BY-SA</a><span class="sep">)</span></span></figcaption>
+</figure>
+</div>
+<p>Aunque ya hemos aprendido a construir un MiniCanSat con un churro de piscina y un paracaídas rectangular, tenemos la posibilidad de explorar <strong>otras soluciones</strong> si lo creemos necesario para nuestra misión.</p>
+<p>Si contamos con acceso a una <strong>impresora 3D</strong>, podemos diseñar y fabricar una carcasa más precisa y resistente. En plataformas como <a href="https://www.thingiverse.com/search?q=cansat" target="_blank" title="Abre en nueva ventana" rel="noopener">Thingiverse</a> o Tinkercad encontraremos muchos modelos que podemos usar como inspiración. Por ejemplo, este <a href="https://www.thingiverse.com/thing:7349890" target="_blank" title="Abre modelo en Thingiverse" rel="noopener">modelo de carcasa</a> diseñado para la para alojar una Micro:bit con soporte IOT:Bit y el portapilas.</p>
+<figure class="exe-figure exe-image position-center" style="width: 559px;"><a href="https://www.thingiverse.com/thing:6347932" target="_blank" title="Abre en nueva ventana" rel="noopener"><img src="../content/resources/Carcasa.png" alt="Modelo de carcasa 3D ofrecido en Thingiverse" width="559" height="293" style="border-radius: 10px; object-fit: cover;" /></a>
+<figcaption class="figcaption"><span class="title"><em>Modelo modular en Thingiverse</em></span></figcaption>
+</figure>
+<p>También podemos <strong>experimentar</strong> con el diseño del paracaídas: cambiar su forma (circular, hexagonal…), el número de cuerdas, el tipo de material o la manera en que lo unimos a la carcasa. Cada equipo puede investigar, hacer pruebas y decidir qué diseño es el más adecuado.</p>
+<p>¡La creatividad y la experimentación forman parte de nuestra misión espacial!</p><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="Evaluación" /></div><div class="feedback js-feedback js-hidden"><p>Gran parte del éxito de la misión depende de que nuestro MiniCanSat esté construido lo mejor posible.</p>
+<p>Por eso, vamos a esforzarnos en perfeccionar todos los detalles. Como guía, tenemos la "Rúbrica: construcción del MiniCanSat" que nos servirá para autoevaluarnos. En nuestro equipo nos fijaremos en:</p>
+<ol class="listaResaltada">
+<li><strong>Preparación del cuerpo:</strong> Comprobaremos que tiene la forma y las dimensiones adecuadas, que protege bien los componentes y permite que todo encaje de forma segura.</li>
+<li><strong>Diseño y fijación del paracaídas:</strong> Revisaremos que los nudos sean seguros para que el descenso sea suave, minimizando el daño del dispositivo.</li>
+<li><strong>Montaje de componentes electrónicos:</strong> Aseguraremos que la Micro:bit, el portapilas y los cables estén bien colocados para evitar que se desprendan durante el vuelo.</li>
+<li><strong>Autonomía y trabajo en equipo:</strong> Organizarnos bien y ayudarnos entre nosotros hará que el proyecto sea más eficaz. Aprenderemos a repartir tareas y resolver problemas juntos.</li>
+<li><strong>Creatividad y adaptación:</strong> Probaremos nuevas ideas para mejorar el diseño (carcasa o paracaídas), encontrando formas más seguras de ensamblar todo y sabiendo adaptarnos a los imprevistos.</li>
+</ol></div>
+</div>
+</div>
+</article><article id="block-mpczpc14-p5lgcbixb" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Rúbrica: construcción del MiniCansat</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc14-nrye7utph" class="idevice_node rubric rubric" data-idevice-path="../idevices/rubric/" data-idevice-type="rubric">
+<div class="rubric"><div class="exe-rubrics-DataGame js-hidden">%7B%22title%22%3A%22R%FAbrica%20de%20evaluaci%F3n%20de%20la%20construcci%F3n%20del%20MiniCanSat%22%2C%22categories%22%3A%5B%22Preparaci%F3n%20del%20cuerpo%20del%20MiniCanSat%22%2C%22Dise%F1o%20y%20fijaci%F3n%20del%20paraca%EDdas%22%2C%22Montaje%20de%20componentes%20electr%F3nicos%22%2C%22Autonom%EDa%20y%20trabajo%20en%20equipo%22%2C%22Creatividad%20y%20adaptaci%F3n%22%5D%2C%22scores%22%3A%5B%224%20EXCELENTE%22%2C%223%20SATISFACTORIO%22%2C%222%20MEJORABLE%22%2C%221%20INSUFICIENTE%22%5D%2C%22descriptions%22%3A%5B%5B%7B%22text%22%3A%22Cortamos%20el%20churro%20con%20precisi%F3n%3B%20las%20ranuras%20permiten%20un%20encaje%20firme%20y%20seguro%20de%20nuestra%20electr%F3nica.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22Preparamos%20la%20carcasa%20correctamente%2C%20aunque%20el%20encaje%20del%20portapilas%20queda%20ligeramente%20holgado.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22Realizamos%20los%20cortes%2C%20pero%20las%20ranuras%20dificultan%20el%20montaje%20y%20la%20placa%20asoma%20o%20corre%20peligro.%22%2C%22weight%22%3A%221.25%22%7D%2C%7B%22text%22%3A%22La%20carcasa%20est%E1%20sin%20terminar%20o%20no%20permite%20alojar%20los%20componentes.%22%2C%22weight%22%3A%221%22%7D%5D%2C%5B%7B%22text%22%3A%22Unimos%20las%20cuerdas%20de%20forma%20sim%E9trica%20a%20la%20carcasa%20y%20al%20pl%E1stico%2C%20asegurando%20los%20nudos%20para%20un%20despliegue%20equilibrado.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22Montamos%20el%20paraca%EDdas%20completo%2C%20pero%20la%20longitud%20de%20las%20cuerdas%20no%20es%20igual%20o%20la%20fijaci%F3n%20presenta%20asimetr%EDas.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22Montamos%20el%20paraca%EDdas%20con%20ayuda%2C%20pero%20las%20uniones%20resultan%20fr%E1giles%20al%20dar%20un%20tir%F3n%20de%20prueba.%22%2C%22weight%22%3A%221.25%22%7D%2C%7B%22text%22%3A%22El%20paraca%EDdas%20no%20est%E1%20terminado%20o%20se%20desprende%20por%20completo%20al%20manipular%20el%20sat%E9lite.%22%2C%22weight%22%3A%221%22%7D%5D%2C%5B%7B%22text%22%3A%22Insertamos%20la%20Micro%3Abit%20y%20el%20portapilas%20de%20forma%20que%20quedan%20totalmente%20inmovilizados%20y%20protegidos%20en%20el%20interior.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22Colocamos%20los%20componentes%2C%20pero%20alguno%20presenta%20un%20ligero%20movimiento%20que%20requiere%20ajuste%20extra%20con%20cinta.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22Colocamos%20los%20componentes%2C%20pero%20se%20mueven%20o%20se%20salen%20con%20facilidad%20al%20inclinar%20el%20sat%E9lite%20con%20la%20mano.%22%2C%22weight%22%3A%221.25%22%7D%2C%7B%22text%22%3A%22No%20logramos%20ensamblar%20la%20electr%F3nica%20dentro%20de%20la%20carcasa%20de%20forma%20funcional.%22%2C%22weight%22%3A%221%22%7D%5D%2C%5B%7B%22text%22%3A%22Cumplo%20rigurosamente%20con%20mi%20rol%20asignado%2C%20respeto%20al%20Ingeniero/a%20de%20sistemas%20y%20resuelvo%20problemas%20de%20forma%20aut%F3noma.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22Asumo%20mi%20rol%20y%20trabajo%20bien%2C%20aunque%20requiero%20que%20el%20docente%20me%20marque%20los%20tiempos%20o%20me%20recuerde%20mis%20tareas.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22Me%20distraigo%20de%20mis%20funciones%20y%20necesito%20instrucciones%20constantes%20para%20avanzar%20en%20la%20construcci%F3n.%22%2C%22weight%22%3A%221.25%22%7D%2C%7B%22text%22%3A%22No%20respeto%20mi%20rol%2C%20interfiero%20en%20el%20trabajo%20de%20los%20compa%F1eros%20o%20dependo%20totalmente%20del%20docente.%22%2C%22weight%22%3A%221%22%7D%5D%2C%5B%7B%22text%22%3A%22Explora%20nuevas%20ideas%20%28formas%20del%20paraca%EDdas%2C%20carcasa%203D%2C%20mejoras%20estructurales%29%20y%20las%20aplica%20de%20forma%20efectiva.%22%2C%22weight%22%3A%222%22%7D%2C%7B%22text%22%3A%22Propone%20alguna%20mejora%20o%20variante%2C%20aunque%20necesita%20ayuda%20para%20implementarla.%22%2C%22weight%22%3A%221.5%22%7D%2C%7B%22text%22%3A%22Muestra%20curiosidad%2C%20pero%20no%20lleva%20a%20cabo%20cambios%20por%20s%ED%20mismo/a.%22%2C%22weight%22%3A%221.25%22%7D%2C%7B%22text%22%3A%22No%20experimenta%20ni%20adapta%20el%20dise%F1o%20b%E1sico.%22%2C%22weight%22%3A%221%22%7D%5D%5D%2C%22i18n%22%3A%7B%22activity%22%3A%22Actividad%22%2C%22name%22%3A%22Nombre%22%2C%22date%22%3A%22Fecha%22%2C%22score%22%3A%22Puntuaci%F3n%22%2C%22notes%22%3A%22Notas%22%2C%22reset%22%3A%22Reiniciar%22%2C%22print%22%3A%22Imprimir%22%2C%22apply%22%3A%22Aplicar%22%2C%22newWindow%22%3A%22Ventana%20nueva%22%7D%7D</div><ul class="exe-rubrics-strings"><li class="activity">Actividad</li><li class="name">Nombre</li><li class="date">Fecha</li><li class="score">Puntuación</li><li class="notes">Notas</li><li class="reset">Reiniciar</li><li class="print">Imprimir</li><li class="apply">Aplicar</li><li class="newWindow">Ventana nueva</li></ul><div class="exe-rubrics-wrapper"><div class="exe-rubrics-content"><div id="exe-rubrics-header"><div><label for="activity">Actividad:</label><input type="text" id="activity" data-rubric-field="activity" class="form-control form-control-sm"></div><div><label for="name">Nombre:</label><input type="text" id="name" data-rubric-field="name" class="form-control form-control-sm"></div><div><label for="score">Puntuación:</label><input type="text" id="score" data-rubric-field="score" class="form-control form-control-sm"></div><div><label for="date">Fecha:</label><input type="text" id="date" data-rubric-field="date" class="form-control form-control-sm" value="19/5/2026"></div></div><div class="exe-rubrics-table-slot"><table class="exe-table exe-rubrics-export-table" data-rubric-table-type="export"><caption>Rúbrica de evaluación de la construcción del MiniCanSat</caption><thead><tr><th>&nbsp;</th><th>4 EXCELENTE</th><th>3 SATISFACTORIO</th><th>2 MEJORABLE</th><th>1 INSUFICIENTE</th></tr></thead><tbody><tr><th>Preparación del cuerpo del MiniCanSat</th><td>Cortamos el churro con precisión; las ranuras permiten un encaje firme y seguro de nuestra electrónica. <span>(2)</span></td><td>Preparamos la carcasa correctamente, aunque el encaje del portapilas queda ligeramente holgado. <span>(1.5)</span></td><td>Realizamos los cortes, pero las ranuras dificultan el montaje y la placa asoma o corre peligro. <span>(1.25)</span></td><td>La carcasa está sin terminar o no permite alojar los componentes. <span>(1)</span></td></tr><tr><th>Diseño y fijación del paracaídas</th><td>Unimos las cuerdas de forma simétrica a la carcasa y al plástico, asegurando los nudos para un despliegue equilibrado. <span>(2)</span></td><td>Montamos el paracaídas completo, pero la longitud de las cuerdas no es igual o la fijación presenta asimetrías. <span>(1.5)</span></td><td>Montamos el paracaídas con ayuda, pero las uniones resultan frágiles al dar un tirón de prueba. <span>(1.25)</span></td><td>El paracaídas no está terminado o se desprende por completo al manipular el satélite. <span>(1)</span></td></tr><tr><th>Montaje de componentes electrónicos</th><td>Insertamos la Micro:bit y el portapilas de forma que quedan totalmente inmovilizados y protegidos en el interior. <span>(2)</span></td><td>Colocamos los componentes, pero alguno presenta un ligero movimiento que requiere ajuste extra con cinta. <span>(1.5)</span></td><td>Colocamos los componentes, pero se mueven o se salen con facilidad al inclinar el satélite con la mano. <span>(1.25)</span></td><td>No logramos ensamblar la electrónica dentro de la carcasa de forma funcional. <span>(1)</span></td></tr><tr><th>Autonomía y trabajo en equipo</th><td>Cumplo rigurosamente con mi rol asignado, respeto al Ingeniero/a de sistemas y resuelvo problemas de forma autónoma. <span>(2)</span></td><td>Asumo mi rol y trabajo bien, aunque requiero que el docente me marque los tiempos o me recuerde mis tareas. <span>(1.5)</span></td><td>Me distraigo de mis funciones y necesito instrucciones constantes para avanzar en la construcción. <span>(1.25)</span></td><td>No respeto mi rol, interfiero en el trabajo de los compañeros o dependo totalmente del docente. <span>(1)</span></td></tr><tr><th>Creatividad y adaptación</th><td>Explora nuevas ideas (formas del paracaídas, carcasa 3D, mejoras estructurales) y las aplica de forma efectiva. <span>(2)</span></td><td>Propone alguna mejora o variante, aunque necesita ayuda para implementarla. <span>(1.5)</span></td><td>Muestra curiosidad, pero no lleva a cabo cambios por sí mismo/a. <span>(1.25)</span></td><td>No experimenta ni adapta el diseño básico. <span>(1)</span></td></tr></tbody></table></div><div id="exe-rubrics-footer"><p><label for="notes">Notas:</label><textarea id="notes" data-rubric-field="notes" class="form-control form-control-sm" cols="32" rows="1"></textarea></p></div><p class="exe-rubrics-actions"><button type="button" class="exe-rubrics-download btn btn-primary btn-sm">Download</button><button type="button" class="exe-rubrics-reset btn btn-primary btn-sm">Reiniciar</button></p></div></div></div><div class="exe-rubrics-richtext-data sr-av"><span class="exe-rubrics-instructions-data"></span><span class="exe-rubrics-text-after-data"></span></div>
+</div>
+</div>
+</article><article id="block-mpczpc14-jnogkqhxv" class="box">
+<header class="box-head">
+<div class="box-icon exe-icon">
+<img src="../theme/icons/think.png" alt="">
+</div>
+<h1 class="box-title">Diario individual de Misión MiniCanSat</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc14-maw8hipf4" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc14-maw8hipf4&quot;}">
+<p>Antes de terminar esta fase del proyecto, dedicaremos entre 10 y 15 minutos a reflexionar, en grupo y de manera individual, sobre lo aprendido durante esta fase de nuestro proyecto.</p>
+<p>Dejaremos constancia de nuestro aprendizaje. Rellenaremos nuestro propio documento <strong>Diario individual de misión MiniCanSat</strong> y lo guardaremos en nuestra carpeta personal.</p>
+<p>Además, cada equipo actualizará el <strong>Diario de misión MiniCanSat de equipo</strong>, incluyendo los avances en la programación, pruebas realizadas y ajustes necesarios.</p>
+<!-- Contenidos del diario con estilo de tarjeta/diario -->
+<p>Completar este diario nos ayudará a ser conscientes de nuestro progreso, superar obstáculos y compartir información clave con el equipo. Nos tomaremos unos minutos al final de cada sesión para reflexionar sobre estos puntos.</p>
+<!-- Contenedor principal para control de ancho (DUA) -->
+<div style="max-width: 875px; margin: 0 auto;">
+<div>
+<p class="muestraOcultaSiguiente" style="background-color: #4a90e2; color: white; border-radius: 10px; font-weight: bold; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; padding-left: 0.5em;">📖 Contenidos del Diario de Aprendizaje <span style="font-size: 0.8em; font-weight: normal;">(clic para mostrar)</span></p>
+<div style="background-color: #fdfdfd; border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.05); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><!-- Introducción DUA: Fomento de la metacognición y autorregulación -->
+<ul style="list-style: none; padding-left: 0;"><!-- Sección 1 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #d35400; display: block; background: #fff5eb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🧠 Reflexión personal </span>
+<ul style="list-style-type: '✎ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Qué tareas he realizado hoy?</li>
+<li style="margin-left: 1em;">¿Qué dificultades he encontrado y cómo las he resuelto?</li>
+</ul>
+</li>
+<!-- Sección 2 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #27ae60; display: block; background: #ebf9f1; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🌟 Aprendizaje diario </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '✔ ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Qué conceptos nuevos he aprendido?</li>
+<li style="margin-left: 1em;">¿Qué ideas o habilidades he mejorado?</li>
+</ul>
+</li>
+<!-- Sección 3 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #2980b9; display: block; background: #ebf5fb; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 🤝 Colaboración en el equipo </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '👥 ';">
+<li style="margin-top: 5px; margin-left: 1em;">¿Cómo ha sido mi comunicación y trabajo con el equipo?</li>
+<li style="margin-left: 1em;">¿Qué aspectos podría mejorar en la colaboración?</li>
+</ul>
+</li>
+<!-- Sección 4 -->
+<li style="margin-bottom: 15px;"><span class="muestraOcultaSiguiente conMarca" style="font-weight: bold; color: #8e44ad; display: block; background: #f5eef8; padding-top: 5px; padding-bottom: 5px; border-radius: 5px;"> 📝 Otra información </span>
+<ul style="margin-left: 1.5em; padding-left: 10px; list-style-type: '📌 ';">
+<li style="margin-top: 5px; margin-left: 1em;">Anotaciones adicionales sobre el proceso, ideas o problemas.</li>
+<li style="margin-left: 1em;"><strong>Diario de equipo:</strong> ¿Qué información de mi diario individual es útil para el grupo?</li>
+</ul>
+</li>
+</ul>
+<!-- Botones de descarga -->
+<div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
+<p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Descarga del diario:</p>
+<a href="https://drive.google.com/file/d/1S4ESi1AfEeOB_TRMwk9QaUX1DsiHnPLR/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #5cb85c; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener">💾 Formato Editable</a> <a href="https://drive.google.com/file/d/1EiXe__9apTJkXo2A0z9yQO-yGox4lRnr/view?usp=drive_link" target="_blank" style="text-decoration: none; background: #d9534f; color: white; padding: 8px 12px; border-radius: 5px; margin: 5px; display: inline-block;" rel="noopener">📄 Formato PDF</a></div>
+</div>
+</div>
+</div>
+<!-- Aquí acaban los contenidos del diario--><div class="iDevice_buttons feedback-button js-required"><input type="button" class="feedbackbutton" value="Cuestiones para la reflexión" /></div><div class="feedback js-feedback js-hidden"><ul class="listaResaltada">
+<li><span aria-hidden="true">🛠️</span> ¿Qué parte de la construcción del MiniCanSat nos ha parecido <strong>más interesante o divertida</strong>?</li>
+<li><span aria-hidden="true">🧩</span> ¿Cómo hemos resuelto en equipo los retos al cortar el churro y fijar los componentes?</li>
+<li><span aria-hidden="true">🪂</span> ¿El <strong>paracaídas</strong> ha quedado bien sujeto? ¿Qué podríamos mejorar para que vuele mejor?</li>
+<li><span aria-hidden="true">👥</span> ¿Cómo hemos <strong>trabajado en equipo</strong>? ¿Hemos respetado las decisiones del Ingeniero/a de sistemas y repartido bien las <strong>tareas</strong>?</li>
+<li><span aria-hidden="true">🧰</span> ¿Hemos aprendido a usar herramientas y a <strong>ensamblar piezas</strong> con más seguridad y precisión?</li>
+<li><span aria-hidden="true">🔄</span> ¿Qué cambiaríamos o <strong>mejoraríamos</strong> si tuviéramos que volver a construir otro MiniCanSat?</li>
+<li><span aria-hidden="true">💡</span> ¿Hemos tenido alguna <strong>idea diferente</strong> que podríamos probar más adelante (por ejemplo, otro material para la carcasa)?</li>
+</ul></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/programamos-nuestro-satelite-artificial.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/preparamos-el-sistema-de-lanzamiento.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+<div id="siteUserFooter"> <div><div style="display: flex; justify-content: center;" class="addthis_inline_share_toolbox"></div>
+<p style="text-align: center;"><span style="font-size: 0.8em;">Programa <a href="https://programacrea.educarex.es" target="_blank">CREA</a> Extremadura (Creación de Recursos Educativos Abiertos)</p>
+<script>
+$("#packageLicense a").click(function(){
+window.open(this.href);
+return false;
+});
+</script>
+<script>
+  $(function() {
+    /* ==========================================
+  CONFIGURACIÓN DE TEXTOS
+  ========================================== */
+    const textoDesplegar = "Desplegar";
+    const textoContraer = "Contraer";
+    /* ==========================================
+  1. INICIALIZACIÓN
+  ========================================== */
+// Recorremos todos los elementos para asignar el tooltip correcto al cargar
+    $('.muestraOcultaSiguiente').each(function() {
+   var $this = $(this);
+   if ($this.hasClass('visible')) {
+  $this.attr('title', textoContraer);
+   } else {
+  $this.attr('title', textoDesplegar);
+   }
+    });
+    /* ==========================================
+  2. LÓGICA PRINCIPAL (CLICK EN ENCABEZADO)
+  ========================================== */
+    $(document).on('click', '.muestraOcultaSiguiente', function(){
+ var $this = $(this);
+ 
+ // Alternamos la visibilidad
+ $this.toggleClass('visible');
+ 
+ // Actualizamos el texto del tooltip según el estado
+ if ($this.hasClass('visible')) {
+   $this.attr('title', textoContraer);
+ } else {
+   $this.attr('title', textoDesplegar);
+ }
+    });
+    /* ==========================================
+  3. LÓGICA "CLICABLE" (CERRAR AL TOCAR CONTENIDO)
+  ========================================== */
+    // Si el elemento es .clicable, al pulsar en su contenido se cierra,
+    // salvo que pulsemos explícitamente en el botón de cierre (para evitar doble evento).
+    $(document).on('click', '.clicable + *', function(e) {
+ if ($(e.target).closest('.zona-cierre').length) return;
+ var elementoAnterior = $(this).prev('.clicable');
+ if (elementoAnterior.hasClass('muestraOcultaSiguiente')) {
+   // Disparamos click en el encabezado para reutilizar la lógica principal
+   elementoAnterior.click(); 
+ }
+    });
+    /* ==========================================
+  4. GENERADOR DE CIERRE (.conCierre)
+  ========================================== */
+    // Busca elementos con la clase .conCierre e inyecta el botón al final de su contenido
+    $('.muestraOcultaSiguiente.conCierre').each(function(){
+ var contenido = $(this).next();
+ // Evitamos duplicados si el script corre varias veces
+ if (contenido.find('.zona-cierre').length === 0) {
+   contenido.append('<div class="zona-cierre" title="Contraer esta parte"><span class="icono-cierre">❯</span></div>');
+ }
+    });
+    /* ==========================================
+  5. ACCIÓN DEL BOTÓN DE CIERRE (INCLUYE SCROLL)
+  ========================================== */
+    $(document).on('click', '.zona-cierre', function() {
+ // Identificamos el encabezado correspondiente
+ var encabezado = $(this).parent().prev('.muestraOcultaSiguiente');
+ 
+ // Simulamos click para cerrar
+ encabezado.click();
+ 
+ // SCROLL AUTOMÁTICO SUAVE
+ // Llevamos la pantalla de vuelta al título para no perder el contexto
+ $('html, body').animate({
+scrollTop: encabezado.offset().top - 20 // Dejamos 20px de margen superior
+ }, 500); // 500ms de duración de la animación
+    });
+  });
+</script>
+</div>
+</div></div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(nueva ventana)</span></span></a></p>
+</body>
+</html>

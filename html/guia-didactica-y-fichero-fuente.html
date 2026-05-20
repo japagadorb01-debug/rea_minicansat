@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mpdr045l-0kjbmo6kg">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>Guía didáctica y fichero fuente | MiniCanSat: primeros pasos en la exploración espacial</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Este Recurso Educativo Abierto (REA) ofrece una guía paso a paso para que docentes y estudiantes desarrollen un MiniCanSat, una primera aproximación al desafío CanSat. A través de este proyecto, los estudiantes diseñarán y construirán un MiniCanSat, incluyendo la carcasa, un sistema de caída controlado (paracaídas), la programación básica con Micro:bit y el uso de sensores para la recopilación y análisis de datos. Se proponen diferentes misiones científicas y tecnológicas, adaptadas a distintos niveles educativos, que permiten a los estudiantes experimentar con la exploración espacial a pequeña escala. Con este REA, cualquier docente podrá guiar a su alumnado en una experiencia práctica y motivadora que fomenta el pensamiento computacional, la creatividad y el interés por la ciencia y la tecnología, preparándolos para futuras competiciones CanSat.">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../search_index.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/udl-content/udl-content.js"></script><link rel="stylesheet" href="../idevices/udl-content/udl-content.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/download-source-file/download-source-file.js"></script><link rel="stylesheet" href="../idevices/download-source-file/download-source-file.css">
+<script src="../libs/exe_effects/exe_effects.js"> </script>
+<link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
+<script src="../libs/exe_lightbox/exe_lightbox.js"> </script>
+<link rel="stylesheet" href="../libs/exe_lightbox/exe_lightbox.css">
+<script src="../libs/exe_tooltips/exe_tooltips.js"> </script>
+<script src="../libs/exe_tooltips/jquery.qtip.min.js"> </script>
+<script src="../libs/exe_tooltips/imagesloaded.pkg.min.js"> </script>
+<link rel="stylesheet" href="../libs/exe_tooltips/jquery.qtip.min.css">
+<script src="../libs/fflate/fflate.umd.js"> </script>
+<script src="../libs/exe_elpx_download/exe_elpx_download.js"> </script>
+<script src="../libs/fflate/fflate.umd.js"> </script>
+<script src="../libs/exe_elpx_download/exe_elpx_download.js"> </script>
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
+<style>
+.tituloSeccion{
+    border-radius: 10px 0px 10px 0px;
+    font-size: 1.05em;
+    margin-left: 10px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.resaltarAlPasar {
+transition-duration: 0.2s;
+border-radius:10px;
+padding:5px;
+}
+.resaltarAlPasar:hover{background-color: #f5deb3}
+
+.listaResaltada
+{ border-left: 6px solid #CC1155A1; 
+margin-left: 30px; 
+background-color: #73d41312; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+
+.listaGuion li {
+list-style-type: none;
+position: relative;
+}
+.listaGuion li::before {
+content: "-"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaCheck li {
+list-style-type: none;
+position: relative;
+}
+.listaCheck li::before {
+color: #53b528;
+content: "✔"; /* Indica el separador que vamos a utilizar */
+left: -32px;
+position: absolute;
+text-align: right;
+width: 26px;
+}
+.listaInfantil
+{ border-left: 6px solid #fd8b31; 
+margin-left: 30px; 
+background-color: #f5f5ff; 
+padding-top: 3pt;
+padding-bottom:3pt;}
+    .tabla-ordenable th {
+   cursor: pointer;
+    }
+   .tabla-ordenable td.numero-fila {
+   text-align: center;
+   font-size: small;
+    }
+.lista-xl > li::marker {
+  font-size: 1.5em;
+ color: #db688e; /* Color para los números */
+ font-weight: bold; /* Negrita para los números */
+   }
+
+/* =========================================
+   A PARTIR DE AQUÍ, PARA MuestraOcultaSiguiente. 
+    ESTILOS BASE (MECÁNICA)
+   ========================================= */
+.muestraOcultaSiguiente {
+  cursor: pointer;
+  user-select: none; /* Evita que se seleccione el texto al hacer click rápido */
+}
+/* Ocultar/Mostrar el contenido adyacente */
+.muestraOcultaSiguiente + * { display: none; }
+.muestraOcultaSiguiente.visible + * { display: block; }
+/* Si es clicable, el contenido también muestra mano */
+.muestraOcultaSiguiente.clicable + * { cursor: pointer; }
+
+/* =========================================
+   ESTILOS DEL CHEVRON INICIAL (.conMarca)
+   ========================================= */
+.muestraOcultaSiguiente.conMarca {
+  position: relative;
+  padding-left: 40px;
+}
+.muestraOcultaSiguiente.conMarca + * {
+  position: relative;
+  padding-left: 40px;
+}
+/* El pseudo-elemento que dibuja el chevron ❯ */
+.muestraOcultaSiguiente.conMarca::before {
+  content: "❯";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  font-size: 0.9em;
+  color: #666; 
+  /* Transición suave para rotación, color y movimiento */
+  transition: transform 0.4s ease-in, color 0.3s ease;
+  
+  /* ESTADO CERRADO (Por defecto): Apunta hacia abajo (rotado 90deg) */
+  transform: rotate(90deg);
+}
+/* ESTADO ABIERTO: Apunta hacia arriba (rotado -90deg) */
+.muestraOcultaSiguiente.conMarca.visible::before {
+  transform: rotate(-90deg);
+}
+/* --- INTERACCIÓN HOVER EN CHEVRON INICIAL --- */
+/* Al pasar el ratón por el título, el chevron se oscurece y da un saltito */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  color: #000; /* Se oscurece */
+}
+/* Saltito cuando está cerrado (salta en la dirección de la flecha) */
+.muestraOcultaSiguiente.conMarca:hover::before {
+  /* Mantenemos la rotación y movemos en el eje X local (hacia la punta) */
+  transform: rotate(90deg) translateX(4px);
+}
+/* Saltito cuando está abierto */
+.muestraOcultaSiguiente.conMarca.visible:hover::before {
+  transform: rotate(-90deg) translateX(4px);
+}
+
+/* =========================================
+   ESTILOS DEL CIERRE FINAL (.conCierre)
+   ========================================= */
+.zona-cierre {
+  display: flex;   /* Flexbox para alinear */
+  align-items: center;  /* Centrado verticalmente */
+  justify-content: flex-start; /* Alineado a la IZQUIERDA */
+    
+  cursor: pointer;
+  color: #ccc;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+/* Solo dibujamos la línea a la derecha (::after) */
+.zona-cierre::after {
+  content: "";
+  flex: 1;    /* Ocupa todo el espacio restante a la derecha */
+  border-bottom: 1px solid currentColor;
+  margin-left: 10px;    /* Separación entre el icono y la línea */
+}
+/* El icono de cierre */
+.icono-cierre {
+  font-size: 0.9em;
+  color: #888;
+  display: inline-block;
+  margin-left: 0.2em;
+  
+  /* ROTAMOS EL ❯ PARA QUE MIRE ARRIBA */
+  transform: rotate(-90deg);
+  
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Hover Cierre */
+.zona-cierre:hover { opacity: 1; color: #999; }
+.zona-cierre:hover .icono-cierre {
+  color: #333;
+  /* Animación ajustada a la rotación: empujamos en el eje X para que suba */
+  transform: rotate(-90deg) translateX(4px);
+}
+</style>
+
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mpdr045l-0kjbmo6kg" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">MiniCanSat: primeros pasos en la exploración espacial</a>
+</li>
+<li> <a href="../html/nos-organizamos.html" class="no-ch">Nos organizamos</a>
+</li>
+<li> <a href="../html/programamos-nuestro-satelite-artificial.html" class="no-ch">Programamos nuestro satélite artificial</a>
+</li>
+<li> <a href="../html/construimos-el-minicansat.html" class="no-ch">Construimos el MiniCanSat</a>
+</li>
+<li> <a href="../html/preparamos-el-sistema-de-lanzamiento.html" class="no-ch">Preparamos el sistema de lanzamiento</a>
+</li>
+<li> <a href="../html/operaciones-de-vuelo-del-lanzamiento-al-analisis-d.html" class="no-ch">Operaciones de vuelo: del lanzamiento al análisis de datos</a>
+</li>
+<li> <a href="../html/mision-cumplida-nuestras-conclusiones-finales.html" class="no-ch">¡Misión cumplida! Nuestras conclusiones finales</a>
+</li>
+<li class="active"> <a href="../html/guia-didactica-y-fichero-fuente.html" class="active no-ch">Guía didáctica y fichero fuente</a>
+</li>
+</ul>
+</nav><main id="page-mpdr045l-0kjbmo6kg" class="page"> <div id="exe-client-search" data-block-order-string="Caja %e" data-no-results-string="Sin resultados.">
+</div>
+<header class="main-header"> <p class="page-counter"> <span class="page-counter-label">Página </span><span class="page-counter-content"> <strong class="page-counter-current-page">8</strong><span class="page-counter-sep">/</span><strong class="page-counter-total">8</strong></span></p>
+
+<div class="package-header"><p class="package-title">MiniCanSat: primeros pasos en la exploración espacial</p></div>
+<div class="page-header"><h1 class="page-title">Guía didáctica y fichero fuente</h1></div>
+</header><div id="page-content-page-mpdr045l-0kjbmo6kg" class="page-content">
+<article id="block-mpczpc16-t078lxcrm" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Guía didáctica</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-2bu2c9iiz" class="idevice_node udl-content" data-idevice-path="../idevices/udl-content/" data-idevice-type="udl-content">
+<div class="exe-udlContent exe-udlContent-engagement"><section class="exe-udlContent-block js-hidden"><header class="exe-udlContent-header"><h2>//Descripción del REA</h2></header><div class="exe-udlContent-content"><div class="exe-udlContent-content-main"><div style="float: left; margin-right: 15px; max-width: 180px; line-height: 12px; text-align: center;"><a href="../content/resources/MiniCansat_Portada.jpg" rel="lightbox"> <img src="../content/resources/MiniCansat_Portada.jpg" alt="Portada del recurso educativo" width="171" height="210" style="border: 1px solid gray; border-radius: 3px; box-shadow: 0px 2px 4px 1px #888888; margin-bottom: 5px; object-fit: cover;"> </a> <br><span style="font-size: 70%;">Portada del recurso</span></div>
+<p><strong>Título</strong>: REA "MiniCanSat: primeros pasos en la exploración".<br><strong>Temática</strong>: Ingeniería aeroespacial, pensamiento computacional y ciencia de datos aplicada mediante el desafío CanSat.</p>
+<p><strong>Autoría</strong>: Juan Enrique Agudo Garzón, Joaquín Alberto Pagador Becerra y Antonino Vara Gazapo, para programa CREA.</p>
+<p><strong>Materia</strong>: Matemáticas, Conocimiento del Medio, Lengua, Educación Artística y Tecnología.<br><strong>Metodología</strong>: Aprendizaje Basado en Proyectos (ABP) y Aprendizaje Cooperativo.</p>
+<p><strong>Curso</strong>: 3er Ciclo de Educación Primaria (5.º y 6.º) y 1.º de ESO.</p>
+<p><strong>Sesiones</strong>: 12 sesiones presenciales y 3 horas de trabajo autónomo (reflexión en el Diario).</p>
+<p><strong>Producto final</strong>: Diseño, construcción y lanzamiento de un prototipo de minisatélite funcional (MiniCanSat) con telemetría activa. El reto concluye con un informe final de misión (MiniPDR) y una exposición pública de los resultados científicos. Se incluyen rúbricas para Programación, Construcción, Lanzamiento y Conclusiones.</p>
+<p><strong>Descripción</strong>: Este REA transforma el aula en un Centro de Mando Espacial. A través de una narrativa inmersiva apoyada en una Novela Visual, el alumnado asume roles profesionales para resolver un desafío de ingeniería real: miniaturizar los sistemas de un satélite en una lata de refresco. El recurso destaca por su enfoque DUA, ofreciendo versiones imprimibles (Teoría y Actividades), un <strong>simulador de vuelo interactivo</strong> para la formulación de hipótesis, y un itinerario gamificado que guía al estudiante desde la programación en Micro:bit hasta el análisis de datos climáticos, conectando la tecnología con los ODS y la realidad sociolaboral de Extremadura.</p>
+<div class="exe-fx exe-accordion">
+<h2>El recurso y la Situación de Aprendizaje (SdA)</h2>
+<p><strong><span aria-hidden="true">💡</span> El REA como Situación de Aprendizaje:</strong> Este recurso no es una simple suma de contenidos, sino un reto competencial. Para resolver la misión final, el alumnado deberá movilizar competencias específicas aplicando saberes básicos de física, matemáticas y tecnología en un escenario realista y motivador.</p>
+<h3>Contexto de aplicación</h3>
+<p>El escenario sitúa al alumnado como un equipo de especialistas de una agencia espacial que debe participar en la simulación del desafío internacional CanSat. Esta narrativa, reforzada por los personajes Alex y Sara, da un propósito real a la investigación: miniaturizar tecnología para explorar el entorno.</p>
+<h3>Secciones y estimación de tiempos</h3>
+<p>La propuesta está diseñada para desarrollarse en unas 15-20 horas de trabajo total, distribuidas en las siguientes fases operativas:</p>
+<ul class="listaResaltada">
+<li><strong>Fase 1: Motivación y Organización (2 sesiones):</strong> Introducción narrativa, formación de equipos y asignación de roles técnicos.</li>
+<li><strong>Fase 2: Investigación y Programación (3 sesiones):</strong> Exploración de sensores en Micro:bit y desarrollo del código de telemetría por radio.</li>
+<li><strong>Fase 3: Simulación, Construcción y Lanzamiento (4 sesiones):</strong> Validación de variables en el simulador, fabricación de la carcasa protectora y montaje del sistema de descenso.</li>
+<li><strong>Fase 4: Operación y Difusión (3 sesiones):</strong> Lanzamiento real, análisis de datos en gráficas y exposición pública de los resultados científicos (MiniPDR).</li>
+</ul>
+<h3>Conexiones con la Educación Profesional</h3>
+<p>A continuación se detalla cómo este proyecto visibiliza sectores tecnológicos estratégicos y desarrolla habilidades clave (<em>soft skills</em>) para acercar al alumnado al mundo laboral:</p>
+<table class="exe-table" style="width: 100%;">
+<thead>
+<tr>
+<th scope="col" style="width: 30%;">Sector Profesional</th>
+<th scope="col" style="width: 35%;">Habilidades (Soft Skills) desarrolladas</th>
+<th scope="col" style="width: 35%;">Profesiones vinculadas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aeroespacial y Telecomunicaciones</strong></td>
+<td>Pensamiento computacional, gestión de radiofrecuencia y resolución de problemas técnicos.</td>
+<td>Ingeniero/a de Sistemas, Especialista en Telecomunicaciones.</td>
+</tr>
+<tr>
+<td><strong>Análisis de Datos y Ciencia</strong></td>
+<td>Capacidad analítica, gestión de archivos CSV y síntesis de información en gráficas.</td>
+<td>Científico/a de datos, Analista ambiental.</td>
+</tr>
+<tr>
+<td><strong>Gestión de Proyectos</strong></td>
+<td>Liderazgo, gestión del tiempo, documentación de evidencias y comunicación efectiva.</td>
+<td>Coordinador/a de misión, Gestor/a de información.</td>
+</tr>
+</tbody>
+</table>
+<h2>Objetivos didácticos y Metodología</h2>
+<p><strong>Objetivos de la SdA</strong></p>
+<ul class="listaCheck">
+<li>Comprender los fundamentos de la tecnología aeroespacial identificando las funciones de un satélite real.</li>
+<li>Diseñar y construir un prototipo físico (carcasa y paracaídas) aplicando destrezas manuales de ingeniería.</li>
+<li>Desarrollar el pensamiento computacional programando sensores y comunicación por radiofrecuencia.</li>
+<li>Aplicar el método científico para predecir variables mediante simulación y analizar datos reales de telemetría.</li>
+<li>Fomentar el trabajo cooperativo asumiendo responsabilidades profesionales de forma equitativa.</li>
+</ul>
+<p><strong>Metodología en acción</strong></p>
+<p>Para alcanzar estos objetivos, el recurso despliega diversas estrategias de aprendizaje activo que sitúan al estudiante en el centro del proceso:</p>
+<table class="exe-table" style="width: 100%;">
+<thead>
+<tr>
+<th scope="col" style="width: 25%;">Técnica / Estrategia</th>
+<th scope="col" style="width: 75%;">¿Dónde y cómo se aplica en este REA?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ABP y Simulación</strong></td>
+<td>Eje vertebral. El itinerario orbital y el <strong>simulador interactivo</strong> permiten ensayar hipótesis antes de la construcción física.</td>
+</tr>
+<tr>
+<td><strong>Aprendizaje Cooperativo</strong></td>
+<td>Asignación de roles profesionales obligatorios en cada equipo y coevaluación del funcionamiento grupal al final de la misión.</td>
+</tr>
+<tr>
+<td><strong>Gamificación y Narrativa</strong></td>
+<td>Uso de una Novela Visual introductoria y sistema de insignias ODS para motivar el progreso y la identificación de logros.</td>
+</tr>
+<tr>
+<td><strong>Metacognición</strong></td>
+<td>Uso de "Diarios de Misión" (Reflexión) tras cada fase y listas de cotejo interactivas para la autorregulación del alumnado.</td>
+</tr>
+</tbody>
+</table>
+<h2>Concreción Curricular</h2>
+<p><strong>1. Conexión con el Perfil de Salida</strong></p>
+<p>En esta tabla destacamos los descriptores operativos principales que el alumnado movilizará durante la resolución del reto espacial:</p>
+<table class="exe-table" style="width: 100%;">
+<thead>
+<tr>
+<th scope="col" style="width: 16.4163%;">Descriptor Operativo</th>
+<th scope="col" style="width: 83.5837%;">Evidencia en el Reto del REA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 16.4163%;"><strong><a href="#t27773bbc-6748-a8a9-c3e8-f5f67b0e0913" class="exe-tooltip definition-tt titled-tt" title="STEM2 | Pensamiento científico" id="link27773bbc-6748-a8a9-c3e8-f5f67b0e0913">STEM2</a></strong></td>
+<td style="width: 83.5837%;">Uso del simulador y análisis de datos comparando sensores con hipótesis previas (Sección: Lanzamos).</td>
+</tr>
+<tr>
+<td style="width: 16.4163%;"><strong><a href="#t-stem3" class="exe-tooltip definition-tt titled-tt" title="STEM3 | Prototipado" id="link-stem3">STEM3</a></strong></td>
+<td style="width: 83.5837%;">Diseño y construcción física de la carcasa y paracaídas, evaluando su resistencia (Sección: Construimos).</td>
+</tr>
+<tr>
+<td style="width: 16.4163%;"><strong><a href="#t-cd5" class="exe-tooltip definition-tt titled-tt" title="CD5 | Programación" id="link-cd5">CD5</a></strong></td>
+<td style="width: 83.5837%;">Creación de soluciones digitales mediante el código de telemetría por radio (Sección: Programamos).</td>
+</tr>
+<tr>
+<td style="width: 16.4163%;"><strong><a href="#t-cpsaa3" class="exe-tooltip definition-tt titled-tt" title="CPSAA3 | Trabajo en equipo" id="link-cpsaa3">CPSAA3</a></strong></td>
+<td style="width: 83.5837%;">Colaboración proactiva mediante el reparto de roles y la superación de desafíos técnicos (Sección: ¡Misión cumplida!).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. Concreción curricular y Evaluación</strong></p>
+<p>La siguiente matriz relaciona los criterios de evaluación y saberes básicos con los momentos e instrumentos de evaluación del REA:</p>
+<table class="exe-table" style="width: 100%;">
+<thead>
+<tr>
+<th scope="col" style="width: 25%;">Criterios de Evaluación</th>
+<th scope="col" style="width: 20%;">Saberes Básicos</th>
+<th scope="col" style="width: 30%;">Actividad y Momento</th>
+<th scope="col" style="width: 25%;">Instrumento y Agente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diseñar y programar soluciones sencillas aplicando pensamiento computacional.</td>
+<td>Programación por bloques, sensores y radiofrecuencia.</td>
+<td>Fase 2 (Programamos): Envío y recepción de telemetría.</td>
+<td>Rúbrica de Programación.<br>(Heteroevaluación - Docente)</td>
+</tr>
+<tr>
+<td>Realizar prototipos aplicando destrezas manuales y técnicas de construcción.</td>
+<td>Estructuras, materiales, descenso y seguridad.</td>
+<td>Fase 3: Simulador y Montaje físico de la carcasa y paracaídas.</td>
+<td>Rúbrica de Construcción.<br>(Heteroevaluación - Docente)</td>
+</tr>
+<tr>
+<td>Cooperar en proyectos asumiendo roles y responsabilidades equitativas.</td>
+<td>Técnicas de trabajo cooperativo y gestión de roles.</td>
+<td>Fase 4: Exposición final e Informe de misión.</td>
+<td>Coevaluación de equipo.<br>(Alumnado)</td>
+</tr>
+</tbody>
+</table>
+<h2>Desafíos del S. XXI y ODS</h2>
+<p>El proyecto integra los retos globales de forma natural, fomentando una ciudadanía responsable y técnica:</p>
+<table class="exe-table" style="width: 100%;">
+<thead>
+<tr>
+<th scope="col" style="width: 30%;">ODS o Desafío</th>
+<th scope="col" style="width: 70%;">Aplicación práctica en el REA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong style="color: #3f7e44;">ODS 13: Acción por el clima</strong></td>
+<td>Monitorización de temperatura y luz para investigar el impacto ambiental local (Sección: Lanzamos).</td>
+</tr>
+<tr>
+<td><strong style="color: #f26a2e;">ODS 9: Industria e innovación</strong></td>
+<td>Fomento de la innovación técnica mediante la resolución de problemas de ingeniería aeroespacial.</td>
+</tr>
+<tr>
+<td><strong style="color: #4c9f38;">ODS 3: Salud y bienestar</strong></td>
+<td>Estudio de seguridad en lanzamientos y uso de equipos de protección (gafas, perímetros).</td>
+</tr>
+</tbody>
+</table>
+<h2>DUA (Diseño Universal para el Aprendizaje)</h2>
+<p>El REA se ha diseñado minimizando barreras cognitivas y de expresión a través de evidencias concretas en cada principio:</p>
+<table class="exe-table" style="width: 100%;">
+<thead>
+<tr>
+<th scope="col" style="width: 25%;">Principio DUA</th>
+<th scope="col" style="width: 35%;">Pautas clave</th>
+<th scope="col" style="width: 40%;">Evidencias en este REA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="../content/resources/redesAfectivas.png" alt="Icono redes afectivas DUA" width="36" height="33" style="vertical-align: middle;">&nbsp;<strong>1. Redes afectivas</strong><br>(El "Por qué")</td>
+<td>Minimizar amenazas y distracciones. Contextualización real.</td>
+<td>Novela Visual para reducir la ansiedad inicial y <strong>simulador</strong> como entorno seguro de ensayo-error.</td>
+</tr>
+<tr>
+<td><img src="../content/resources/redesConocimiento.png" alt="Icono redes de conocimiento DUA" width="36" height="32" style="vertical-align: middle;">&nbsp;<strong>2. Redes de reconocimiento</strong><br>(El "Qué")</td>
+<td>Aclarar vocabulario y símbolos. Diferentes formatos de información.</td>
+<td>Uso de <strong>tooltips interactivos</strong> para tecnicismos y Dossier de Teoría imprimible.</td>
+</tr>
+<tr>
+<td><img src="../content/resources/redesEstrategicas.png" alt="Icono redes estratégicas DUA" width="36" height="31" style="vertical-align: middle;">&nbsp;<strong>3. Redes estratégicas</strong><br>(El "Cómo")</td>
+<td>Múltiples medios de expresión. Apoyar la planificación.</td>
+<td>El <strong>simulador</strong> permite ajustar variables. Libertad de formato (audio, póster, vídeo) en el producto final.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="t-stem3" class="exe-tooltip-text">
+<p>Plantear y desarrollar proyectos diseñando, fabricando y evaluando prototipos para dar solución a un problema de forma creativa.</p>
+</div>
+<div id="t-cd5" class="exe-tooltip-text">
+<p>Desarrollar soluciones digitales sencillas y sostenibles para resolver problemas concretos o retos propuestos.</p>
+</div>
+<div id="t-cpsaa3" class="exe-tooltip-text">
+<p>Comprender proactivamente las perspectivas de los demás y colaborar, actuando con empatía, respeto y tolerancia.</p>
+</div>
+<div id="t27773bbc-6748-a8a9-c3e8-f5f67b0e0913" class="exe-tooltip-text">
+<p>Comprender y aplicar métodos científicos para identificar problemas, formular hipótesis y extraer conclusiones basadas en pruebas.</p>
+</div></div></div></section><section class="exe-udlContent-block js-hidden"><header class="exe-udlContent-header"><h2>Recursos y/o conocimientos previos necesarios</h2></header><div class="exe-udlContent-content"><div class="exe-udlContent-content-main"><p>Indicaremos aquí la lista de recursos y conocimientos previos necesarios para llevar a cabo la situación de aprendizaje.</p>
+<p>Para facilitar la aplicación de este REA, se ha priorizado el uso de material reciclado, herramientas habituales en los centros educativos y software gratuito, evitando la necesidad de adquirir material costoso o de un solo uso.</p>
+<p><strong>🧠 Conocimientos previos recomendados</strong></p>
+<ul>
+<li><strong>Física elemental:</strong> Nociones básicas sobre la gravedad, la resistencia del aire y el concepto de presión.</li>
+<li><strong>Pensamiento computacional:</strong> Familiaridad básica con entornos de programación por bloques (uso de variables, bucles y condicionales simples).</li>
+<li><strong>Seguridad en el taller:</strong> Normas básicas de uso seguro de herramientas de corte (tijeras, cúter).</li>
+</ul>
+<p><strong>💻 Tecnológicos</strong></p>
+<ul>
+<li><strong>Placas Micro:bit:</strong> Idealmente dos por equipo (una actúa como el satélite MiniCanSat que recoge datos y la otra como estación receptora en tierra conectada por radio).</li>
+<li><strong>Alimentación:</strong> Portapilas con conector JST y pilas AAA para dar autonomía a la Micro:bit del satélite.</li>
+<li><strong>Dispositivos:</strong> Ordenadores, Chromebooks o tabletas con conexión a Internet.</li>
+<li><strong>Software:</strong> Acceso al entorno gratuito web Microsoft MakeCode para Micro:bit (no requiere instalación).</li>
+<li><strong>Opcional pero recomendado:</strong> Un teléfono móvil o tableta para grabar los lanzamientos a cámara lenta y poder analizar posteriormente la altura, velocidad y apertura del paracaídas.</li>
+</ul>
+<p><strong>🛠️ Materiales de construcción, herramientas y equipamiento</strong></p>
+<ul>
+<li><strong>Para el MiniCanSat y Paracaídas:</strong> Tubos de espuma o "churros" de piscina (como carcasa protectora), bolsas de basura de plástico ligero, hilo resistente (bramante o de cometa) y cinta americana.</li>
+<li><strong>Para el Cohete Vehículo:</strong> Botellas de plástico PET de 1,5 o 2 litros. <em>Importante: deben ser de bebidas carbonatadas (con gas), ya que están diseñadas para soportar alta presión.</em> Plástico rígido (de carpetas viejas o envases) o cartón contracolado para hacer las aletas.</li>
+<li><strong>Herramientas básicas:</strong> Tijeras, cúter, bridas de nylon, regla y rotulador permanente.</li>
+<li><strong>Para el Lanzamiento (Material común para la clase):</strong> Una lanzadera o base para cohetes de agua (se puede fabricar de forma muy económica con tubos de PVC y bridas), una bomba de aire de bicicleta de pie que incluya <strong>manómetro</strong> (vital para controlar los PSI por seguridad) y gafas de protección ocular para los encargados del lanzamiento.</li>
+</ul></div></div></section></div>
+</div>
+</div>
+</article><article id="block-mpczpc16-xt5zwm38g" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">📄 Vuestra opinión nos interesa</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-f6kr0ff8d" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mpczpc16-f6kr0ff8d&quot;}">
+<p>Los recursos educativos del programa CREA son elaborados, desinteresadamente, por profesorado de Extremadura que participa en el programa de Creación de Recursos Educativos Abiertos (CREA) de Innovated, el Plan de Educación y Competencia Digital de Extremadura desarrollado desde la Dirección General de Innovación e Inclusión Educativa.</p>
+<p style="text-align: center;"><img src="../content/resources/fondo_colabora_con_nosotros.jpg" alt="Profesorado trabajando en un ambiente colaborativo" width="560" height="315" style="border-radius: 2%;" /><br /><span style="font-size: 80%;"><a href="https://emtic.educarex.es/images/phocagallery/Persona/CREA/thumbs/phoca_thumb_l_fondo_colabora_con_nosotros_CREA.jpg" target="_blank" title="Enlace al recurso en su ubicación original" rel="noopener">Colabora con nosotros</a>, de <a href="https://programacrea.educarex.es/" target="_blank" title="Enlace a la web del programa CREA. Abre en ventana nueva" rel="noopener">Programa CREA</a> (<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" title="Enlace a la descripción de la licencia. Abre en ventana nueva" rel="noopener">CC BY-SA</a>)</span></p>
+<p>Ofrecemos estos recursos de forma gratuita a toda la comunidad educativa, con licencia abierta CC BY-SA, como una forma de contribuir a la mejora de la calidad de la educación y el uso de metodologías activas.</p>
+<ul>
+<li>Por ello, estamos muy interesados en la <strong>opinión</strong> y <strong>sugerencias de mejora</strong> que otras compañeras y compañeros docentes nos transmitan sobre nuestros recursos. Por ejemplo, participando en <strong>Experiencias CREA</strong>, donde los docentes escriben una entrada para nuestra web, a modo de blog, narrando cómo ha sido la aplicación del recurso en el aula. Para centros extremeños es posible inscribirse directamente en Rayuela y para otras procedencias, a través de <a href="https://programacrea.educarex.es/formularioexperiencias" target="_blank" title="Enlace a la inscripción en experiencias CREA   ¡gracias por participar!" rel="noopener">este formulario</a>, donde recogemos los datos de contacto. Os podemos proporcionar una plantilla para redactar esa entrada.</li>
+<li>Igualmente, si encontráis alguna errata, o enlace roto, etc., estaremos agradecidos si nos lo indicáis, para poder subsanarlo. Por ejemplo, a través de nuestro correo electrónico: <a href="mailto:programacrea@educarex.es">programacrea@educarex.es</a> </li>
+</ul>
+<p style="text-align: center; font-size: 125%;"><em>¡Muchas gracias por confiar en nuestros recursos educativos!</em></p>
+</div>
+</div>
+</article><article id="block-mpczpc16-j6igxuey2" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mpczpc16-6aqjez5ea" class="idevice_node download-source-file" data-idevice-path="../idevices/download-source-file/" data-idevice-type="download-source-file">
+<div class="exe-download-package-instructions"><table class="exe-table"><caption>Información general sobre este recurso educativo</caption>
+<tbody>
+<tr>
+<th>Título</th>
+<td>MiniCanSat: primeros pasos en la exploración espacial</td>
+</tr>
+<tr>
+<th>Descripción</th>
+<td>
+<p>Este Recurso Educativo Abierto (REA) ofrece una guía paso a paso para que docentes y estudiantes desarrollen un MiniCanSat, una primera aproximación al desafío CanSat.</p>
+<ul>
+<li>A través de este proyecto, los estudiantes diseñarán y construirán un MiniCanSat, incluyendo la carcasa, un sistema de caída controlado (paracaídas), la programación básica con Micro:bit y el uso de sensores para la recopilación y análisis de datos.</li>
+<li>Se proponen diferentes misiones científicas y tecnológicas, adaptadas a distintos niveles educativos, que permiten a los estudiantes experimentar con la exploración espacial a pequeña escala.</li>
+</ul>
+<p>Con este REA, cualquier docente podrá guiar a su alumnado en una experiencia práctica y motivadora que fomenta el pensamiento computacional, la creatividad y el interés por la ciencia y la tecnología, preparándolos para futuras competiciones CanSat.</p>
+</td>
+</tr>
+<tr>
+<th>Autoría</th>
+<td>Juan Enrique Agudo Garzón, Joaquín Alberto Pagador Becerra y Antonino Vara Gazapo</td>
+</tr>
+<tr>
+<th>Licencia</th>
+<td><a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license" class="cc cc-by-sa"><span></span>Creative Commons BY-SA 4.0</a></td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: center;">Este contenido fue creado con <a href="http://exelearning.net/">eXeLearning</a>, el editor libre y de fuente abierta diseñado para crear recursos educativos.</p></div><p class="exe-download-package-link"><a href="#" onclick="if(typeof downloadElpx==='function')downloadElpx();return false;">Descargar el fichero .elpx</a></p>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/mision-cumplida-nuestras-conclusiones-finales.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<span class="nav-button nav-button-right" aria-hidden="true"><span>Siguiente</span></span>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+<div id="siteUserFooter"> <div><div style="display: flex; justify-content: center;" class="addthis_inline_share_toolbox"></div>
+<p style="text-align: center;"><span style="font-size: 0.8em;">Programa <a href="https://programacrea.educarex.es" target="_blank">CREA</a> Extremadura (Creación de Recursos Educativos Abiertos)</p>
+<script>
+$("#packageLicense a").click(function(){
+window.open(this.href);
+return false;
+});
+</script>
+<script>
+  $(function() {
+    /* ==========================================
+  CONFIGURACIÓN DE TEXTOS
+  ========================================== */
+    const textoDesplegar = "Desplegar";
+    const textoContraer = "Contraer";
+    /* ==========================================
+  1. INICIALIZACIÓN
+  ========================================== */
+// Recorremos todos los elementos para asignar el tooltip correcto al cargar
+    $('.muestraOcultaSiguiente').each(function() {
+   var $this = $(this);
+   if ($this.hasClass('visible')) {
+  $this.attr('title', textoContraer);
+   } else {
+  $this.attr('title', textoDesplegar);
+   }
+    });
+    /* ==========================================
+  2. LÓGICA PRINCIPAL (CLICK EN ENCABEZADO)
+  ========================================== */
+    $(document).on('click', '.muestraOcultaSiguiente', function(){
+ var $this = $(this);
+ 
+ // Alternamos la visibilidad
+ $this.toggleClass('visible');
+ 
+ // Actualizamos el texto del tooltip según el estado
+ if ($this.hasClass('visible')) {
+   $this.attr('title', textoContraer);
+ } else {
+   $this.attr('title', textoDesplegar);
+ }
+    });
+    /* ==========================================
+  3. LÓGICA "CLICABLE" (CERRAR AL TOCAR CONTENIDO)
+  ========================================== */
+    // Si el elemento es .clicable, al pulsar en su contenido se cierra,
+    // salvo que pulsemos explícitamente en el botón de cierre (para evitar doble evento).
+    $(document).on('click', '.clicable + *', function(e) {
+ if ($(e.target).closest('.zona-cierre').length) return;
+ var elementoAnterior = $(this).prev('.clicable');
+ if (elementoAnterior.hasClass('muestraOcultaSiguiente')) {
+   // Disparamos click en el encabezado para reutilizar la lógica principal
+   elementoAnterior.click(); 
+ }
+    });
+    /* ==========================================
+  4. GENERADOR DE CIERRE (.conCierre)
+  ========================================== */
+    // Busca elementos con la clase .conCierre e inyecta el botón al final de su contenido
+    $('.muestraOcultaSiguiente.conCierre').each(function(){
+ var contenido = $(this).next();
+ // Evitamos duplicados si el script corre varias veces
+ if (contenido.find('.zona-cierre').length === 0) {
+   contenido.append('<div class="zona-cierre" title="Contraer esta parte"><span class="icono-cierre">❯</span></div>');
+ }
+    });
+    /* ==========================================
+  5. ACCIÓN DEL BOTÓN DE CIERRE (INCLUYE SCROLL)
+  ========================================== */
+    $(document).on('click', '.zona-cierre', function() {
+ // Identificamos el encabezado correspondiente
+ var encabezado = $(this).parent().prev('.muestraOcultaSiguiente');
+ 
+ // Simulamos click para cerrar
+ encabezado.click();
+ 
+ // SCROLL AUTOMÁTICO SUAVE
+ // Llevamos la pantalla de vuelta al título para no perder el contexto
+ $('html, body').animate({
+scrollTop: encabezado.offset().top - 20 // Dejamos 20px de margen superior
+ }, 500); // 500ms de duración de la animación
+    });
+  });
+</script>
+</div>
+</div></div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(nueva ventana)</span></span></a></p>
+<script src="../libs/elpx-manifest.js"> </script>
+</body>
+</html>
